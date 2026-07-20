@@ -2,7 +2,7 @@
   "image_default": "vllm/vllm-openai:nightly",
   "overrides": {
     "nvidia/Qwen3.6-27B-NVFP4": {
-      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --trust-remote-code",
+      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
       "env": {"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "OMP_NUM_THREADS": "4"}
     }
   },
