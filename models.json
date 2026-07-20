@@ -283,7 +283,8 @@
     },
     {
       "repo": "openbmb/MiniCPM5-1B",
-      "done": false
+      "done": true,
+      "status": "ok"
     }
   ]
 }
