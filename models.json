@@ -92,7 +92,9 @@
       "status": "ok"
     },
     {
-      "repo": "Qwen/QwQ-32B-AWQ"
+      "repo": "Qwen/QwQ-32B-AWQ",
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "microsoft/phi-4"
