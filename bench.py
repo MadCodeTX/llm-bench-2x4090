@@ -207,9 +207,13 @@ def battery(model):
 
 
 def discard(repo):
+    # Container downloads are root-owned; delete via container so it actually works.
+    image = cfg().get("image_default", "vllm/vllm-openai:latest")
+    sh(f"docker run --rm -v {CACHE}:/c --entrypoint rm {image} -rf /c/hub/models--{slug(repo)}",
+       timeout=600)
     path = os.path.join(CACHE, "hub", f"models--{slug(repo)}")
     if os.path.exists(path):
-        shutil.rmtree(path, ignore_errors=True)
+        print(f"WARN: discard failed for {repo}", flush=True)
 
 
 def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
