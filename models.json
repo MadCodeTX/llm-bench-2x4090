@@ -82,7 +82,9 @@
       "status": "ok"
     },
     {
-      "repo": "google/gemma-4-12b-it-qat-w4a16-ct"
+      "repo": "google/gemma-4-12b-it-qat-w4a16-ct",
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "google/gemma-4-12b-it"

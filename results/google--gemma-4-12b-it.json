@@ -1,0 +1,39 @@
+{
+  "repo": "google/gemma-4-12b-it",
+  "ts": "2026-07-20 03:49 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--enable-auto-tool-choice --reasoning-parser gemma4 --tool-call-parser gemma4",
+  "status": "ok",
+  "disk_gb": 23.9,
+  "download_s": 568.1,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 62.6,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15026,
+      "toks": 4611
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1114
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 498,
+    "max_w": 570,
+    "max_vram_gb": 22.4,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 2.24
+}
