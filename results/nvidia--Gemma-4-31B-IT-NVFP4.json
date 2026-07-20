@@ -1,0 +1,39 @@
+{
+  "repo": "nvidia/Gemma-4-31B-IT-NVFP4",
+  "ts": "2026-07-20 02:53 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
+  "status": "ok",
+  "disk_gb": 32.6,
+  "download_s": 469.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 48.6,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15025,
+      "toks": 2386
+    },
+    "sweep": [
+      {
+        "concurrency": 8,
+        "agg_toks": 322
+      },
+      {
+        "concurrency": 32,
+        "agg_toks": 913
+      }
+    ],
+    "tool_call": "error: <HTTPError 400: 'Bad Request'>"
+  },
+  "hw": {
+    "mean_w": 541,
+    "max_w": 591,
+    "max_vram_gb": 22.8
+  },
+  "tok_per_joule": 1.69
+}
