@@ -1,9 +1,9 @@
 {
   "repo": "Qwen/Qwen3-32B-FP8",
-  "ts": "2026-07-20 04:15 UTC",
+  "ts": "2026-07-20 04:39 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--reasoning-parser qwen3 --enable-auto-tool-choice --tool-parser-plugin /plugins/qwen3_coder_fixed.py --tool-call-parser qwen3_coder_fixed",
-  "status": "started",
+  "status": "ok",
   "disk_gb": 34.3,
   "download_s": 1.5,
   "serve_errors": [
@@ -18,5 +18,29 @@
     "max_model_len": 8192
   },
   "vllm_version": "0.22.1rc1.dev392+g43914dd74",
-  "error": "<HTTPError 400: 'Bad Request'>"
+  "battery": {
+    "single_stream_toks": 26.7,
+    "ttft_s": 0.07,
+    "prefill": {
+      "prompt_tok": 7009,
+      "toks": 2892
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 766
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 465,
+    "max_w": 543,
+    "max_vram_gb": 21.0,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 1.65
 }
