@@ -258,7 +258,8 @@
     },
     {
       "repo": "pekkAi/Gemma-4-12B-it-abliterated-NVFP4",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "google/gemma-4-E4B-it-assistant",
