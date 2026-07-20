@@ -1,7 +1,10 @@
 {
   "image_default": "vllm/vllm-openai:nightly-20260704",
   "overrides": {
-    "nvidia/Qwen3.6-27B-NVFP4": {"flags": "--reasoning-parser qwen3"}
+    "nvidia/Qwen3.6-27B-NVFP4": {
+      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --trust-remote-code",
+      "env": {"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "OMP_NUM_THREADS": "4"}
+    }
   },
   "queue": [
     {"repo": "nvidia/Qwen3.6-27B-NVFP4"},

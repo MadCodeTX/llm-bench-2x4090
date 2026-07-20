@@ -112,11 +112,12 @@ def download(repo, image):
     return round(time.time() - t0, 1)
 
 
-def serve_attempt(repo, image, util, maxlen, flags):
+def serve_attempt(repo, image, util, maxlen, flags, env=None):
     sh(f"docker rm -f {NAME}", timeout=60)
+    env_args = " ".join(f"-e {k}={v}" for k, v in (env or {}).items())
     r = sh(
         f"docker run -d --name {NAME} --gpus all --shm-size 16g -p {PORT}:8000 "
-        f"-v {CACHE}:/root/.cache/huggingface {image} "
+        f"{env_args} -v {CACHE}:/root/.cache/huggingface {image} "
         f"--model {repo} --tensor-parallel-size 2 --gpu-memory-utilization {util} "
         f"--max-model-len {maxlen} --host 0.0.0.0 --port 8000 {flags}",
         timeout=120,
@@ -132,11 +133,11 @@ def serve_attempt(repo, image, util, maxlen, flags):
             pass
         alive = sh(f"docker inspect -f '{{{{.State.Running}}}}' {NAME}").stdout.strip()
         if alive != "true":
-            logs = sh(f"docker logs --tail 40 {NAME} 2>&1").stdout[-2000:]
+            logs = sh(f"docker logs --tail 200 {NAME} 2>&1").stdout[-6000:]
             return False, logs
         time.sleep(10)
     return False, "health timeout (15 min); container alive but never served\n" + \
-        sh(f"docker logs --tail 40 {NAME} 2>&1").stdout[-2000:]
+        sh(f"docker logs --tail 200 {NAME} 2>&1").stdout[-2000:]
 
 
 def completion(model, prompt, max_tokens, stream=False):
@@ -228,14 +229,15 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
         rec["download_s"] = download(repo, image)
 
         served = False
+        env = c.get("overrides", {}).get(repo, {}).get("env", {})
         for util, maxlen in LADDER:
             print(f"[{repo}] serve attempt util={util} len={maxlen}", flush=True)
-            ok, err = serve_attempt(repo, image, util, maxlen, flags)
+            ok, err = serve_attempt(repo, image, util, maxlen, flags, env)
             if ok:
                 rec["serve_config"] = {"gpu_mem_util": util, "max_model_len": maxlen}
                 served = True
                 break
-            rec.setdefault("serve_errors", []).append({"util": util, "len": maxlen, "tail": err[-800:]})
+            rec.setdefault("serve_errors", []).append({"util": util, "len": maxlen, "tail": err[-4000:]})
         if not served:
             rec["status"] = "serve_failed"
             return rec
