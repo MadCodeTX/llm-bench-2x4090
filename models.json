@@ -195,7 +195,8 @@
     },
     {
       "repo": "deepreinforce-ai/Ornith-1.0-9B",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "RedHatAI/gemma-4-12B-it-NVFP4",

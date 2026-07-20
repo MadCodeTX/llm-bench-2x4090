@@ -49,6 +49,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/Qwen3.6-27B-FP8 | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3-32B-FP8 | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call | OK |
 | RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | — | — | — | — | — | — | — | serve_failed |
+| RedHatAI/gemma-4-12B-it-NVFP4 | 10.3 | — | — | — | — | — | — | — | serve_failed |
 | RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
 | ibm-granite/granite-4.1-8b |  | — | — | — | — | — | — | — | error |
 <!--RESULTS:END-->
