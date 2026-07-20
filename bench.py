@@ -343,27 +343,62 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
     return rec
 
 
+def fail_reason(d):
+    """One-line cause for a non-ok result. Prefers a curated 'fail_reason' field;
+    otherwise classifies the serve-error / error tail into a short human cause."""
+    if d.get("fail_reason"):
+        return d["fail_reason"]
+    if d.get("error"):
+        return d["error"].splitlines()[0][:140]
+    tail = d["serve_errors"][-1].get("tail", "") if d.get("serve_errors") else ""
+    sigs = [
+        (r"does not recognize this architecture", "unsupported architecture (no vLLM/Transformers impl)"),
+        (r"not compatible with vLLM", "architecture not compatible with vLLM"),
+        (r"Invalid type of HuggingFace processor", "incomplete checkpoint: missing multimodal processor files"),
+        (r"could not locate think", "reasoning-parser token mismatch"),
+        (r"Quantization method .*does not match", "quantization config mismatch"),
+        (r"WorkerProc failed to start|Engine core initialization failed", "engine-core init crash during weight load"),
+        (r"trust_remote_code", "needs trust_remote_code"),
+        (r"out of memory|OutOfMemory", "out of GPU memory"),
+    ]
+    for pat, msg in sigs:
+        if re.search(pat, tail):
+            return msg
+    for l in reversed(tail.splitlines()):
+        if re.search(r"Error|error|raise ", l):
+            return l.strip()[-140:]
+    return "serve failed (see result json)"
+
+
 def report():
-    rows = []
+    ok_rows, fail_rows = [], []
     for fn in sorted(os.listdir(RESULTS)):
         if not fn.endswith(".json"):
             continue
         d = json.load(open(os.path.join(RESULTS, fn)))
         b = d.get("battery", {})
-        agg32 = next((s["agg_toks"] for s in b.get("sweep", []) if s["concurrency"] == 32), "")
-        note = "OK" if d["status"] == "ok" else d["status"]
-        rows.append((agg32 or 0, f"| {d['repo']} | {d.get('disk_gb','')} | "
+        if d["status"] == "ok":
+            agg32 = next((s["agg_toks"] for s in b.get("sweep", []) if s["concurrency"] == 32), "")
+            ok_rows.append((agg32 or 0, f"| {d['repo']} | {d.get('disk_gb','')} | "
                      f"{b.get('single_stream_toks','—')} | {b.get('prefill',{}).get('toks','—')} | "
                      f"{agg32 or '—'} | {d.get('hw',{}).get('max_vram_gb','—')} | "
                      f"{d.get('hw',{}).get('mean_w','—')} | {d.get('tok_per_joule','—')} | "
-                     f"{b.get('tool_call','—')} | {note} |"))
-    rows.sort(key=lambda r: -(r[0] or 0))
+                     f"{b.get('tool_call','—')} | OK |"))
+        else:
+            fail_rows.append((d["repo"], f"| {d['repo']} | {d.get('disk_gb','—')} | "
+                     f"{d['status']} | {fail_reason(d)} |"))
+    ok_rows.sort(key=lambda r: -(r[0] or 0))
     table = ("| model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |\n"
-             "|---|---|---|---|---|---|---|---|---|---|\n" + "\n".join(r for _, r in rows))
+             "|---|---|---|---|---|---|---|---|---|---|\n" + "\n".join(r for _, r in ok_rows))
+    if fail_rows:
+        fail_rows.sort()
+        table += ("\n\n**Did not serve on this rig** — no throughput data; recorded with cause:\n\n"
+                  "| model | GB | status | identified cause |\n|---|---|---|---|\n"
+                  + "\n".join(r for _, r in fail_rows))
     rd = os.path.join(HERE, "README.md")
     txt = open(rd).read()
     txt = re.sub(r"(<!--RESULTS:BEGIN-->).*(<!--RESULTS:END-->)",
-                 r"\1\n" + table + r"\n\2", txt, flags=re.S)
+                 lambda m: m.group(1) + "\n" + table + "\n" + m.group(2), txt, flags=re.S)
     open(rd, "w").write(txt)
 
 

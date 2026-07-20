@@ -57,17 +57,22 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/Gemma-4-31B-IT-NVFP4 | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3.6-27B-FP8 | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3-32B-FP8 | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call | OK |
-| RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | — | — | — | — | — | — | — | serve_failed |
-| RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
-| amazon/BMOJOF-primed-HQwen3-8B-Instruct | 18.5 | — | — | — | — | — | — | — | serve_failed |
-| amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | — | — | — | — | — | — | — | serve_failed |
-| google/gemma-4-12B-it-assistant | 0.8 | — | — | — | — | — | — | — | serve_failed |
-| google/gemma-4-12B-it-qat-q4_0-unquantized-assistant | 0.8 | — | — | — | — | — | — | — | serve_failed |
-| google/gemma-4-E2B-it-assistant | 0.2 | — | — | — | — | — | — | — | serve_failed |
-| google/gemma-4-E4B-it-assistant | 0.2 | — | — | — | — | — | — | — | serve_failed |
-| lewtun/talkie-1930-13b-it-hf | 26.6 | — | — | — | — | — | — | — | serve_failed |
-| pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | 11.7 | — | — | — | — | — | — | — | serve_failed |
-| z-lab/Qwen3-8B-DFlash-b16 | 2.1 | — | — | — | — | — | — | — | serve_failed |
+
+**Did not serve on this rig** — no throughput data; recorded with cause:
+
+| model | GB | status | identified cause |
+|---|---|---|---|
+| RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | serve_failed | multimodal Pixtral processor fails during vision profiling (>20B) |
+| RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | serve_failed | engine-core init crash during weight load (FP8-block quant, >20B) |
+| amazon/BMOJOF-primed-HQwen3-8B-Instruct | 18.5 | serve_failed | arch `hybrid_qwen3` — no vLLM implementation |
+| amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | serve_failed | arch `hybrid_qwen3` — no vLLM implementation |
+| google/gemma-4-12B-it-assistant | 0.8 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
+| google/gemma-4-12B-it-qat-q4_0-unquantized-assistant | 0.8 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
+| google/gemma-4-E2B-it-assistant | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
+| google/gemma-4-E4B-it-assistant | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
+| lewtun/talkie-1930-13b-it-hf | 26.6 | serve_failed | arch `TalkieForCausalLM` — not compatible with vLLM (incl. Transformers backend) |
+| pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | 11.7 | serve_failed | defective NVFP4 requant — MarlinNvFp4 weight-load crash on TP worker (official RedHatAI NVFP4 works) |
+| z-lab/Qwen3-8B-DFlash-b16 | 2.1 | serve_failed | speculative-decoding draft model (`DFlashDraftModel`) — not standalone-servable |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total
