@@ -107,7 +107,9 @@
       "status": "started"
     },
     {
-      "repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8"
+      "repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8",
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "openai/gpt-oss-20b"

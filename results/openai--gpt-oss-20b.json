@@ -1,0 +1,39 @@
+{
+  "repo": "openai/gpt-oss-20b",
+  "ts": "2026-07-20 04:30 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 27.5,
+  "download_s": 1.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 268.6,
+    "ttft_s": 0.04,
+    "prefill": {
+      "prompt_tok": 15077,
+      "toks": 11831
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2398
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 398,
+    "max_w": 522,
+    "max_vram_gb": 22.4,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 6.03
+}

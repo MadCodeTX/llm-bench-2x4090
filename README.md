@@ -32,6 +32,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 <!--RESULTS:BEGIN-->
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
 |---|---|---|---|---|---|---|---|---|---|
+| openai/gpt-oss-20b | 27.5 | 268.6 | 11831 | 2398 | 22.4 | 398 | 6.03 | no_structured_call | OK |
 | nvidia/Qwen3.6-35B-A3B-NVFP4 | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok | OK |
 | Qwen/Qwen3.6-35B-A3B-FP8 | 37.5 | 192.8 | 9717 | 1859 | 22.0 | 361 | 5.15 | ok | OK |
 | google/gemma-4-12b-it-qat-w4a16-ct | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok | OK |
