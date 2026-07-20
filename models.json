@@ -210,7 +210,8 @@
     },
     {
       "repo": "LiquidAI/LFM2.5-8B-A1B",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8",

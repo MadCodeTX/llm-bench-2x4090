@@ -33,6 +33,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
 |---|---|---|---|---|---|---|---|---|---|
 | LiquidAI/LFM2.5-1.2B-Instruct | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured | OK |
+| nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured | OK |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured | OK |
 | LiquidAI/LFM2.5-8B-A1B | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured | OK |
 | openai/gpt-oss-20b | 27.5 | 268.6 | 11831 | 2398 | 22.4 | 398 | 6.03 | no_structured_call | OK |
