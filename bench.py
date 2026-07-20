@@ -27,7 +27,9 @@ PORT = 8199
 NAME = "llmbench-vllm"
 BASE = f"http://127.0.0.1:{PORT}"
 # (gpu_memory_utilization, max_model_len) tried in order until the model serves
-LADDER = [(0.92, 32768), (0.90, 16384), (0.85, 8192)]
+LADDER = [(0.92, 32768), (0.85, 8192)]
+POWER_CAP_W = 340  # per-GPU cap near the 4090 efficiency knee; recorded in every result
+CACHE_BUDGET_GB = 500  # LRU weight cache: keep recent models for free re-runs
 FAMILY_FLAGS = [
     (r"[Qq]wen3", "--reasoning-parser qwen3 --enable-auto-tool-choice "
                   "--tool-parser-plugin /plugins/qwen3_coder_fixed.py "
@@ -128,12 +130,13 @@ def serve_attempt(repo, image, util, maxlen, flags, env=None):
         f"-c 'rm -f /etc/ld.so.conf.d/cuda*.conf; ldconfig; "
         f"exec python3 -m vllm.entrypoints.openai.api_server "
         f"--model {repo} --tensor-parallel-size 2 --gpu-memory-utilization {util} "
-        f"--max-model-len {maxlen} --host 0.0.0.0 --port 8000 {flags}'",
+        f"--max-model-len {maxlen} --max-num-seqs 32 --max-num-batched-tokens 8192 "
+        f"--host 0.0.0.0 --port 8000 {flags}'",
         timeout=120,
     )
     if r.returncode != 0:
         return False, r.stderr[-300:]
-    deadline = time.time() + 900  # weights are local; 15 min covers load + compile
+    deadline = time.time() + 600  # weights are local; 10 min covers load + compile
     while time.time() < deadline:
         try:
             http("/v1/models", timeout=5)
@@ -188,7 +191,7 @@ def battery(model):
     out["prefill"] = {"prompt_tok": pt, "toks": round(pt / dt)}
 
     out["sweep"] = []
-    for n in (8, 32):
+    for n in (32,):
         prompts = [f"[{salt()} #{i}] Explain topic {i % 8} in technical detail." for i in range(2 * n)]
         t0 = time.time()
         with concurrent.futures.ThreadPoolExecutor(n) as ex:
@@ -214,14 +217,53 @@ def battery(model):
     return out
 
 
-def discard(repo):
-    # Container downloads are root-owned; delete via container so it actually works.
+def dir_size(path):
+    total = 0
+    for root, _, files in os.walk(path):
+        for f in files:
+            try:
+                total += os.path.getsize(os.path.join(root, f))
+            except OSError:
+                pass
+    return total
+
+
+def lru_prune(exclude_repo=None):
+    """Keep the weight cache under CACHE_BUDGET_GB, evicting oldest-used models.
+    Root-owned files must be deleted via container."""
+    hub = os.path.join(CACHE, "hub")
+    if not os.path.isdir(hub):
+        return
+    entries = []
+    for d in os.listdir(hub):
+        if not d.startswith("models--"):
+            continue
+        p = os.path.join(hub, d)
+        entries.append((os.path.getmtime(p), d, dir_size(p)))
+    total = sum(s for _, _, s in entries)
     image = cfg().get("image_default", "vllm/vllm-openai:latest")
-    sh(f"docker run --rm -v {CACHE}:/c --entrypoint rm {image} -rf /c/hub/models--{slug(repo)}",
-       timeout=600)
-    path = os.path.join(CACHE, "hub", f"models--{slug(repo)}")
-    if os.path.exists(path):
-        print(f"WARN: discard failed for {repo}", flush=True)
+    for mtime, d, size in sorted(entries):
+        if total <= CACHE_BUDGET_GB * 1e9:
+            break
+        if exclude_repo and d == f"models--{slug(exclude_repo)}":
+            continue
+        print(f"LRU evict {d} ({size/1e9:.0f}GB)", flush=True)
+        sh(f"docker run --rm -v {CACHE}:/c --entrypoint rm {image} -rf /c/hub/{d}", timeout=600)
+        total -= size
+
+
+def set_power_cap():
+    r = sh(f"sudo -n nvidia-smi -pl {POWER_CAP_W}", timeout=30)
+    if r.returncode != 0:
+        print(f"WARN: could not set power cap: {r.stderr[-120:]}", flush=True)
+
+
+def power_limit_now():
+    r = sh("nvidia-smi --query-gpu=power.limit --format=csv,noheader,nounits")
+    try:
+        return [round(float(x)) for x in r.stdout.split()]
+    except Exception:
+        return []
 
 
 def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
@@ -270,6 +312,7 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
         rec["battery"] = battery(model_id)
         mon.stop_flag = True
         rec["hw"] = mon.summary()
+        rec["hw"]["power_limit_w"] = power_limit_now()
         agg32 = next((s["agg_toks"] for s in rec["battery"]["sweep"] if s["concurrency"] == 32), None)
         if agg32 and rec["hw"].get("mean_w"):
             rec["tok_per_joule"] = round(agg32 / rec["hw"]["mean_w"], 2)
@@ -280,7 +323,7 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
     finally:
         sh(f"docker rm -f {NAME}", timeout=60)
         if not keep:
-            discard(repo)
+            lru_prune(exclude_repo=repo)
         with open(os.path.join(RESULTS, slug(repo) + ".json"), "w") as f:
             json.dump(rec, f, indent=2)
         report()
@@ -333,20 +376,38 @@ def main():
     a = ap.parse_args()
 
     if a.cmd == "run":
+        set_power_cap()
         rec = run_model(a.repo, keep=a.keep, image=a.image, flags=a.flags,
                         skip_check=a.skip_download_check)
         print(json.dumps({k: v for k, v in rec.items() if k != "serve_errors"}, indent=2))
     elif a.cmd == "queue":
+        set_power_cap()
         c = cfg()
-        for entry in c["queue"]:
+        img = c.get("image_default", "vllm/vllm-openai:latest")
+
+        def prefetch(repo):
+            try:
+                print(f"[prefetch] {repo}", flush=True)
+                download(repo, img)
+            except Exception as e:
+                print(f"[prefetch] {repo} failed: {repr(e)[:80]}", flush=True)
+
+        q = c["queue"]
+        for i, entry in enumerate(q):
             if entry.get("done"):
                 continue
+            nxt = next((e for e in q[i + 1:] if not e.get("done")), None)
+            th = threading.Thread(target=prefetch, args=(nxt["repo"],), daemon=True) if nxt else None
+            if th:
+                th.start()
             rec = run_model(entry["repo"], keep=entry.get("keep", False),
                             flags=entry.get("flags"))
             entry["done"] = True
             entry["status"] = rec["status"]
             with open(os.path.join(HERE, "models.json"), "w") as f:
                 json.dump(c, f, indent=2)
+            if th:
+                th.join(timeout=1800)
     elif a.cmd == "report":
         report()
         git_commit("regenerate report")
