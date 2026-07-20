@@ -32,6 +32,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 <!--RESULTS:BEGIN-->
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
 |---|---|---|---|---|---|---|---|---|---|
+| openbmb/MiniCPM5-1B | 2.2 | 413.3 | 26969 | 7095 | 22.5 | 289 | 24.55 | not_configured | OK |
 | LiquidAI/LFM2.5-1.2B-Instruct | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured | OK |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured | OK |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured | OK |
