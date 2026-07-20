@@ -190,7 +190,8 @@
     },
     {
       "repo": "LiquidAI/LFM2.5-1.2B-Instruct",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "deepreinforce-ai/Ornith-1.0-9B",

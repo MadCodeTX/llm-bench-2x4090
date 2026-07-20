@@ -1,0 +1,39 @@
+{
+  "repo": "deepreinforce-ai/Ornith-1.0-9B",
+  "ts": "2026-07-20 15:35 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "disk_gb": 18.8,
+  "download_s": 1.4,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 99.1,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15021,
+      "toks": 6741
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1672
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 481,
+    "max_w": 580,
+    "max_vram_gb": 21.7,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 3.48
+}
