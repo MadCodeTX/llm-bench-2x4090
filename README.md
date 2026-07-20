@@ -36,6 +36,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/Qwen3.6-27B-NVFP4 | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> | OK |
 | nvidia/Gemma-4-31B-IT-NVFP4 | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3.6-27B-FP8 | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> | OK |
+| RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total
