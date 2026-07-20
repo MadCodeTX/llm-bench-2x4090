@@ -318,8 +318,15 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
             rec["tok_per_joule"] = round(agg32 / rec["hw"]["mean_w"], 2)
         rec["status"] = "ok"
     except Exception as e:
-        rec["status"] = rec.get("status", "error")
-        rec["error"] = repr(e)[:500]
+        if rec.get("status") in (None, "started"):
+            rec["status"] = "error"
+        body = ""
+        if isinstance(e, urllib.error.HTTPError):
+            try:
+                body = " body=" + e.read()[:300].decode(errors="replace")
+            except Exception:
+                pass
+        rec["error"] = (repr(e)[:400] + body)[:800]
     finally:
         sh(f"docker rm -f {NAME}", timeout=60)
         if not keep:
