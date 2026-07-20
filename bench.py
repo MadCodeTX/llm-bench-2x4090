@@ -29,7 +29,11 @@ BASE = f"http://127.0.0.1:{PORT}"
 # (gpu_memory_utilization, max_model_len) tried in order until the model serves
 LADDER = [(0.92, 32768), (0.90, 16384), (0.85, 8192)]
 FAMILY_FLAGS = [
-    (r"[Qq]wen3", "--reasoning-parser qwen3"),
+    (r"[Qq]wen3", "--reasoning-parser qwen3 --enable-auto-tool-choice "
+                  "--tool-parser-plugin /plugins/qwen3_coder_fixed.py "
+                  "--tool-call-parser qwen3_coder_fixed"),
+    (r"[Gg]emma-4", "--enable-auto-tool-choice --reasoning-parser gemma4 "
+                    "--tool-call-parser gemma4"),
 ]
 
 os.makedirs(CACHE, exist_ok=True)
@@ -119,7 +123,8 @@ def serve_attempt(repo, image, util, maxlen, flags, env=None):
     # without this, engine workers die instantly on this host (driver 580.xx).
     r = sh(
         f"docker run -d --name {NAME} --gpus all --shm-size 16g -p {PORT}:8000 "
-        f"{env_args} -v {CACHE}:/root/.cache/huggingface --entrypoint bash {image} "
+        f"{env_args} -v {CACHE}:/root/.cache/huggingface "
+        f"-v {os.path.join(HERE, 'plugins')}:/plugins:ro --entrypoint bash {image} "
         f"-c 'rm -f /etc/ld.so.conf.d/cuda*.conf; ldconfig; "
         f"exec python3 -m vllm.entrypoints.openai.api_server "
         f"--model {repo} --tensor-parallel-size 2 --gpu-memory-utilization {util} "
@@ -201,6 +206,9 @@ def battery(model):
         }, timeout=120))
         tcs = resp["choices"][0]["message"].get("tool_calls") or []
         out["tool_call"] = "ok" if tcs and tcs[0]["function"]["name"] == "get_weather" else "no_structured_call"
+    except urllib.error.HTTPError as e:
+        out["tool_call"] = ("not_configured" if e.code == 400
+                            else f"error: HTTP {e.code}")
     except Exception as e:
         out["tool_call"] = f"error: {repr(e)[:80]}"
     return out
@@ -220,8 +228,9 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
     c = cfg()
     image = image or c.get("image_default", "vllm/vllm-openai:latest")
     if flags is None:
-        flags = next((f for pat, f in FAMILY_FLAGS if re.search(pat, repo)), "")
-        flags = c.get("overrides", {}).get(repo, {}).get("flags", flags)
+        fam = next((f for pat, f in FAMILY_FLAGS if re.search(pat, repo)), "")
+        extra = c.get("overrides", {}).get(repo, {}).get("flags", "")
+        flags = f"{fam} {extra}".strip()
     rec = {"repo": repo, "ts": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
            "image": image, "flags": flags, "status": "started"}
 

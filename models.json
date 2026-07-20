@@ -2,41 +2,27 @@
   "image_default": "vllm/vllm-openai:nightly",
   "overrides": {
     "nvidia/Qwen3.6-27B-NVFP4": {
-      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
-      "env": {
-        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
-        "OMP_NUM_THREADS": "4"
-      }
+      "flags": "--kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "OMP_NUM_THREADS": "4"}
     },
     "nvidia/Qwen3.6-35B-A3B-NVFP4": {
-      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
-      "env": {
-        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
-        "OMP_NUM_THREADS": "4"
-      }
+      "flags": "--kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {"PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True", "OMP_NUM_THREADS": "4"}
     },
     "Qwen/Qwen3.6-27B-FP8": {
-      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
-      "env": {
-        "VLLM_TEST_FORCE_FP8_MARLIN": "1",
-        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
-      }
+      "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {"VLLM_TEST_FORCE_FP8_MARLIN": "1", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"}
     },
     "Qwen/Qwen3.6-35B-A3B-FP8": {
-      "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
-      "env": {
-        "VLLM_TEST_FORCE_FP8_MARLIN": "1",
-        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
-      }
+      "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {"VLLM_TEST_FORCE_FP8_MARLIN": "1", "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"}
     },
     "nvidia/Gemma-4-31B-IT-NVFP4": {
       "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192"
     },
     "RedHatAI/gemma-4-31B-it-FP8-block": {
       "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
-      "env": {
-        "VLLM_TEST_FORCE_FP8_MARLIN": "1"
-      }
+      "env": {"VLLM_TEST_FORCE_FP8_MARLIN": "1"}
     },
     "google/gemma-4-31B-it-qat-w4a16-ct": {
       "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192"
@@ -46,51 +32,19 @@
     }
   },
   "queue": [
-    {
-      "repo": "nvidia/Qwen3.6-27B-NVFP4",
-      "done": true,
-      "status": "ok"
-    },
-    {
-      "repo": "Qwen/Qwen3.6-27B-FP8",
-      "done": true,
-      "status": "ok"
-    },
-    {
-      "repo": "nvidia/Gemma-4-31B-IT-NVFP4"
-    },
-    {
-      "repo": "google/gemma-4-31B-it-qat-w4a16-ct"
-    },
-    {
-      "repo": "RedHatAI/gemma-4-31B-it-FP8-block"
-    },
-    {
-      "repo": "Qwen/Qwen3.6-35B-A3B-FP8"
-    },
-    {
-      "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4"
-    },
-    {
-      "repo": "google/gemma-4-12b-it-qat-w4a16-ct"
-    },
-    {
-      "repo": "google/gemma-4-12b-it"
-    },
-    {
-      "repo": "Qwen/QwQ-32B-AWQ"
-    },
-    {
-      "repo": "microsoft/phi-4"
-    },
-    {
-      "repo": "Qwen/Qwen3-32B-FP8"
-    },
-    {
-      "repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8"
-    },
-    {
-      "repo": "openai/gpt-oss-20b"
-    }
+    {"repo": "nvidia/Qwen3.6-27B-NVFP4", "done": true, "status": "ok"},
+    {"repo": "Qwen/Qwen3.6-27B-FP8"},
+    {"repo": "nvidia/Gemma-4-31B-IT-NVFP4"},
+    {"repo": "google/gemma-4-31B-it-qat-w4a16-ct"},
+    {"repo": "RedHatAI/gemma-4-31B-it-FP8-block"},
+    {"repo": "Qwen/Qwen3.6-35B-A3B-FP8"},
+    {"repo": "nvidia/Qwen3.6-35B-A3B-NVFP4"},
+    {"repo": "google/gemma-4-12b-it-qat-w4a16-ct"},
+    {"repo": "google/gemma-4-12b-it"},
+    {"repo": "Qwen/QwQ-32B-AWQ"},
+    {"repo": "microsoft/phi-4"},
+    {"repo": "Qwen/Qwen3-32B-FP8"},
+    {"repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8"},
+    {"repo": "openai/gpt-oss-20b"}
   ]
 }
