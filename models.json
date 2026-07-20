@@ -128,7 +128,8 @@
     },
     {
       "repo": "google/gemma-4-4b-it",
-      "done": false
+      "done": true,
+      "status": "error"
     },
     {
       "repo": "mistralai/Ministral-3-8B-Instruct",

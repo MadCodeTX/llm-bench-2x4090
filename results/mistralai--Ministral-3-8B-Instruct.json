@@ -1,0 +1,8 @@
+{
+  "repo": "mistralai/Ministral-3-8B-Instruct",
+  "ts": "2026-07-20 15:15 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--enable-auto-tool-choice --tool-call-parser mistral",
+  "status": "error",
+  "error": "<HTTPError 401: 'Unauthorized'> body={\"error\":\"Invalid username or password.\"}"
+}
