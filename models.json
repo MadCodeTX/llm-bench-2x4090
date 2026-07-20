@@ -230,7 +230,8 @@
     },
     {
       "repo": "amazon/BMOJOF-primed-HQwen3-8B-Instruct",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "lewtun/talkie-1930-13b-it-hf",

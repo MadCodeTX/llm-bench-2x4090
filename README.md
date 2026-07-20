@@ -58,6 +58,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | amazon/BMOJOF-primed-HQwen3-8B-Instruct | 18.5 | — | — | — | — | — | — | — | serve_failed |
 | amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | — | — | — | — | — | — | — | serve_failed |
 | ibm-granite/granite-4.1-8b |  | — | — | — | — | — | — | — | error |
+| lewtun/talkie-1930-13b-it-hf | 26.6 | — | — | — | — | — | — | — | serve_failed |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total
