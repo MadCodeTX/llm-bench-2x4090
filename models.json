@@ -133,7 +133,8 @@
     },
     {
       "repo": "mistralai/Ministral-3-8B-Instruct",
-      "done": false
+      "done": true,
+      "status": "error"
     },
     {
       "repo": "mistralai/Ministral-3-14B-Instruct",
