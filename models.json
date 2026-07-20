@@ -263,7 +263,8 @@
     },
     {
       "repo": "google/gemma-4-E4B-it-assistant",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "google/gemma-4-E2B-it-assistant",
