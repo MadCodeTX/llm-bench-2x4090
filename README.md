@@ -34,6 +34,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 |---|---|---|---|---|---|---|---|---|---|
 | LiquidAI/LFM2.5-1.2B-Instruct | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured | OK |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured | OK |
+| LiquidAI/LFM2.5-8B-A1B | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured | OK |
 | openai/gpt-oss-20b | 27.5 | 268.6 | 11831 | 2398 | 22.4 | 398 | 6.03 | no_structured_call | OK |
 | ibm-granite/granite-4.1-3b | 6.8 | 171.0 | 9989 | 2370 | 22.5 | 401 | 5.91 | no_structured_call | OK |
 | nvidia/Qwen3.6-35B-A3B-NVFP4 | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok | OK |

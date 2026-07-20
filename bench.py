@@ -114,7 +114,7 @@ def download(repo, image):
     r = sh(
         f"docker run --rm -v {CACHE}:/root/.cache/huggingface --entrypoint python3 {image} "
         f"-c \"from huggingface_hub import snapshot_download; snapshot_download('{repo}')\"",
-        timeout=7200,
+        timeout=1200,  # bound HF download stalls (~2min normal) so one hang can't wedge the queue
     )
     if r.returncode != 0:
         raise RuntimeError(f"download failed: {r.stderr[-400:]}")
