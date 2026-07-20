@@ -47,6 +47,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/Qwen3-32B-FP8 | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call | OK |
 | RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | — | — | — | — | — | — | — | serve_failed |
 | RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
+| ibm-granite/granite-4.1-8b |  | — | — | — | — | — | — | — | error |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total

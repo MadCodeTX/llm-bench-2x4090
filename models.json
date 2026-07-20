@@ -58,6 +58,48 @@
     },
     "LiquidAI/LFM2.5-1.2B-Instruct": {
       "flags": "--trust-remote-code"
+    },
+    "RedHatAI/gemma-4-12B-it-NVFP4": {
+      "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192"
+    },
+    "pekkAi/Gemma-4-12B-it-abliterated-NVFP4": {
+      "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192"
+    },
+    "cyankiwi/gemma-4-12B-it-AWQ-INT4": {
+      "flags": "--max-num-seqs 32 --max-num-batched-tokens 8192"
+    },
+    "cyankiwi/Ornith-1.0-9B-AWQ-INT4": {
+      "flags": "--trust-remote-code --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+      }
+    },
+    "nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8": {
+      "flags": "--trust-remote-code",
+      "env": {
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+      }
+    },
+    "LiquidAI/LFM2.5-8B-A1B": {
+      "flags": "--trust-remote-code"
+    },
+    "amazon/GDN-primed-HQwen3-8B-Instruct": {
+      "flags": "--trust-remote-code",
+      "env": {
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+      }
+    },
+    "amazon/BMOJOF-primed-HQwen3-8B-Instruct": {
+      "flags": "--trust-remote-code",
+      "env": {
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+      }
+    },
+    "z-lab/Qwen3-8B-DFlash-b16": {
+      "flags": "--trust-remote-code"
+    },
+    "openbmb/MiniCPM5-1B": {
+      "flags": "--trust-remote-code"
     }
   },
   "queue": [
@@ -133,7 +175,8 @@
     },
     {
       "repo": "ibm-granite/granite-4.1-3b",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "ibm-granite/granite-4.1-8b",
@@ -149,6 +192,74 @@
     },
     {
       "repo": "deepreinforce-ai/Ornith-1.0-9B",
+      "done": false
+    },
+    {
+      "repo": "RedHatAI/gemma-4-12B-it-NVFP4",
+      "done": false
+    },
+    {
+      "repo": "cyankiwi/gemma-4-12B-it-AWQ-INT4",
+      "done": false
+    },
+    {
+      "repo": "openbmb/MiniCPM5-1B",
+      "done": false
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-8B-A1B",
+      "done": false
+    },
+    {
+      "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8",
+      "done": false
+    },
+    {
+      "repo": "cyankiwi/Ornith-1.0-9B-AWQ-INT4",
+      "done": false
+    },
+    {
+      "repo": "amazon/GDN-primed-HQwen3-8B-Instruct",
+      "done": false
+    },
+    {
+      "repo": "amazon/BMOJOF-primed-HQwen3-8B-Instruct",
+      "done": false
+    },
+    {
+      "repo": "lewtun/talkie-1930-13b-it-hf",
+      "done": false
+    },
+    {
+      "repo": "empero-ai/Qwythos-9B-Claude-Mythos-5-1M",
+      "done": false
+    },
+    {
+      "repo": "z-lab/Qwen3-8B-DFlash-b16",
+      "done": false
+    },
+    {
+      "repo": "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2",
+      "done": false
+    },
+    {
+      "repo": "pekkAi/Gemma-4-12B-it-abliterated-NVFP4",
+      "done": false
+    },
+    {
+      "repo": "google/gemma-4-E4B-it-assistant",
+      "done": false
+    },
+    {
+      "repo": "google/gemma-4-E2B-it-assistant",
+      "done": false
+    },
+    {
+      "repo": "google/gemma-4-12B-it-assistant",
+      "done": false
+    },
+    {
+      "repo": "google/gemma-4-12B-it-qat-q4_0-unquantized-assistant",
       "done": false
     }
   ]
