@@ -1,0 +1,39 @@
+{
+  "repo": "Qwen/QwQ-32B-AWQ",
+  "ts": "2026-07-20 04:01 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 19.3,
+  "download_s": 1.4,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 72.7,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15022,
+      "toks": 2282
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1238
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 526,
+    "max_w": 582,
+    "max_vram_gb": 22.6,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 2.35
+}

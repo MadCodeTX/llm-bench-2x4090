@@ -87,7 +87,9 @@
       "status": "ok"
     },
     {
-      "repo": "google/gemma-4-12b-it"
+      "repo": "google/gemma-4-12b-it",
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "Qwen/QwQ-32B-AWQ"
