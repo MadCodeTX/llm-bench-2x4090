@@ -77,7 +77,9 @@
       "status": "ok"
     },
     {
-      "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4"
+      "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "google/gemma-4-12b-it-qat-w4a16-ct"
