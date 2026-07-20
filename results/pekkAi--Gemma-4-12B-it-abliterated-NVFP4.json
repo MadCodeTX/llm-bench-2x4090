@@ -1,11 +1,11 @@
 {
   "repo": "pekkAi/Gemma-4-12B-it-abliterated-NVFP4",
-  "ts": "2026-07-20 16:56 UTC",
+  "ts": "2026-07-20 17:08 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--enable-auto-tool-choice --reasoning-parser gemma4 --tool-call-parser gemma4 --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
   "status": "serve_failed",
   "disk_gb": 11.7,
-  "download_s": 1.2,
+  "download_s": 1.5,
   "serve_errors": [
     {
       "util": 0.92,
