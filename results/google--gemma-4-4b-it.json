@@ -1,8 +1,0 @@
-{
-  "repo": "google/gemma-4-4b-it",
-  "ts": "2026-07-20 15:15 UTC",
-  "image": "vllm/vllm-openai:nightly",
-  "flags": "--enable-auto-tool-choice --reasoning-parser gemma4 --tool-call-parser gemma4",
-  "status": "error",
-  "error": "<HTTPError 401: 'Unauthorized'> body={\"error\":\"Invalid username or password.\"}"
-}

@@ -44,15 +44,20 @@
     "google/gemma-4-12b-it-qat-w4a16-ct": {
       "flags": "--kv-cache-dtype fp8"
     },
-    "mistralai/Ministral-3-8B-Instruct": {
+    "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16": {
+      "flags": "--trust-remote-code",
       "env": {
         "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
       }
     },
-    "mistralai/Ministral-3-14B-Instruct": {
+    "deepreinforce-ai/Ornith-1.0-9B": {
+      "flags": "--trust-remote-code",
       "env": {
         "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
       }
+    },
+    "LiquidAI/LFM2.5-1.2B-Instruct": {
+      "flags": "--trust-remote-code"
     }
   },
   "queue": [
@@ -127,25 +132,23 @@
       "status": "ok"
     },
     {
-      "repo": "google/gemma-4-4b-it",
-      "done": true,
-      "status": "error"
-    },
-    {
-      "repo": "mistralai/Ministral-3-8B-Instruct",
-      "done": true,
-      "status": "error"
-    },
-    {
-      "repo": "mistralai/Ministral-3-14B-Instruct",
+      "repo": "ibm-granite/granite-4.1-3b",
       "done": false
     },
     {
-      "repo": "allenai/Olmo-3-7B-Instruct",
+      "repo": "ibm-granite/granite-4.1-8b",
       "done": false
     },
     {
-      "repo": "allenai/Olmo-3-7B-Think",
+      "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+      "done": false
+    },
+    {
+      "repo": "LiquidAI/LFM2.5-1.2B-Instruct",
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B",
       "done": false
     }
   ]
