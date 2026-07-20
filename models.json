@@ -60,10 +60,10 @@
       "flags": "--trust-remote-code"
     },
     "RedHatAI/gemma-4-12B-it-NVFP4": {
-      "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192"
+      "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192"
     },
     "pekkAi/Gemma-4-12B-it-abliterated-NVFP4": {
-      "flags": "--kv-cache-dtype fp8 --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192"
+      "flags": "--kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192"
     },
     "cyankiwi/gemma-4-12B-it-AWQ-INT4": {
       "flags": "--max-num-seqs 32 --max-num-batched-tokens 8192"
@@ -99,6 +99,9 @@
       "flags": "--trust-remote-code"
     },
     "openbmb/MiniCPM5-1B": {
+      "flags": "--trust-remote-code"
+    },
+    "lewtun/talkie-1930-13b-it-hf": {
       "flags": "--trust-remote-code"
     }
   },
@@ -180,8 +183,7 @@
     },
     {
       "repo": "ibm-granite/granite-4.1-8b",
-      "done": true,
-      "status": "error"
+      "done": false
     },
     {
       "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
@@ -200,8 +202,7 @@
     },
     {
       "repo": "RedHatAI/gemma-4-12B-it-NVFP4",
-      "done": true,
-      "status": "serve_failed"
+      "done": false
     },
     {
       "repo": "cyankiwi/gemma-4-12B-it-AWQ-INT4",

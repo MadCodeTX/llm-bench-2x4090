@@ -1,8 +1,39 @@
 {
   "repo": "ibm-granite/granite-4.1-8b",
-  "ts": "2026-07-20 15:29 UTC",
+  "ts": "2026-07-20 16:39 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--enable-auto-tool-choice --tool-call-parser granite",
-  "status": "error",
-  "error": "RuntimeError(\"GPUs busy (production stack running?) \u2014 run 'llm stop' first\")"
+  "status": "ok",
+  "disk_gb": 17.6,
+  "download_s": 1.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 90.5,
+    "ttft_s": 0.04,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 5778
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1229
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 518,
+    "max_w": 580,
+    "max_vram_gb": 22.4,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 2.37
 }
