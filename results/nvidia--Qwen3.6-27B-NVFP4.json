@@ -1,0 +1,26 @@
+{
+  "repo": "nvidia/Qwen3.6-27B-NVFP4",
+  "ts": "2026-07-20 01:46 UTC",
+  "image": "vllm/vllm-openai:nightly-20260704",
+  "flags": "--reasoning-parser qwen3",
+  "status": "serve_failed",
+  "disk_gb": 21.9,
+  "download_s": 290.1,
+  "serve_errors": [
+    {
+      "util": 0.92,
+      "len": 32768,
+      "tail": "Server pid=1)   File \"/usr/lib/python3.12/contextlib.py\", line 144, in __exit__\n(APIServer pid=1)     next(self.gen)\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1213, in launch_core_engines\n(APIServer pid=1)     wait_for_engine_startup(\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1272, in wait_for_engine_startup\n(APIServer pid=1)     raise RuntimeError(\n(APIServer pid=1) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}\n/usr/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 2 leaked shared_memory objects to clean up at shutdown\n  warnings.warn('resource_tracker: There appear to be %d '\n"
+    },
+    {
+      "util": 0.9,
+      "len": 16384,
+      "tail": "Server pid=1)   File \"/usr/lib/python3.12/contextlib.py\", line 144, in __exit__\n(APIServer pid=1)     next(self.gen)\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1213, in launch_core_engines\n(APIServer pid=1)     wait_for_engine_startup(\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1272, in wait_for_engine_startup\n(APIServer pid=1)     raise RuntimeError(\n(APIServer pid=1) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}\n/usr/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 2 leaked shared_memory objects to clean up at shutdown\n  warnings.warn('resource_tracker: There appear to be %d '\n"
+    },
+    {
+      "util": 0.85,
+      "len": 8192,
+      "tail": "Server pid=1)   File \"/usr/lib/python3.12/contextlib.py\", line 144, in __exit__\n(APIServer pid=1)     next(self.gen)\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1213, in launch_core_engines\n(APIServer pid=1)     wait_for_engine_startup(\n(APIServer pid=1)   File \"/usr/local/lib/python3.12/dist-packages/vllm/v1/engine/utils.py\", line 1272, in wait_for_engine_startup\n(APIServer pid=1)     raise RuntimeError(\n(APIServer pid=1) RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}\n/usr/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 2 leaked shared_memory objects to clean up at shutdown\n  warnings.warn('resource_tracker: There appear to be %d '\n"
+    }
+  ]
+}
