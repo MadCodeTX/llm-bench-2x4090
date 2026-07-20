@@ -61,6 +61,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | amazon/BMOJOF-primed-HQwen3-8B-Instruct | 18.5 | — | — | — | — | — | — | — | serve_failed |
 | amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | — | — | — | — | — | — | — | serve_failed |
 | lewtun/talkie-1930-13b-it-hf | 26.6 | — | — | — | — | — | — | — | serve_failed |
+| pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | 11.7 | — | — | — | — | — | — | — | serve_failed |
 | z-lab/Qwen3-8B-DFlash-b16 | 2.1 | — | — | — | — | — | — | — | serve_failed |
 <!--RESULTS:END-->
 
