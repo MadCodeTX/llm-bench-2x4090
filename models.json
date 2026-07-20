@@ -185,7 +185,8 @@
     },
     {
       "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "LiquidAI/LFM2.5-1.2B-Instruct",

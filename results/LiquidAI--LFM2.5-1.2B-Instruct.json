@@ -1,0 +1,39 @@
+{
+  "repo": "LiquidAI/LFM2.5-1.2B-Instruct",
+  "ts": "2026-07-20 15:31 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "disk_gb": 2.3,
+  "download_s": 1.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 482.7,
+    "ttft_s": 0.03,
+    "prefill": {
+      "prompt_tok": 15022,
+      "toks": 25820
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 6144
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 297,
+    "max_w": 426,
+    "max_vram_gb": 22.4,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 20.69
+}
