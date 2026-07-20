@@ -45,6 +45,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | RedHatAI/gemma-4-12B-it-NVFP4 | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok | OK |
 | deepreinforce-ai/Ornith-1.0-9B | 18.8 | 99.1 | 6741 | 1672 | 21.7 | 481 | 3.48 | not_configured | OK |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok | OK |
+| empero-ai/Qwythos-9B-Claude-Mythos-5-1M | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured | OK |
 | Qwen/QwQ-32B-AWQ | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured | OK |
 | ibm-granite/granite-4.1-8b | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call | OK |
 | google/gemma-4-31B-it-qat-w4a16-ct | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok | OK |

@@ -1,0 +1,39 @@
+{
+  "repo": "empero-ai/Qwythos-9B-Claude-Mythos-5-1M",
+  "ts": "2026-07-20 16:44 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 18.8,
+  "download_s": 1.2,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 99.0,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15051,
+      "toks": 6726
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1568
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 426,
+    "max_w": 579,
+    "max_vram_gb": 21.9,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 3.68
+}

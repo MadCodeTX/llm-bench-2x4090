@@ -238,7 +238,8 @@
     },
     {
       "repo": "lewtun/talkie-1930-13b-it-hf",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "empero-ai/Qwythos-9B-Claude-Mythos-5-1M",
