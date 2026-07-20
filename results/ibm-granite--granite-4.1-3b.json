@@ -1,0 +1,39 @@
+{
+  "repo": "ibm-granite/granite-4.1-3b",
+  "ts": "2026-07-20 15:23 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--enable-auto-tool-choice --tool-call-parser granite",
+  "status": "ok",
+  "disk_gb": 6.8,
+  "download_s": 201.3,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 171.0,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 9989
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2370
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 401,
+    "max_w": 507,
+    "max_vram_gb": 22.5,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 5.91
+}
