@@ -32,6 +32,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 <!--RESULTS:BEGIN-->
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
 |---|---|---|---|---|---|---|---|---|---|
+| nvidia/Qwen3.6-35B-A3B-NVFP4 | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok | OK |
 | Qwen/Qwen3.6-35B-A3B-FP8 | 37.5 | 192.8 | 9717 | 1859 | 22.0 | 361 | 5.15 | ok | OK |
 | google/gemma-4-31B-it-qat-w4a16-ct | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok | OK |
 | nvidia/Qwen3.6-27B-NVFP4 | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> | OK |

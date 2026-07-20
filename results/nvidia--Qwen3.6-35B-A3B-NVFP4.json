@@ -1,0 +1,39 @@
+{
+  "repo": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "ts": "2026-07-20 03:41 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--reasoning-parser qwen3 --enable-auto-tool-choice --tool-parser-plugin /plugins/qwen3_coder_fixed.py --tool-call-parser qwen3_coder_fixed --kv-cache-dtype fp8 --trust-remote-code --quantization modelopt --max-num-seqs 32 --max-num-batched-tokens 8192",
+  "status": "ok",
+  "disk_gb": 23.4,
+  "download_s": 75.3,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 217.2,
+    "ttft_s": 0.04,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 10113
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2051
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 328,
+    "max_w": 435,
+    "max_vram_gb": 22.8,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 6.25
+}
