@@ -115,11 +115,15 @@ def download(repo, image):
 def serve_attempt(repo, image, util, maxlen, flags, env=None):
     sh(f"docker rm -f {NAME}", timeout=60)
     env_args = " ".join(f"-e {k}={v}" for k, v in (env or {}).items())
+    # Strip the container's CUDA compat libs so the host driver is used —
+    # without this, engine workers die instantly on this host (driver 580.xx).
     r = sh(
         f"docker run -d --name {NAME} --gpus all --shm-size 16g -p {PORT}:8000 "
-        f"{env_args} -v {CACHE}:/root/.cache/huggingface {image} "
+        f"{env_args} -v {CACHE}:/root/.cache/huggingface --entrypoint bash {image} "
+        f"-c 'rm -f /etc/ld.so.conf.d/cuda*.conf; ldconfig; "
+        f"exec python3 -m vllm.entrypoints.openai.api_server "
         f"--model {repo} --tensor-parallel-size 2 --gpu-memory-utilization {util} "
-        f"--max-model-len {maxlen} --host 0.0.0.0 --port 8000 {flags}",
+        f"--max-model-len {maxlen} --host 0.0.0.0 --port 8000 {flags}'",
         timeout=120,
     )
     if r.returncode != 0:
