@@ -215,7 +215,8 @@
     },
     {
       "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "cyankiwi/Ornith-1.0-9B-AWQ-INT4",

@@ -1,0 +1,39 @@
+{
+  "repo": "cyankiwi/Ornith-1.0-9B-AWQ-INT4",
+  "ts": "2026-07-20 16:22 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code --max-num-seqs 32 --max-num-batched-tokens 8192",
+  "status": "ok",
+  "disk_gb": 9.0,
+  "download_s": 1.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 190.2,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 15021,
+      "toks": 6674
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2391
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 401,
+    "max_w": 499,
+    "max_vram_gb": 21.9,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 5.96
+}
