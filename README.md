@@ -33,6 +33,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
 |---|---|---|---|---|---|---|---|---|---|
 | nvidia/Qwen3.6-27B-NVFP4 | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> | OK |
+| Qwen/Qwen3.6-27B-FP8 | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> | OK |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total

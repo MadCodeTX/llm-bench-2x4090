@@ -1,0 +1,39 @@
+{
+  "repo": "Qwen/Qwen3.6-27B-FP8",
+  "ts": "2026-07-20 02:42 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--reasoning-parser qwen3 --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
+  "status": "ok",
+  "disk_gb": 30.9,
+  "download_s": 422.1,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 53.7,
+    "ttft_s": 0.07,
+    "prefill": {
+      "prompt_tok": 15022,
+      "toks": 2485
+    },
+    "sweep": [
+      {
+        "concurrency": 8,
+        "agg_toks": 324
+      },
+      {
+        "concurrency": 32,
+        "agg_toks": 900
+      }
+    ],
+    "tool_call": "error: <HTTPError 400: 'Bad Request'>"
+  },
+  "hw": {
+    "mean_w": 492,
+    "max_w": 556,
+    "max_vram_gb": 22.3
+  },
+  "tok_per_joule": 1.83
+}
