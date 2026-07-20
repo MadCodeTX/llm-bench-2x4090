@@ -170,7 +170,7 @@ def completion(model, prompt, max_tokens, stream=False):
     return u["prompt_tokens"], u["completion_tokens"], time.time() - t0
 
 
-def battery(model):
+def battery(model, maxlen=32768):
     import concurrent.futures
     import random
     import string
@@ -186,7 +186,9 @@ def battery(model):
 
     out["ttft_s"] = round(completion(model, f"[{salt()}] Say hello.", 24, stream=True), 2)
 
-    big = f"[{salt()}] " + ("The quick brown fox jumps over the lazy dog. " * 1500)
+    # size the prefill probe to the served context (must fit inside max_model_len)
+    reps = min(1500, max(100, (maxlen - 1200) // 10))
+    big = f"[{salt()}] " + ("The quick brown fox jumps over the lazy dog. " * reps)
     pt, _, dt = completion(model, big + "\nReply OK.", 1)
     out["prefill"] = {"prompt_tok": pt, "toks": round(pt / dt)}
 
@@ -309,7 +311,7 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
         mon = HwMon()
         mon.start()
         print(f"[{repo}] running battery...", flush=True)
-        rec["battery"] = battery(model_id)
+        rec["battery"] = battery(model_id, rec["serve_config"]["max_model_len"])
         mon.stop_flag = True
         rec["hw"] = mon.summary()
         rec["hw"]["power_limit_w"] = power_limit_now()
