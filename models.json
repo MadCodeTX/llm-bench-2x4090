@@ -102,7 +102,9 @@
       "status": "started"
     },
     {
-      "repo": "Qwen/Qwen3-32B-FP8"
+      "repo": "Qwen/Qwen3-32B-FP8",
+      "done": true,
+      "status": "started"
     },
     {
       "repo": "RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8"
