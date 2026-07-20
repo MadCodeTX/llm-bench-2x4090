@@ -180,7 +180,8 @@
     },
     {
       "repo": "ibm-granite/granite-4.1-8b",
-      "done": false
+      "done": true,
+      "status": "error"
     },
     {
       "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",

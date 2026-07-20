@@ -1,0 +1,39 @@
+{
+  "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16",
+  "ts": "2026-07-20 15:29 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "disk_gb": 7.9,
+  "download_s": 1.3,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 201.8,
+    "ttft_s": 0.03,
+    "prefill": {
+      "prompt_tok": 15028,
+      "toks": 11995
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2769
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 468,
+    "max_w": 565,
+    "max_vram_gb": 22.5,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 5.92
+}
