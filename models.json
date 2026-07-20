@@ -220,7 +220,8 @@
     },
     {
       "repo": "cyankiwi/Ornith-1.0-9B-AWQ-INT4",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "amazon/GDN-primed-HQwen3-8B-Instruct",

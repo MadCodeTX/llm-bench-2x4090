@@ -55,6 +55,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | — | — | — | — | — | — | — | serve_failed |
 | RedHatAI/gemma-4-12B-it-NVFP4 | 10.3 | — | — | — | — | — | — | — | serve_failed |
 | RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
+| amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | — | — | — | — | — | — | — | serve_failed |
 | ibm-granite/granite-4.1-8b |  | — | — | — | — | — | — | — | error |
 <!--RESULTS:END-->
 
