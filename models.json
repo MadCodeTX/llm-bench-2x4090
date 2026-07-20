@@ -97,7 +97,9 @@
       "status": "ok"
     },
     {
-      "repo": "microsoft/phi-4"
+      "repo": "microsoft/phi-4",
+      "done": true,
+      "status": "started"
     },
     {
       "repo": "Qwen/Qwen3-32B-FP8"
