@@ -200,7 +200,8 @@
     },
     {
       "repo": "RedHatAI/gemma-4-12B-it-NVFP4",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "cyankiwi/gemma-4-12B-it-AWQ-INT4",

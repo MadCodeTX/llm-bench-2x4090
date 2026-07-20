@@ -40,6 +40,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/Qwen3.6-35B-A3B-FP8 | 37.5 | 192.8 | 9717 | 1859 | 22.0 | 361 | 5.15 | ok | OK |
 | google/gemma-4-12b-it-qat-w4a16-ct | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok | OK |
 | deepreinforce-ai/Ornith-1.0-9B | 18.8 | 99.1 | 6741 | 1672 | 21.7 | 481 | 3.48 | not_configured | OK |
+| cyankiwi/gemma-4-12B-it-AWQ-INT4 | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok | OK |
 | Qwen/QwQ-32B-AWQ | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured | OK |
 | google/gemma-4-31B-it-qat-w4a16-ct | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok | OK |
 | google/gemma-4-12b-it | 23.9 | 62.6 | 4611 | 1114 | 22.4 | 498 | 2.24 | ok | OK |
