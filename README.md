@@ -60,6 +60,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
 | amazon/BMOJOF-primed-HQwen3-8B-Instruct | 18.5 | — | — | — | — | — | — | — | serve_failed |
 | amazon/GDN-primed-HQwen3-8B-Instruct | 17.0 | — | — | — | — | — | — | — | serve_failed |
+| google/gemma-4-12B-it-assistant | 0.8 | — | — | — | — | — | — | — | serve_failed |
 | google/gemma-4-E2B-it-assistant | 0.2 | — | — | — | — | — | — | — | serve_failed |
 | google/gemma-4-E4B-it-assistant | 0.2 | — | — | — | — | — | — | — | serve_failed |
 | lewtun/talkie-1930-13b-it-hf | 26.6 | — | — | — | — | — | — | — | serve_failed |
