@@ -1,0 +1,39 @@
+{
+  "repo": "Qwen/Qwen3.6-35B-A3B-FP8",
+  "ts": "2026-07-20 03:24 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--reasoning-parser qwen3 --enable-auto-tool-choice --tool-parser-plugin /plugins/qwen3_coder_fixed.py --tool-call-parser qwen3_coder_fixed --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
+  "status": "ok",
+  "disk_gb": 37.5,
+  "download_s": 517.3,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 192.8,
+    "ttft_s": 0.04,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 9717
+    },
+    "sweep": [
+      {
+        "concurrency": 8,
+        "agg_toks": 812
+      },
+      {
+        "concurrency": 32,
+        "agg_toks": 1859
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 361,
+    "max_w": 452,
+    "max_vram_gb": 22.0
+  },
+  "tok_per_joule": 5.15
+}

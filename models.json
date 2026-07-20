@@ -67,7 +67,9 @@
       "status": "ok"
     },
     {
-      "repo": "RedHatAI/gemma-4-31B-it-FP8-block"
+      "repo": "RedHatAI/gemma-4-31B-it-FP8-block",
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "Qwen/Qwen3.6-35B-A3B-FP8"
