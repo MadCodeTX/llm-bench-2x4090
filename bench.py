@@ -36,6 +36,9 @@ FAMILY_FLAGS = [
                   "--tool-call-parser qwen3_coder_fixed"),
     (r"[Gg]emma-4", "--enable-auto-tool-choice --reasoning-parser gemma4 "
                     "--tool-call-parser gemma4"),
+    # Ministral 3 / Mistral emit [TOOL_CALLS] — needs the mistral tool parser to
+    # register a structured call in the smoke test (else it logs not_configured).
+    (r"[Mm]inistral|[Mm]istral", "--enable-auto-tool-choice --tool-call-parser mistral"),
 ]
 
 os.makedirs(CACHE, exist_ok=True)
