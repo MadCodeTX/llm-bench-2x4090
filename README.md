@@ -39,13 +39,13 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/QwQ-32B-AWQ | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured | OK |
 | google/gemma-4-31B-it-qat-w4a16-ct | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok | OK |
 | google/gemma-4-12b-it | 23.9 | 62.6 | 4611 | 1114 | 22.4 | 498 | 2.24 | ok | OK |
+| microsoft/phi-4 | 29.3 | 58.3 | 4481 | 1102 | 20.8 | 553 | 1.99 | not_configured | OK |
 | nvidia/Qwen3.6-27B-NVFP4 | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> | OK |
 | nvidia/Gemma-4-31B-IT-NVFP4 | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3.6-27B-FP8 | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> | OK |
 | Qwen/Qwen3-32B-FP8 | 34.3 | — | — | — | — | — | — | — | started |
 | RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | 25.8 | — | — | — | — | — | — | — | serve_failed |
 | RedHatAI/gemma-4-31B-it-FP8-block | 33.3 | — | — | — | — | — | — | — | serve_failed |
-| microsoft/phi-4 | 29.3 | — | — | — | — | — | — | — | started |
 <!--RESULTS:END-->
 
 *(agg@32 = aggregate output tok/s at 32 concurrent streams; tok/J = agg@32 ÷ mean total

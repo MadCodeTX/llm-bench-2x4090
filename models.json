@@ -112,7 +112,9 @@
       "status": "serve_failed"
     },
     {
-      "repo": "openai/gpt-oss-20b"
+      "repo": "openai/gpt-oss-20b",
+      "done": true,
+      "status": "ok"
     }
   ]
 }

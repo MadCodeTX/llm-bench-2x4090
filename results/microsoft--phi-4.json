@@ -1,11 +1,11 @@
 {
   "repo": "microsoft/phi-4",
-  "ts": "2026-07-20 04:08 UTC",
+  "ts": "2026-07-20 04:37 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "",
-  "status": "started",
+  "status": "ok",
   "disk_gb": 29.3,
-  "download_s": 1.4,
+  "download_s": 1.6,
   "serve_errors": [
     {
       "util": 0.92,
@@ -18,5 +18,29 @@
     "max_model_len": 8192
   },
   "vllm_version": "0.22.1rc1.dev392+g43914dd74",
-  "error": "<HTTPError 400: 'Bad Request'>"
+  "battery": {
+    "single_stream_toks": 58.3,
+    "ttft_s": 0.05,
+    "prefill": {
+      "prompt_tok": 7010,
+      "toks": 4481
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1102
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 553,
+    "max_w": 607,
+    "max_vram_gb": 20.8,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 1.99
 }
