@@ -248,7 +248,8 @@
     },
     {
       "repo": "z-lab/Qwen3-8B-DFlash-b16",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2",

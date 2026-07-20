@@ -50,6 +50,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | ibm-granite/granite-4.1-8b | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call | OK |
 | google/gemma-4-31B-it-qat-w4a16-ct | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok | OK |
 | google/gemma-4-12b-it | 23.9 | 62.6 | 4611 | 1114 | 22.4 | 498 | 2.24 | ok | OK |
+| yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2 | 23.9 | 62.5 | 4399 | 1108 | 22.4 | 516 | 2.15 | ok | OK |
 | microsoft/phi-4 | 29.3 | 58.3 | 4481 | 1102 | 20.8 | 553 | 1.99 | not_configured | OK |
 | nvidia/Qwen3.6-27B-NVFP4 | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> | OK |
 | nvidia/Gemma-4-31B-IT-NVFP4 | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> | OK |
