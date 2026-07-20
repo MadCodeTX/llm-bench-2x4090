@@ -243,7 +243,8 @@
     },
     {
       "repo": "empero-ai/Qwythos-9B-Claude-Mythos-5-1M",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "z-lab/Qwen3-8B-DFlash-b16",
