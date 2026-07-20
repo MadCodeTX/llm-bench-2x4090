@@ -225,7 +225,8 @@
     },
     {
       "repo": "amazon/GDN-primed-HQwen3-8B-Instruct",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "amazon/BMOJOF-primed-HQwen3-8B-Instruct",
