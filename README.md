@@ -8,6 +8,10 @@ deletes the weights and moves to the next one.
 If you have a similar rig, these numbers tell you what will fit, how fast it runs, what it
 costs in watts, and which serving configs actually boot — before you burn an evening finding out.
 
+<!--SUMMARY:BEGIN-->
+**36 models tested · 25 served · 11 did-not-serve · vLLM `nightly` · updated 2026-07-21**
+<!--SUMMARY:END-->
+
 ## Rig
 
 - 2× NVIDIA RTX 4090 24 GB (Ada, no NVLink), tensor parallel 2
@@ -20,14 +24,18 @@ costs in watts, and which serving configs actually boot — before you burn an e
 1. Single-stream sustained decode (1,200-token generation)
 2. TTFT (streaming)
 3. Long-prompt prefill (~16K tokens)
-4. Aggregate throughput at 8 and 32 concurrent streams (2N × 256-token requests)
+4. Aggregate throughput at 32 concurrent streams (64 × 256-token requests)
 5. Tool-call smoke test (does a structured call come back parsed?)
 6. GPU telemetry sampled at 2 s throughout: total board power, peak VRAM → **tok/J**
 
-Serving auto-negotiates a config ladder (`0.92/32K → 0.90/16K → 0.85/8K`) and records which
+Serving auto-negotiates a config ladder (`0.92/32K → 0.85/8K`) and records which
 rung worked; models that exhaust the ladder are recorded as `serve_failed` with log tails.
 
 ## Results
+
+<!--CHART:BEGIN-->
+![Efficiency: aggregate throughput vs tokens-per-joule](assets/efficiency.svg)
+<!--CHART:END-->
 
 <!--RESULTS:BEGIN-->
 | model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |
@@ -156,8 +164,43 @@ Requirements: docker + NVIDIA container toolkit, python3 (stdlib only). The harn
 to start if the GPUs are already in use. Weights download to `hfcache/` (gitignored) and are
 deleted after each run unless `--keep`.
 
+## Anatomy of a result
+
+Every row above is backed by a checked-in JSON record in [`results/`](results/) (TP=2
+leaderboard) or [`results-lb/`](results-lb/) (the replica experiment) — the exact image,
+flags, serve config, raw battery numbers, and telemetry behind the number. A serving
+success looks like:
+
+```json
+{
+  "repo": "openbmb/MiniCPM5-1B",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "serve_config": { "gpu_mem_util": 0.92, "max_model_len": 32768 },
+  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 413.3,
+    "ttft_s": 0.03,
+    "prefill": { "prompt_tok": 15021, "toks": 26969 },
+    "sweep": [ { "concurrency": 32, "agg_toks": 7095 } ],
+    "tool_call": "not_configured"
+  },
+  "hw": { "mean_w": 289, "max_vram_gb": 22.5, "power_limit_w": [340, 340] },
+  "tok_per_joule": 24.55
+}
+```
+
+A failure records the same header plus the classified cause and the tail of the vLLM log
+that produced it, so a `serve_failed` row is reproducible and debuggable — not just a dead
+end. The scatter plot and both tables are regenerated from these files by `bench.py report`.
+
 ## Related
 
 Deeper batch-workload benchmarks (vision summarization/extraction over Wikipedia, quant
 ladders on rented Blackwell vs this rig): see
 [llm-batch-bench](https://github.com/MadCodeTX/llm-batch-bench).
+
+## License
+
+MIT — see [LICENSE](LICENSE).

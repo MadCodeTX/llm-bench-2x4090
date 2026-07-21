@@ -1,2 +1,4 @@
 hfcache/
 *.log
+__pycache__/
+*.pyc

@@ -23,6 +23,7 @@ import urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, "hfcache")
 RESULTS = os.path.join(HERE, "results")
+ASSETS = os.path.join(HERE, "assets")
 PORT = 8199
 NAME = "llmbench-vllm"
 BASE = f"http://127.0.0.1:{PORT}"
@@ -370,8 +371,113 @@ def fail_reason(d):
     return "serve failed (see result json)"
 
 
+def _tool_class(tc):
+    """Bucket a tool-call smoke-test outcome into a chart color class."""
+    if tc == "ok":
+        return "ok"
+    if isinstance(tc, str) and tc.startswith("error"):
+        return "error"
+    return "neutral"
+
+
+def render_chart(points):
+    """Hand-write an SVG efficiency scatter (stdlib only, no matplotlib).
+    x = agg@32 throughput, y = tok/J, dot radius ∝ weights on disk, color by
+    tool-call support. Self-contained light panel so it reads on GitHub's light
+    AND dark README themes. Written to assets/efficiency.svg."""
+    if not points:
+        return
+    os.makedirs(ASSETS, exist_ok=True)
+    W, H = 940, 520
+    PAD_L, PAD_R, PAD_T, PAD_B = 74, 212, 66, 70
+    px0, py0 = PAD_L, H - PAD_B                       # plot origin (bottom-left)
+    pw, ph = W - PAD_L - PAD_R, H - PAD_T - PAD_B
+    xmax = max(p["agg"] for p in points) * 1.06
+    ymax = max(p["tokj"] for p in points) * 1.10
+    COLOR = {"ok": "#2ca02c", "neutral": "#8a8f98", "error": "#e0952b"}
+    ink, grid, panel = "#1b1f24", "#e6e8eb", "#fbfbfc"
+
+    def esc(s):
+        return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    def sx(v):
+        return px0 + pw * v / xmax
+
+    def sy(v):
+        return py0 - ph * v / ymax
+
+    s = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" '
+         f'viewBox="0 0 {W} {H}" font-family="-apple-system,Segoe UI,Roboto,sans-serif">']
+    s.append(f'<rect x="0" y="0" width="{W}" height="{H}" rx="10" fill="{panel}" stroke="#d7dae0"/>')
+    s.append(f'<text x="{PAD_L}" y="30" font-size="19" font-weight="700" fill="{ink}">'
+             f'Inference efficiency on 2×RTX 4090 — throughput vs energy</text>')
+    s.append(f'<text x="{PAD_L}" y="49" font-size="12.5" fill="#5b616b">'
+             f'each dot = one served model · dot size scales with weights on disk · upper-right is better</text>')
+
+    # gridlines + ticks
+    for i in range(6):
+        gx = px0 + pw * i / 5
+        s.append(f'<line x1="{gx:.1f}" y1="{PAD_T}" x2="{gx:.1f}" y2="{py0}" stroke="{grid}"/>')
+        s.append(f'<text x="{gx:.1f}" y="{py0+18}" font-size="11" fill="#5b616b" '
+                 f'text-anchor="middle">{round(xmax*i/5):,}</text>')
+        gy = py0 - ph * i / 5
+        s.append(f'<line x1="{px0}" y1="{gy:.1f}" x2="{px0+pw}" y2="{gy:.1f}" stroke="{grid}"/>')
+        s.append(f'<text x="{px0-8}" y="{gy+4:.1f}" font-size="11" fill="#5b616b" '
+                 f'text-anchor="end">{round(ymax*i/5)}</text>')
+    s.append(f'<line x1="{px0}" y1="{py0}" x2="{px0+pw}" y2="{py0}" stroke="#b7bcc4"/>')
+    s.append(f'<line x1="{px0}" y1="{PAD_T}" x2="{px0}" y2="{py0}" stroke="#b7bcc4"/>')
+    s.append(f'<text x="{px0+pw/2}" y="{H-24}" font-size="12.5" fill="{ink}" '
+             f'text-anchor="middle">aggregate throughput @ 32 concurrent streams (tok/s)</text>')
+    s.append(f'<text x="22" y="{PAD_T+ph/2}" font-size="12.5" fill="{ink}" text-anchor="middle" '
+             f'transform="rotate(-90 22 {PAD_T+ph/2:.1f})">efficiency — tokens per joule</text>')
+
+    # points (largest drawn first so small dots stay clickable on top)
+    pts = sorted(points, key=lambda p: -p["gb"])
+    for p in pts:
+        r = 4.5 + (p["gb"] ** 0.5) * 1.7
+        s.append(f'<circle cx="{sx(p["agg"]):.1f}" cy="{sy(p["tokj"]):.1f}" r="{r:.1f}" '
+                 f'fill="{COLOR[p["cls"]]}" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>')
+
+    # label the extremes only (keeps the dense cluster legible): the top-4 by
+    # tok/J plus the single least-efficient model — best vs worst, well separated
+    by_tokj = sorted(points, key=lambda p: -p["tokj"])
+    labeled = by_tokj[:4] + [by_tokj[-1]]
+    for p in labeled:
+        x, y = sx(p["agg"]), sy(p["tokj"])
+        right = x < px0 + pw * 0.7
+        tx, anchor = (x + 10, "start") if right else (x - 10, "end")
+        s.append(f'<text x="{tx:.1f}" y="{y+3.5:.1f}" font-size="10.5" fill="{ink}" '
+                 f'text-anchor="{anchor}">{esc(p["name"])}</text>')
+
+    # legend
+    lx, ly = px0 + pw + 24, PAD_T + 6
+    legend = [("ok", "tool-calls parsed"), ("neutral", "no / unconfigured"),
+              ("error", "tool test errored")]
+    s.append(f'<text x="{lx}" y="{ly}" font-size="11.5" font-weight="700" fill="{ink}">'
+             f'tool-call support</text>')
+    for i, (cls, lab) in enumerate(legend):
+        cy = ly + 20 + i * 20
+        s.append(f'<circle cx="{lx+6}" cy="{cy-4:.1f}" r="6" fill="{COLOR[cls]}" '
+                 f'fill-opacity="0.72" stroke="#ffffff"/>')
+        s.append(f'<text x="{lx+20}" y="{cy}" font-size="11" fill="#3b414a">{lab}</text>')
+    sz_y = ly + 20 + len(legend) * 20 + 14
+    s.append(f'<text x="{lx}" y="{sz_y}" font-size="11.5" font-weight="700" fill="{ink}">'
+             f'dot size = GB on disk</text>')
+    for i, gb in enumerate((2, 12, 32)):
+        cy = sz_y + 22 + i * 22
+        r = 4.5 + (gb ** 0.5) * 1.7
+        s.append(f'<circle cx="{lx+12}" cy="{cy-4:.1f}" r="{r:.1f}" fill="#8a8f98" '
+                 f'fill-opacity="0.5" stroke="#ffffff"/>')
+        s.append(f'<text x="{lx+30}" y="{cy}" font-size="11" fill="#3b414a">{gb} GB</text>')
+
+    s.append('</svg>\n')
+    with open(os.path.join(ASSETS, "efficiency.svg"), "w") as f:
+        f.write("\n".join(s))
+
+
 def report():
-    ok_rows, fail_rows = [], []
+    ok_rows, fail_rows, points = [], [], []
+    image_default = cfg().get("image_default", "vllm/vllm-openai:latest")
     for fn in sorted(os.listdir(RESULTS)):
         if not fn.endswith(".json"):
             continue
@@ -384,6 +490,10 @@ def report():
                      f"{agg32 or '—'} | {d.get('hw',{}).get('max_vram_gb','—')} | "
                      f"{d.get('hw',{}).get('mean_w','—')} | {d.get('tok_per_joule','—')} | "
                      f"{b.get('tool_call','—')} | OK |"))
+            if agg32 and d.get("tok_per_joule") and d.get("disk_gb"):
+                points.append({"name": d["repo"].split("/")[-1], "agg": agg32,
+                               "tokj": d["tok_per_joule"], "gb": d["disk_gb"],
+                               "cls": _tool_class(b.get("tool_call"))})
         else:
             fail_rows.append((d["repo"], f"| {d['repo']} | {d.get('disk_gb','—')} | "
                      f"{d['status']} | {fail_reason(d)} |"))
@@ -395,10 +505,26 @@ def report():
         table += ("\n\n**Did not serve on this rig** — no throughput data; recorded with cause:\n\n"
                   "| model | GB | status | identified cause |\n|---|---|---|---|\n"
                   + "\n".join(r for _, r in fail_rows))
+
+    render_chart(points)
+    served, failed = len(ok_rows), len(fail_rows)
+    img_tag = image_default.split("/")[-1]  # e.g. vllm-openai:nightly → nightly
+    if ":" in img_tag:
+        img_tag = img_tag.split(":")[-1]
+    summary = (f"**{served + failed} models tested · {served} served · {failed} did-not-serve · "
+               f"vLLM `{img_tag}` · updated {time.strftime('%Y-%m-%d', time.gmtime())}**")
+    chart = "![Efficiency: aggregate throughput vs tokens-per-joule](assets/efficiency.svg)"
+
     rd = os.path.join(HERE, "README.md")
     txt = open(rd).read()
-    txt = re.sub(r"(<!--RESULTS:BEGIN-->).*(<!--RESULTS:END-->)",
-                 lambda m: m.group(1) + "\n" + table + "\n" + m.group(2), txt, flags=re.S)
+
+    def inject(name, content):
+        return re.sub(rf"(<!--{name}:BEGIN-->).*(<!--{name}:END-->)",
+                      lambda m: m.group(1) + "\n" + content + "\n" + m.group(2), txt, flags=re.S)
+
+    txt = inject("SUMMARY", summary)
+    txt = inject("CHART", chart)
+    txt = inject("RESULTS", table)
     open(rd, "w").write(txt)
 
 

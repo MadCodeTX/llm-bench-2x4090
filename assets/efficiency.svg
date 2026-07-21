@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="520" viewBox="0 0 940 520" font-family="-apple-system,Segoe UI,Roboto,sans-serif">
+<rect x="0" y="0" width="940" height="520" rx="10" fill="#fbfbfc" stroke="#d7dae0"/>
+<text x="74" y="30" font-size="19" font-weight="700" fill="#1b1f24">Inference efficiency on 2×RTX 4090 — throughput vs energy</text>
+<text x="74" y="49" font-size="12.5" fill="#5b616b">each dot = one served model · dot size scales with weights on disk · upper-right is better</text>
+<line x1="74.0" y1="66" x2="74.0" y2="450" stroke="#e6e8eb"/>
+<text x="74.0" y="468" font-size="11" fill="#5b616b" text-anchor="middle">0</text>
+<line x1="74" y1="450.0" x2="728" y2="450.0" stroke="#e6e8eb"/>
+<text x="66" y="454.0" font-size="11" fill="#5b616b" text-anchor="end">0</text>
+<line x1="204.8" y1="66" x2="204.8" y2="450" stroke="#e6e8eb"/>
+<text x="204.8" y="468" font-size="11" fill="#5b616b" text-anchor="middle">1,504</text>
+<line x1="74" y1="373.2" x2="728" y2="373.2" stroke="#e6e8eb"/>
+<text x="66" y="377.2" font-size="11" fill="#5b616b" text-anchor="end">5</text>
+<line x1="335.6" y1="66" x2="335.6" y2="450" stroke="#e6e8eb"/>
+<text x="335.6" y="468" font-size="11" fill="#5b616b" text-anchor="middle">3,008</text>
+<line x1="74" y1="296.4" x2="728" y2="296.4" stroke="#e6e8eb"/>
+<text x="66" y="300.4" font-size="11" fill="#5b616b" text-anchor="end">11</text>
+<line x1="466.4" y1="66" x2="466.4" y2="450" stroke="#e6e8eb"/>
+<text x="466.4" y="468" font-size="11" fill="#5b616b" text-anchor="middle">4,512</text>
+<line x1="74" y1="219.6" x2="728" y2="219.6" stroke="#e6e8eb"/>
+<text x="66" y="223.6" font-size="11" fill="#5b616b" text-anchor="end">16</text>
+<line x1="597.2" y1="66" x2="597.2" y2="450" stroke="#e6e8eb"/>
+<text x="597.2" y="468" font-size="11" fill="#5b616b" text-anchor="middle">6,017</text>
+<line x1="74" y1="142.8" x2="728" y2="142.8" stroke="#e6e8eb"/>
+<text x="66" y="146.8" font-size="11" fill="#5b616b" text-anchor="end">22</text>
+<line x1="728.0" y1="66" x2="728.0" y2="450" stroke="#e6e8eb"/>
+<text x="728.0" y="468" font-size="11" fill="#5b616b" text-anchor="middle">7,521</text>
+<line x1="74" y1="66.0" x2="728" y2="66.0" stroke="#e6e8eb"/>
+<text x="66" y="70.0" font-size="11" fill="#5b616b" text-anchor="end">27</text>
+<line x1="74" y1="450" x2="728" y2="450" stroke="#b7bcc4"/>
+<line x1="74" y1="66" x2="74" y2="450" stroke="#b7bcc4"/>
+<text x="401.0" y="496" font-size="12.5" fill="#1b1f24" text-anchor="middle">aggregate throughput @ 32 concurrent streams (tok/s)</text>
+<text x="22" y="258.0" font-size="12.5" fill="#1b1f24" text-anchor="middle" transform="rotate(-90 22 258.0)">efficiency — tokens per joule</text>
+<circle cx="235.7" cy="376.8" r="14.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="140.6" cy="426.5" r="14.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="153.4" cy="426.0" r="14.2" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="152.3" cy="424.0" r="13.9" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="169.8" cy="421.7" r="13.7" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="282.5" cy="364.3" r="13.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="170.9" cy="418.1" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="170.4" cy="419.4" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="252.4" cy="361.1" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="172.5" cy="418.3" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="159.7" cy="419.1" r="12.5" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="181.7" cy="416.6" r="12.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="219.4" cy="400.5" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="210.4" cy="397.7" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="180.9" cy="416.3" r="11.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="287.0" cy="354.0" r="11.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="212.9" cy="394.1" r="10.2" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="219.4" cy="390.8" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="220.4" cy="389.6" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="281.9" cy="365.3" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="314.8" cy="365.8" r="9.3" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="280.1" cy="366.0" r="8.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="342.7" cy="337.4" r="8.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="608.3" cy="155.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="691.0" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<text x="681.0" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
+<text x="598.3" y="159.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
+<text x="352.7" y="340.9" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
+<text x="297.0" y="357.5" font-size="10.5" fill="#1b1f24" text-anchor="start">LFM2.5-8B-A1B</text>
+<text x="150.6" y="430.0" font-size="10.5" fill="#1b1f24" text-anchor="start">Qwen3-32B-FP8</text>
+<text x="752" y="72" font-size="11.5" font-weight="700" fill="#1b1f24">tool-call support</text>
+<circle cx="758" cy="88.0" r="6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff"/>
+<text x="772" y="92" font-size="11" fill="#3b414a">tool-calls parsed</text>
+<circle cx="758" cy="108.0" r="6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff"/>
+<text x="772" y="112" font-size="11" fill="#3b414a">no / unconfigured</text>
+<circle cx="758" cy="128.0" r="6" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff"/>
+<text x="772" y="132" font-size="11" fill="#3b414a">tool test errored</text>
+<text x="752" y="166" font-size="11.5" font-weight="700" fill="#1b1f24">dot size = GB on disk</text>
+<circle cx="764" cy="184.0" r="6.9" fill="#8a8f98" fill-opacity="0.5" stroke="#ffffff"/>
+<text x="782" y="188" font-size="11" fill="#3b414a">2 GB</text>
+<circle cx="764" cy="206.0" r="10.4" fill="#8a8f98" fill-opacity="0.5" stroke="#ffffff"/>
+<text x="782" y="210" font-size="11" fill="#3b414a">12 GB</text>
+<circle cx="764" cy="228.0" r="14.1" fill="#8a8f98" fill-opacity="0.5" stroke="#ffffff"/>
+<text x="782" y="232" font-size="11" fill="#3b414a">32 GB</text>
+</svg>
