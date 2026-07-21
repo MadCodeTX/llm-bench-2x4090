@@ -138,15 +138,22 @@ def hub_dir(repo):
 
 
 def find_gguf(repo, pattern):
-    """Locate a downloaded GGUF in the HF cache. Returns the first shard for
-    multi-shard quants (llama.cpp auto-loads its siblings). Returns None if absent."""
+    """Locate a downloaded GGUF in the HF cache. Skips MTP/draft/mmproj side-files
+    (e.g. unsloth's `MTP/mtp-*.gguf` multi-token-prediction drafts, which aren't
+    servable standalone), prefers the main checkpoint at the snapshot root, and
+    returns the first shard of a multi-shard quant. Returns None if absent."""
     import glob
-    hits = sorted(glob.glob(os.path.join(hub_dir(repo), "snapshots", "*", "**", pattern),
-                            recursive=True))
-    if not hits:
-        return None
-    first = [h for h in hits if "00001-of-" in h]
-    return (first or hits)[0]
+    hits = glob.glob(os.path.join(hub_dir(repo), "snapshots", "*", "**", pattern), recursive=True)
+
+    def is_aux(h):
+        low, b = h.lower(), os.path.basename(h).lower()
+        return ("/mtp/" in low or "/draft/" in low or b.startswith("mtp-")
+                or "mmproj" in b or "draft" in b)
+
+    main = [h for h in hits if not is_aux(h)] or hits
+    # prefer shallowest path (root over subfolders), then first shard, then name order
+    main.sort(key=lambda h: (h.count(os.sep), "00001-of-" not in h, h))
+    return main[0] if main else None
 
 
 def serve_attempt(repo, image, util, maxlen, flags, env=None):
