@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**39 configs tested · 27 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**40 configs tested · 28 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -62,6 +62,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 622.3 | 71804 | 1205 | 0.9 | 261 | 4.62 | no_structured_call |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
 | google/gemma-4-12b-it | vllm | native | 23.9 | 62.6 | 4611 | 1114 | 22.4 | 498 | 2.24 | ok |
 | yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2 | vllm | native | 23.9 | 62.5 | 4399 | 1108 | 22.4 | 516 | 2.15 | ok |
@@ -103,6 +104,7 @@ bases served by more than one engine are shown.
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 622.3 | 1205 | 0.9 | 4.62 | no_structured_call |
+| llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | 1.1 | 4.63 | ok |
 | sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.7 | 3906 | 22.1 | 14.2 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.3 | 7095 | 22.5 | 24.55 | not_configured |
 <!--XENGINE:END-->
