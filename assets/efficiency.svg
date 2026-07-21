@@ -82,12 +82,12 @@
 <polygon points="111.5,427.4 103.3,441.6 119.8,441.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="614.1" cy="124.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="691.0" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="671.7" y="120.1" width="14.0" height="14.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="683.2" y="126.4" width="14.0" height="14.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <polygon points="175.4,370.9 169.0,381.8 181.7,381.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <polygon points="184.2,374.9 178.3,385.1 190.2,385.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <text x="681.0" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
 <text x="604.1" y="128.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
-<text x="668.8" y="130.7" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
+<text x="680.2" y="136.9" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
 <text x="355.6" y="329.0" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
 <text x="92.6" y="449.9" font-size="10.5" fill="#1b1f24" text-anchor="start">Qwen3.6-27B-GGUF</text>
 <text x="752" y="72" font-size="11.5" font-weight="700" fill="#1b1f24">tool-call support</text>

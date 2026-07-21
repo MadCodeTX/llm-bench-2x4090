@@ -44,7 +44,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | model | engine | quant | GB | 1-stream tok/s | prefill tok/s | agg tok/s | VRAM GB | mean W | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 2.2 | 413.2 | 27216 | 7019 | 22.5 | 316 | 22.21 | not_configured |
-| openbmb/MiniCPM5-1B | sglang | native | 2.2 | 512.0 | 29213 | 6880 | 23.3 | 335 | 20.54 | no_structured_call |
+| openbmb/MiniCPM5-1B | sglang | native | 2.2 | 511.7 | 29523 | 7010 | 23.3 | 348 | 20.14 | no_structured_call |
 | LiquidAI/LFM2.5-1.2B-Instruct | vllm | native | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | vllm | native | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | vllm | native | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured |
@@ -144,7 +144,7 @@ bases served by more than one engine are shown.
 |---|---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 633.6 | 1254 | 338.1 | 0.9 | 4.4 | no_structured_call |
 | llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | — | 1.1 | 4.63 | ok |
-| sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 512.0 | 6880 | 952.3 | 23.3 | 20.54 | no_structured_call |
+| sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 511.7 | 7010 | 939.2 | 23.3 | 20.14 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.2 | 7019 | 956.7 | 22.5 | 22.21 | not_configured |
 
 **Ornith-1.0-9B**
@@ -209,7 +209,7 @@ comparable:
 | model | engine | quant | summarize docs/min | extract docs/min | JSON valid % | RAG q/min | needle hit % |
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 956.7 | — | — | — | — |
-| openbmb/MiniCPM5-1B | sglang | native | 952.3 | 955.6 | 0 | 283.5 | 0 |
+| openbmb/MiniCPM5-1B | sglang | native | 939.2 | 468.9 | 27 | 130.7 | 100 |
 | openai/gpt-oss-20b | vllm | native | 377.5 | — | — | — | — |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.1 | 122.1 | 22 | 153.2 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 286.8 | 360.8 | 100 | 78.5 | 100 |

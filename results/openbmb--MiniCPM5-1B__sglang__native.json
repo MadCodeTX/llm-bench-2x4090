@@ -3,7 +3,7 @@
   "base": "MiniCPM5-1B",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 19:11 UTC",
+  "ts": "2026-07-21 19:43 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
@@ -15,47 +15,47 @@
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 512.0,
+    "single_stream_toks": 511.7,
     "battery_mode": "full",
     "ttft_s": 0.01,
     "prefill": {
-      "prompt_tok": 7009,
-      "toks": 29213
+      "prompt_tok": 7011,
+      "toks": 29523
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 6880
+        "agg_toks": 7010
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 2.8,
-      "docs_per_min": 952.3,
-      "out_toks_per_s": 2540,
-      "mean_latency_s": 1.42,
-      "p95_latency_s": 1.47
+      "wall_s": 2.9,
+      "docs_per_min": 939.2,
+      "out_toks_per_s": 2504,
+      "mean_latency_s": 1.44,
+      "p95_latency_s": 1.5
     },
     "workload_extract": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 2.8,
-      "docs_per_min": 955.6,
-      "json_valid_pct": 0
+      "wall_s": 5.8,
+      "docs_per_min": 468.9,
+      "json_valid_pct": 27
     },
     "workload_longctx": {
-      "queries": 20,
-      "concurrency": 8,
+      "queries": 12,
+      "concurrency": 1,
       "ctx_articles": 6,
-      "wall_s": 4.2,
-      "queries_per_min": 283.5,
-      "needle_hit_pct": 0
+      "wall_s": 5.5,
+      "queries_per_min": 130.7,
+      "needle_hit_pct": 100
     },
     "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 335,
+    "mean_w": 348,
     "max_w": 429,
     "max_vram_gb": 23.3,
     "power_limit_w": [
@@ -63,5 +63,5 @@
       340
     ]
   },
-  "tok_per_joule": 20.54
+  "tok_per_joule": 20.14
 }
