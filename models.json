@@ -516,7 +516,8 @@
       "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
       "gguf_pattern": "*Q8_0.gguf",
       "ctx": 8192,
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8",
