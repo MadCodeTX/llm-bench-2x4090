@@ -1,40 +1,52 @@
 {
   "repo": "google/gemma-4-12b-it",
-  "ts": "2026-07-20 03:49 UTC",
+  "base": "gemma-4-12b-it",
+  "engine": "vllm",
+  "quant": "native",
+  "ts": "2026-07-21 18:33 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--enable-auto-tool-choice --reasoning-parser gemma4 --tool-call-parser gemma4",
   "status": "ok",
   "disk_gb": 23.9,
-  "download_s": 568.1,
+  "download_s": 1.5,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
   },
-  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "engine_version": "0.22.1rc1.dev392+g43914dd74",
   "battery": {
-    "single_stream_toks": 62.6,
-    "ttft_s": 0.05,
+    "single_stream_toks": 62.3,
+    "battery_mode": "full",
+    "ttft_s": 0.06,
     "prefill": {
       "prompt_tok": 15026,
-      "toks": 4611
+      "toks": 4624
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1114
+        "agg_toks": 1113
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 15.1,
+      "docs_per_min": 179.2,
+      "out_toks_per_s": 252,
+      "mean_latency_s": 7.6,
+      "p95_latency_s": 12.46
+    },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 498,
-    "max_w": 570,
+    "mean_w": 511,
+    "max_w": 573,
     "max_vram_gb": 22.4,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 2.24,
-  "base": "gemma-4-12b-it"
+  "tok_per_joule": 2.18
 }

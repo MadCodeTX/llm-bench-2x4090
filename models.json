@@ -704,7 +704,8 @@
       "base": "Ornith-1.0-9B",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "google/gemma-4-12b-it",

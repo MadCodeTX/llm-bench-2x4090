@@ -69,7 +69,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
 | google/gemma-4-12b-it | sglang | native | 23.9 | 60.5 | 4759 | 1150 | 23.5 | 458 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
-| google/gemma-4-12b-it | vllm | native | 23.9 | 62.6 | 4611 | 1114 | 22.4 | 498 | 2.24 | ok |
+| google/gemma-4-12b-it | vllm | native | 23.9 | 62.3 | 4624 | 1113 | 22.4 | 511 | 2.18 | ok |
 | yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2 | vllm | native | 23.9 | 62.5 | 4399 | 1108 | 22.4 | 516 | 2.15 | ok |
 | microsoft/phi-4 | vllm | native | 29.3 | 58.3 | 4481 | 1102 | 20.8 | 553 | 1.99 | not_configured |
 | nvidia/Qwen3.6-27B-NVFP4 | vllm | native | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
@@ -177,7 +177,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
 | llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
 | sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.5 | 1150 | — | 23.5 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
-| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | — | 22.4 | 2.24 | ok |
+| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.3 | 1113 | 179.2 | 22.4 | 2.18 | ok |
 
 **gpt-oss-20b**
 
@@ -207,6 +207,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
+| google/gemma-4-12b-it | vllm | native | 179.2 | 252 | 7.6 | 12.46 | 24 |
 | openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |
 <!--WORKLOAD:END-->
