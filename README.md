@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**51 configs tested · 39 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**52 configs tested · 40 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -82,6 +82,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.0 | 3847 | 136 | 9.0 | 502 | 0.27 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q5_K_M | 19.5 | 42.6 | 3682 | 122 | 10.1 | 504 | 0.24 | ok |
+| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q8_0 | 28.6 | 30.8 | 3561 | 98 | 14.1 | 427 | 0.23 | ok |
 
 **Did not serve on this rig** — no throughput data; recorded with cause:
 
@@ -135,6 +136,7 @@ bases served by more than one engine are shown.
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.0 | 136 | 9.0 | 0.27 | ok |
 | llamacpp | Q5_K_M | `unsloth/Qwen3.6-27B-GGUF` | 19.5 | 42.6 | 122 | 10.1 | 0.24 | ok |
+| llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | 14.1 | 0.23 | ok |
 | vllm | native | `nvidia/Qwen3.6-27B-NVFP4` | 21.9 | 69.8 | 986 | 23.4 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
 | vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 900 | 22.3 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 
