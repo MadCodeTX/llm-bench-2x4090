@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**40 configs tested · 28 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**40 configs tested · 29 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -71,6 +71,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/Gemma-4-31B-IT-NVFP4 | vllm | native | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3-32B-FP8 | vllm | native | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call |
+| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
 
 **Did not serve on this rig** — no throughput data; recorded with cause:
 
@@ -85,7 +86,6 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-E2B-it-assistant | vllm | native | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
 | google/gemma-4-E4B-it-assistant | vllm | native | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
 | lewtun/talkie-1930-13b-it-hf | vllm | native | 26.6 | serve_failed | arch `TalkieForCausalLM` — not compatible with vLLM (incl. Transformers backend) |
-| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q5_K_M | — | error | RuntimeError('gguf not found after download: *Q5_K_M.gguf in openbmb/MiniCPM5-1B-GGUF') |
 | pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | vllm | native | 11.7 | serve_failed | defective NVFP4 requant — MarlinNvFp4 weight-load crash on TP worker (official RedHatAI NVFP4 works) |
 | z-lab/Qwen3-8B-DFlash-b16 | vllm | native | 2.1 | serve_failed | speculative-decoding draft model (`DFlashDraftModel`) — not standalone-servable |
 <!--RESULTS:END-->
@@ -107,6 +107,13 @@ bases served by more than one engine are shown.
 | llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | 1.1 | 4.63 | ok |
 | sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.7 | 3906 | 22.1 | 14.2 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.3 | 7095 | 22.5 | 24.55 | not_configured |
+
+**Ornith-1.0-9B**
+
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.1 | 363 | 3.4 | 0.82 | ok |
+| vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | 21.7 | 3.48 | not_configured |
 <!--XENGINE:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
