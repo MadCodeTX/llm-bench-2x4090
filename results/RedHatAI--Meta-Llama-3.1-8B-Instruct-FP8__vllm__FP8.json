@@ -3,12 +3,12 @@
   "base": "Llama-3.1-8B",
   "engine": "vllm",
   "quant": "FP8",
-  "ts": "2026-07-21 16:12 UTC",
+  "ts": "2026-07-21 18:43 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "",
   "status": "ok",
   "disk_gb": 9.1,
-  "download_s": 1.2,
+  "download_s": 1.5,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
@@ -17,27 +17,36 @@
   "battery": {
     "single_stream_toks": 147.9,
     "battery_mode": "full",
-    "ttft_s": 0.05,
+    "ttft_s": 0.03,
     "prefill": {
       "prompt_tok": 15047,
-      "toks": 7868
+      "toks": 7921
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1277
+        "agg_toks": 1658
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 9.4,
+      "docs_per_min": 288.6,
+      "out_toks_per_s": 598,
+      "mean_latency_s": 4.72,
+      "p95_latency_s": 7.63
+    },
     "tool_call": "not_configured"
   },
   "hw": {
-    "mean_w": 405,
-    "max_w": 464,
+    "mean_w": 411,
+    "max_w": 467,
     "max_vram_gb": 22.3,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 3.15
+  "tok_per_joule": 4.03
 }
