@@ -3,50 +3,65 @@
   "base": "gemma-4-12b-it",
   "engine": "vllm",
   "quant": "native",
-  "ts": "2026-07-21 18:33 UTC",
+  "ts": "2026-07-21 20:14 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--enable-auto-tool-choice --reasoning-parser gemma4 --tool-call-parser gemma4",
   "status": "ok",
   "disk_gb": 23.9,
-  "download_s": 1.5,
+  "download_s": 1.3,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
   },
   "engine_version": "0.22.1rc1.dev392+g43914dd74",
   "battery": {
-    "single_stream_toks": 62.3,
+    "single_stream_toks": 62.4,
     "battery_mode": "full",
-    "ttft_s": 0.06,
+    "ttft_s": 0.05,
     "prefill": {
-      "prompt_tok": 15026,
-      "toks": 4624
+      "prompt_tok": 15025,
+      "toks": 4620
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1113
+        "agg_toks": 1112
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 15.1,
-      "docs_per_min": 179.2,
-      "out_toks_per_s": 252,
-      "mean_latency_s": 7.6,
-      "p95_latency_s": 12.46
+      "wall_s": 14.9,
+      "docs_per_min": 181.8,
+      "out_toks_per_s": 251,
+      "mean_latency_s": 7.58,
+      "p95_latency_s": 12.71
+    },
+    "workload_extract": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 14.1,
+      "docs_per_min": 191.6,
+      "json_valid_pct": 100
+    },
+    "workload_longctx": {
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 18.3,
+      "queries_per_min": 39.3,
+      "needle_hit_pct": 100
     },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 511,
-    "max_w": 573,
+    "mean_w": 524,
+    "max_w": 574,
     "max_vram_gb": 22.4,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 2.18
+  "tok_per_joule": 2.12
 }

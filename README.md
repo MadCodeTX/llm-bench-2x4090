@@ -69,7 +69,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
 | google/gemma-4-12b-it | sglang | native | 23.9 | 60.7 | 4761 | 1141 | 23.5 | 539 | 2.12 | no_structured_call |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
-| google/gemma-4-12b-it | vllm | native | 23.9 | 62.3 | 4624 | 1113 | 22.4 | 511 | 2.18 | ok |
+| google/gemma-4-12b-it | vllm | native | 23.9 | 62.4 | 4620 | 1112 | 22.4 | 524 | 2.12 | ok |
 | yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2 | vllm | native | 23.9 | 62.5 | 4399 | 1108 | 22.4 | 516 | 2.15 | ok |
 | microsoft/phi-4 | vllm | native | 29.3 | 58.3 | 4481 | 1102 | 20.8 | 553 | 1.99 | not_configured |
 | nvidia/Qwen3.6-27B-NVFP4 | vllm | native | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
@@ -177,7 +177,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
 | llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
 | sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.7 | 1141 | 173.0 | 23.5 | 2.12 | no_structured_call |
-| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.3 | 1113 | 179.2 | 22.4 | 2.18 | ok |
+| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.4 | 1112 | 181.8 | 22.4 | 2.12 | ok |
 
 **gpt-oss-20b**
 
@@ -216,7 +216,7 @@ comparable:
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 276.7 | 351.4 | 100 | 65.6 | 100 |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.8 | 110.2 | 36 | 13.6 | 92 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 203.1 | 107.4 | 38 | 14.5 | 92 |
-| google/gemma-4-12b-it | vllm | native | 179.2 | — | — | — | — |
+| google/gemma-4-12b-it | vllm | native | 181.8 | 191.6 | 100 | 39.3 | 100 |
 | google/gemma-4-12b-it | sglang | native | 173.0 | 182.7 | 100 | 37.8 | 100 |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | — | — | — | — |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | — | — | — | — |
