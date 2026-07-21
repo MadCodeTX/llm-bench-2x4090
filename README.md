@@ -92,7 +92,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q8_0 | 36.9 | 158.7 | 11149 | 307 | 18.3 | 317 | 0.97 | ok |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 30.9 | 36.9 | 2803 | 298 | 23.5 | 518 | 0.58 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q8_0 | 9.5 | 92.5 | 13779 | 273 | 5.0 | 389 | 0.7 | ok |
-| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9813 | 270 | 4.8 | 448 | 0.6 | ok |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.3 | 9814 | 273 | 4.8 | 456 | 0.6 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | 61.7 | 10086 | 198 | 7.6 | 390 | 0.51 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.1 | 3850 | 136 | 9.0 | 515 | 0.26 | ok |
@@ -173,7 +173,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 270 | 63.6 | 4.8 | 0.6 | ok |
+| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.3 | 273 | 63.8 | 4.8 | 0.6 | ok |
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
 | llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
 | sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.7 | 1141 | 173.0 | 23.5 | 2.12 | no_structured_call |
@@ -223,7 +223,7 @@ comparable:
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 96.4 | 40.3 | 49 | 17.8 | 100 |
 | openai/gpt-oss-20b | sglang | native | 90.3 | 53.1 | 100 | 22.2 | 100 |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | 51.0 | 0 | 8.6 | 100 |
-| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | — | — | — | — |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.8 | 27.7 | 96 | 23.1 | 100 |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.5 | 24.3 | 80 | 8.7 | 100 |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.9 | 17.7 | 20 | — | — |
 <!--WORKLOAD:END-->
