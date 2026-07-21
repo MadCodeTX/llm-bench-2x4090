@@ -933,7 +933,8 @@
       "base": "gpt-oss-20b",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "Qwen/Qwen3.6-27B-FP8",

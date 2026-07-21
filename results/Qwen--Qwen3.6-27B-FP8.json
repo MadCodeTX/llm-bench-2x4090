@@ -3,7 +3,7 @@
   "base": "Qwen3.6-27B",
   "engine": "vllm",
   "quant": "native",
-  "ts": "2026-07-21 18:38 UTC",
+  "ts": "2026-07-21 20:20 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--reasoning-parser qwen3 --enable-auto-tool-choice --tool-parser-plugin /plugins/qwen3_coder_fixed.py --tool-call-parser qwen3_coder_fixed --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
   "status": "ok",
@@ -17,15 +17,15 @@
   "battery": {
     "single_stream_toks": 53.7,
     "battery_mode": "full",
-    "ttft_s": 0.05,
+    "ttft_s": 0.07,
     "prefill": {
-      "prompt_tok": 15021,
+      "prompt_tok": 15020,
       "toks": 2481
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 885
+        "agg_toks": 886
       }
     ],
     "workload_summarize": {
@@ -33,20 +33,35 @@
       "concurrency": 24,
       "wall_s": 30.6,
       "docs_per_min": 88.3,
-      "out_toks_per_s": 236,
-      "mean_latency_s": 15.56,
-      "p95_latency_s": 19.7
+      "out_toks_per_s": 235,
+      "mean_latency_s": 15.58,
+      "p95_latency_s": 19.72
+    },
+    "workload_extract": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 52.9,
+      "docs_per_min": 51.0,
+      "json_valid_pct": 0
+    },
+    "workload_longctx": {
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 83.7,
+      "queries_per_min": 8.6,
+      "needle_hit_pct": 100
     },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 508,
-    "max_w": 556,
+    "mean_w": 529,
+    "max_w": 553,
     "max_vram_gb": 22.3,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 1.74
+  "tok_per_joule": 1.67
 }

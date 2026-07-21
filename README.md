@@ -74,7 +74,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | microsoft/phi-4 | vllm | native | 29.3 | 58.3 | 4481 | 1102 | 20.8 | 553 | 1.99 | not_configured |
 | nvidia/Qwen3.6-27B-NVFP4 | vllm | native | 21.9 | 69.8 | 2609 | 986 | 23.4 | 454 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
 | nvidia/Gemma-4-31B-IT-NVFP4 | vllm | native | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> |
-| Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2481 | 885 | 22.3 | 508 | 1.74 | ok |
+| Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2481 | 886 | 22.3 | 529 | 1.67 | ok |
 | Qwen/Qwen3-32B-FP8 | vllm | native | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 11.6 | 264.5 | 20150 | 445 | 6.1 | 414 | 1.07 | ok |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q8_0 | 12.1 | 246.3 | 20579 | 445 | 6.2 | 391 | 1.14 | ok |
@@ -167,7 +167,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | — | 14.1 | 0.23 | ok |
 | sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 36.9 | 298 | 57.5 | 23.5 | 0.58 | no_structured_call |
 | vllm | native | `nvidia/Qwen3.6-27B-NVFP4` | 21.9 | 69.8 | 986 | — | 23.4 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
-| vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 885 | 88.3 | 22.3 | 1.74 | ok |
+| vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 886 | 88.3 | 22.3 | 1.67 | ok |
 
 **gemma-4-12b-it**
 
@@ -222,7 +222,7 @@ comparable:
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | — | — | — | — |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | — | — | — | — |
 | openai/gpt-oss-20b | sglang | native | 90.3 | 53.1 | 100 | 22.2 | 100 |
-| Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | — | — | — | — |
+| Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | 51.0 | 0 | 8.6 | 100 |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | — | — | — | — |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.5 | 24.3 | 80 | 8.7 | 100 |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.9 | 17.7 | 20 | — | — |
