@@ -1,0 +1,46 @@
+{
+  "repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+  "base": "Ornith-1.0-9B",
+  "engine": "llamacpp",
+  "quant": "Q6_K",
+  "ts": "2026-07-21 15:34 UTC",
+  "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
+  "flags": "",
+  "status": "ok",
+  "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+  "gguf_pattern": "*Q6_K.gguf",
+  "download_s": 1.6,
+  "disk_gb": 7.4,
+  "serve_config": {
+    "ctx_size": 8192,
+    "ngl": 999,
+    "n_cpu_moe": null,
+    "kv": "f16"
+  },
+  "battery": {
+    "single_stream_toks": 112.4,
+    "battery_mode": "full",
+    "ttft_s": 0.09,
+    "prefill": {
+      "prompt_tok": 7010,
+      "toks": 12196
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 314
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 460,
+    "max_w": 504,
+    "max_vram_gb": 4.1,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 0.68
+}
