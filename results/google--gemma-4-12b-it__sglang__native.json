@@ -3,44 +3,50 @@
   "base": "gemma-4-12b-it",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 18:15 UTC",
+  "ts": "2026-07-21 18:56 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
   "disk_gb": 23.9,
-  "download_s": 1.4,
+  "download_s": 1.6,
   "serve_config": {
     "mem_fraction_static": 0.9,
     "context_length": 8192
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 60.5,
+    "single_stream_toks": 60.6,
     "battery_mode": "full",
     "ttft_s": 0.04,
     "prefill": {
-      "prompt_tok": 7016,
-      "toks": 4759
+      "prompt_tok": 7015,
+      "toks": 4766
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1150
+        "agg_toks": 1155
       }
     ],
     "workload_summarize": {
-      "error": "<HTTPError 500: 'Internal Server Error'>"
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 15.7,
+      "docs_per_min": 171.6,
+      "out_toks_per_s": 243,
+      "mean_latency_s": 7.99,
+      "p95_latency_s": 13.31
     },
-    "tool_call": "error: ConnectionResetError(104, 'Connection reset by peer')"
+    "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 458,
-    "max_w": 598,
+    "mean_w": 531,
+    "max_w": 602,
     "max_vram_gb": 23.5,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 2.51
+  "tok_per_joule": 2.18
 }

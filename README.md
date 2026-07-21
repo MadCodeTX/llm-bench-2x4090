@@ -66,8 +66,8 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 628.7 | 72754 | 1217 | 0.9 | 271 | 4.49 | ok |
+| google/gemma-4-12b-it | sglang | native | 23.9 | 60.6 | 4766 | 1155 | 23.5 | 531 | 2.18 | no_structured_call |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
-| google/gemma-4-12b-it | sglang | native | 23.9 | 60.5 | 4759 | 1150 | 23.5 | 458 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
 | google/gemma-4-12b-it | vllm | native | 23.9 | 62.3 | 4624 | 1113 | 22.4 | 511 | 2.18 | ok |
 | yuxinlu1/gemma-4-12B-agentic-fable5-composer2.5-v2-3.5x-tau2 | vllm | native | 23.9 | 62.5 | 4399 | 1108 | 22.4 | 516 | 2.15 | ok |
@@ -176,7 +176,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 270 | 63.6 | 4.8 | 0.6 | ok |
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
 | llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
-| sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.5 | 1150 | — | 23.5 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
+| sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.6 | 1155 | 171.6 | 23.5 | 2.18 | no_structured_call |
 | vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.3 | 1113 | 179.2 | 22.4 | 2.18 | ok |
 
 **gpt-oss-20b**
@@ -211,6 +211,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
 | google/gemma-4-12b-it | vllm | native | 179.2 | 252 | 7.6 | 12.46 | 24 |
+| google/gemma-4-12b-it | sglang | native | 171.6 | 243 | 7.99 | 13.31 | 24 |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | 283 | 7.93 | 10.82 | 24 |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | 351 | 8.36 | 10.88 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | 255 | 11.4 | 14.78 | 24 |
