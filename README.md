@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**44 configs tested · 33 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**45 configs tested · 34 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -76,6 +76,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q6_K | 7.4 | 112.4 | 12196 | 314 | 4.1 | 460 | 0.68 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q8_0 | 9.5 | 92.5 | 13779 | 273 | 5.0 | 389 | 0.7 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9736 | 271 | 4.8 | 450 | 0.6 | ok |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 
 **Did not serve on this rig** — no throughput data; recorded with cause:
 
@@ -127,6 +128,7 @@ bases served by more than one engine are shown.
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | 4.8 | 0.6 | ok |
+| llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | 5.5 | 0.57 | ok |
 | vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | 22.4 | 2.24 | ok |
 <!--XENGINE:END-->
 
