@@ -58,8 +58,8 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-12b-it-qat-w4a16-ct | vllm | native | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok |
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6741 | 1672 | 21.7 | 481 | 3.48 | not_configured |
+| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5593 | 1639 | 23.3 | 477 | 3.44 | no_structured_call |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
-| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 7000 | 1568 | 21.7 | 464 | 3.38 | no_structured_call |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 7886 | 1411 | 22.3 | 415 | 3.4 | no_structured_call |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 147.9 | 7868 | 1277 | 22.3 | 405 | 3.15 | not_configured |
@@ -155,7 +155,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | — | 3.8 | 0.75 | ok |
 | llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | — | 4.1 | 0.68 | ok |
 | llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | — | 5.0 | 0.7 | ok |
-| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1568 | — | 21.7 | 3.38 | no_structured_call |
+| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1639 | 202.7 | 23.3 | 3.44 | no_structured_call |
 | vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | — | 21.7 | 3.48 | not_configured |
 
 **Qwen3.6-27B**
@@ -203,6 +203,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
+| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
 <!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
