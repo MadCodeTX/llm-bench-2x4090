@@ -1,0 +1,43 @@
+{
+  "repo": "google/gemma-4-12b-it",
+  "base": "gemma-4-12b-it",
+  "engine": "sglang",
+  "quant": "native",
+  "ts": "2026-07-21 16:42 UTC",
+  "image": "lmsysorg/sglang:latest",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 23.9,
+  "download_s": 1.5,
+  "serve_config": {
+    "mem_fraction_static": 0.85,
+    "context_length": 32768
+  },
+  "engine_version": "0.5.15.post1",
+  "battery": {
+    "single_stream_toks": 60.6,
+    "battery_mode": "full",
+    "ttft_s": 0.04,
+    "prefill": {
+      "prompt_tok": 15025,
+      "toks": 4526
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 1119
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 477,
+    "max_w": 594,
+    "max_vram_gb": 22.1,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 2.35
+}
