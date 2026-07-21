@@ -949,7 +949,8 @@
       "base": "Llama-3.1-8B",
       "engine": "vllm",
       "quant": "FP8",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "openbmb/MiniCPM5-1B-GGUF",
