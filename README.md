@@ -65,7 +65,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
-| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 622.3 | 71804 | 1205 | 0.9 | 261 | 4.62 | no_structured_call |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 628.7 | 72754 | 1217 | 0.9 | 271 | 4.49 | ok |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
 | google/gemma-4-12b-it | sglang | native | 23.9 | 60.5 | 4759 | 1150 | 23.5 | 458 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
@@ -142,7 +142,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 622.3 | 1205 | — | 0.9 | 4.62 | no_structured_call |
+| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 628.7 | 1217 | 338.2 | 0.9 | 4.49 | ok |
 | llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | — | 1.1 | 4.63 | ok |
 | sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.1 | 7066 | 944.3 | 23.3 | 21.67 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.2 | 7019 | 956.7 | 22.5 | 22.21 | not_configured |
@@ -205,6 +205,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | openbmb/MiniCPM5-1B | vllm | native | 956.7 | 2551 | 1.41 | 1.49 | 24 |
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
 | openai/gpt-oss-20b | vllm | native | 377.5 | 1007 | 3.62 | 4.31 | 24 |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.2 | 902 | 3.26 | 4.2 | 24 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 288.6 | 598 | 4.72 | 7.63 | 24 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |

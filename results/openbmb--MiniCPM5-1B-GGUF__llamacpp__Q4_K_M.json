@@ -3,13 +3,13 @@
   "base": "MiniCPM5-1B",
   "engine": "llamacpp",
   "quant": "Q4_K_M",
-  "ts": "2026-07-21 15:24 UTC",
+  "ts": "2026-07-21 18:44 UTC",
   "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
   "flags": "",
   "status": "ok",
   "gguf_repo": "openbmb/MiniCPM5-1B-GGUF",
   "gguf_pattern": "*Q4_K_M.gguf",
-  "download_s": 29.0,
+  "download_s": 1.4,
   "disk_gb": 0.7,
   "serve_config": {
     "ctx_size": 8192,
@@ -18,29 +18,38 @@
     "kv": "f16"
   },
   "battery": {
-    "single_stream_toks": 622.3,
+    "single_stream_toks": 628.7,
     "battery_mode": "full",
     "ttft_s": 0.02,
     "prefill": {
-      "prompt_tok": 7012,
-      "toks": 71804
+      "prompt_tok": 7011,
+      "toks": 72754
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1205
+        "agg_toks": 1217
       }
     ],
-    "tool_call": "no_structured_call"
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 8.0,
+      "docs_per_min": 338.2,
+      "out_toks_per_s": 902,
+      "mean_latency_s": 3.26,
+      "p95_latency_s": 4.2
+    },
+    "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 261,
-    "max_w": 313,
+    "mean_w": 271,
+    "max_w": 307,
     "max_vram_gb": 0.9,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 4.62
+  "tok_per_joule": 4.49
 }
