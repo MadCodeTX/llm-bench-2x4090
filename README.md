@@ -59,7 +59,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6674 | 1664 | 21.7 | 494 | 3.37 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 8019 | 1656 | 23.0 | 422 | 3.92 | no_structured_call |
-| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5579 | 1638 | 23.3 | 492 | 3.33 | no_structured_call |
+| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5572 | 1645 | 23.3 | 531 | 3.1 | no_structured_call |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 148.1 | 7928 | 1281 | 22.3 | 410 | 3.12 | not_configured |
@@ -155,7 +155,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | — | 3.8 | 0.75 | ok |
 | llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | — | 4.1 | 0.68 | ok |
 | llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | — | 5.0 | 0.7 | ok |
-| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1638 | 202.8 | 23.3 | 3.33 | no_structured_call |
+| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1645 | 203.1 | 23.3 | 3.1 | no_structured_call |
 | vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1664 | 214.4 | 21.7 | 3.37 | not_configured |
 
 **Qwen3.6-27B**
@@ -215,7 +215,7 @@ comparable:
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 286.8 | 360.8 | 100 | 78.5 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | — | — | — | — |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | — | — | — | — |
-| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.8 | 207.0 | 0 | 60.6 | 0 |
+| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 203.1 | 107.4 | 38 | 14.5 | 92 |
 | google/gemma-4-12b-it | vllm | native | 179.2 | — | — | — | — |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | — | — | — | — |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | — | — | — | — |
