@@ -3,59 +3,59 @@
   "base": "Llama-3.1-8B",
   "engine": "vllm",
   "quant": "FP8",
-  "ts": "2026-07-21 19:08 UTC",
+  "ts": "2026-07-21 20:26 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "",
   "status": "ok",
   "disk_gb": 9.1,
-  "download_s": 1.4,
+  "download_s": 1.5,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
   },
   "engine_version": "0.22.1rc1.dev392+g43914dd74",
   "battery": {
-    "single_stream_toks": 148.1,
+    "single_stream_toks": 147.9,
     "battery_mode": "full",
-    "ttft_s": 0.03,
+    "ttft_s": 0.04,
     "prefill": {
-      "prompt_tok": 15046,
-      "toks": 7928
+      "prompt_tok": 15045,
+      "toks": 7948
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1281
+        "agg_toks": 1513
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
       "wall_s": 9.4,
-      "docs_per_min": 286.8,
-      "out_toks_per_s": 613,
-      "mean_latency_s": 4.75,
-      "p95_latency_s": 7.83
+      "docs_per_min": 288.1,
+      "out_toks_per_s": 606,
+      "mean_latency_s": 4.73,
+      "p95_latency_s": 7.49
     },
     "workload_extract": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 7.5,
-      "docs_per_min": 360.8,
+      "wall_s": 7.4,
+      "docs_per_min": 363.1,
       "json_valid_pct": 100
     },
     "workload_longctx": {
-      "queries": 20,
-      "concurrency": 8,
+      "queries": 12,
+      "concurrency": 1,
       "ctx_articles": 6,
-      "wall_s": 15.3,
-      "queries_per_min": 78.5,
+      "wall_s": 10.1,
+      "queries_per_min": 71.3,
       "needle_hit_pct": 100
     },
     "tool_call": "not_configured"
   },
   "hw": {
-    "mean_w": 410,
+    "mean_w": 409,
     "max_w": 465,
     "max_vram_gb": 22.3,
     "power_limit_w": [
@@ -63,5 +63,5 @@
       340
     ]
   },
-  "tok_per_joule": 3.12
+  "tok_per_joule": 3.7
 }

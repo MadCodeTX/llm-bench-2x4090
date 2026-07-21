@@ -941,7 +941,8 @@
       "base": "Qwen3.6-27B",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8",
