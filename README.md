@@ -83,7 +83,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q5_K_M | 5.7 | 144.1 | 16398 | 400 | 3.6 | 433 | 0.92 | ok |
 | openai/gpt-oss-20b | sglang | native | 27.5 | 30.3 | 9981 | 377 | 22.9 | 399 | 0.94 | not_configured |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q6_K | 6.6 | 127.5 | 15159 | 368 | 4.0 | 456 | 0.81 | ok |
-| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13323 | 363 | 3.4 | 453 | 0.8 | ok |
+| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.7 | 13219 | 365 | 3.4 | 468 | 0.78 | ok |
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q4_K_M | 22.1 | 176.5 | 11294 | 342 | 11.1 | 329 | 1.04 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q5_K_M | 6.5 | 124.7 | 12998 | 338 | 3.8 | 450 | 0.75 | ok |
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q5_K_M | 26.5 | 169.2 | 11342 | 327 | 13.1 | 328 | 1.0 | ok |
@@ -151,7 +151,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.1 | 363 | 95.7 | 3.4 | 0.8 | ok |
+| llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.7 | 365 | 96.4 | 3.4 | 0.78 | ok |
 | llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | — | 3.8 | 0.75 | ok |
 | llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | — | 4.1 | 0.68 | ok |
 | llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | — | 5.0 | 0.7 | ok |
@@ -220,7 +220,7 @@ comparable:
 | google/gemma-4-12b-it | sglang | native | 173.0 | 182.7 | 100 | 37.8 | 100 |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | — | — | — | — |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | — | — | — | — |
-| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | — | — | — | — |
+| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 96.4 | 40.3 | 49 | 17.8 | 100 |
 | openai/gpt-oss-20b | sglang | native | 90.3 | 53.1 | 100 | 22.2 | 100 |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | 51.0 | 0 | 8.6 | 100 |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | — | — | — | — |
