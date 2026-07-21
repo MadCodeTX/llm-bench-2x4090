@@ -3,7 +3,7 @@
   "base": "Llama-3.1-8B",
   "engine": "llamacpp",
   "quant": "Q4_K_M",
-  "ts": "2026-07-21 18:55 UTC",
+  "ts": "2026-07-21 20:48 UTC",
   "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
   "flags": "",
   "status": "ok",
@@ -23,33 +23,48 @@
     "ttft_s": 0.07,
     "prefill": {
       "prompt_tok": 7036,
-      "toks": 16962
+      "toks": 16969
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 427
+        "agg_toks": 426
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 19.3,
-      "docs_per_min": 140.0,
-      "out_toks_per_s": 283,
-      "mean_latency_s": 7.93,
-      "p95_latency_s": 10.82
+      "wall_s": 19.6,
+      "docs_per_min": 138.1,
+      "out_toks_per_s": 281,
+      "mean_latency_s": 8.06,
+      "p95_latency_s": 10.7
+    },
+    "workload_extract": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 13.0,
+      "docs_per_min": 208.2,
+      "json_valid_pct": 100
+    },
+    "workload_longctx": {
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 8.9,
+      "queries_per_min": 80.9,
+      "needle_hit_pct": 100
     },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 468,
-    "max_w": 523,
+    "mean_w": 459,
+    "max_w": 561,
     "max_vram_gb": 3.3,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 0.91
+  "tok_per_joule": 0.93
 }
