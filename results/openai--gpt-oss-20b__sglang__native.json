@@ -1,0 +1,43 @@
+{
+  "repo": "openai/gpt-oss-20b",
+  "base": "gpt-oss-20b",
+  "engine": "sglang",
+  "quant": "native",
+  "ts": "2026-07-21 16:52 UTC",
+  "image": "lmsysorg/sglang:latest",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 27.5,
+  "download_s": 1.4,
+  "serve_config": {
+    "mem_fraction_static": 0.85,
+    "context_length": 32768
+  },
+  "engine_version": "0.5.15.post1",
+  "battery": {
+    "single_stream_toks": 30.2,
+    "battery_mode": "full",
+    "ttft_s": 0.1,
+    "prefill": {
+      "prompt_tok": 15077,
+      "toks": 9629
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 355
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 357,
+    "max_w": 607,
+    "max_vram_gb": 22.6,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 0.99
+}
