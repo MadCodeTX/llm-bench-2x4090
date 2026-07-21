@@ -48,8 +48,8 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | LiquidAI/LFM2.5-1.2B-Instruct | vllm | native | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | vllm | native | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | vllm | native | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured |
+| openai/gpt-oss-20b | vllm | native | 27.5 | 268.7 | 11915 | 2477 | 22.4 | 456 | 5.43 | no_structured_call |
 | LiquidAI/LFM2.5-8B-A1B | vllm | native | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured |
-| openai/gpt-oss-20b | vllm | native | 27.5 | 268.8 | 11938 | 2427 | 22.4 | 429 | 5.66 | no_structured_call |
 | cyankiwi/Ornith-1.0-9B-AWQ-INT4 | vllm | native | 9.0 | 190.2 | 6674 | 2391 | 21.9 | 401 | 5.96 | not_configured |
 | ibm-granite/granite-4.1-3b | vllm | native | 6.8 | 171.0 | 9989 | 2370 | 22.5 | 401 | 5.91 | no_structured_call |
 | nvidia/Qwen3.6-35B-A3B-NVFP4 | vllm | native | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok |
@@ -187,7 +187,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | — | 6.1 | 1.11 | ok |
 | llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | — | 6.2 | 1.14 | ok |
 | sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.3 | 377 | 90.3 | 22.9 | 0.94 | not_configured |
-| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.8 | 2427 | 377.5 | 22.4 | 5.66 | no_structured_call |
+| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.7 | 2477 | 378.1 | 22.4 | 5.43 | no_structured_call |
 <!--XENGINE:END-->
 
 ## Useful work: real task throughput
@@ -210,7 +210,7 @@ comparable:
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 955.0 | 474.0 | 22 | 124.9 | 100 |
 | openbmb/MiniCPM5-1B | sglang | native | 939.2 | 468.9 | 27 | 130.7 | 100 |
-| openai/gpt-oss-20b | vllm | native | 377.5 | — | — | — | — |
+| openai/gpt-oss-20b | vllm | native | 378.1 | 261.7 | 98 | 77.9 | 100 |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.1 | 122.1 | 22 | 153.2 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 286.8 | 360.8 | 100 | 78.5 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 276.7 | 351.4 | 100 | 65.6 | 100 |
