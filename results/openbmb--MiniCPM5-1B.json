@@ -1,40 +1,52 @@
 {
   "repo": "openbmb/MiniCPM5-1B",
-  "ts": "2026-07-20 17:02 UTC",
+  "base": "MiniCPM5-1B",
+  "engine": "vllm",
+  "quant": "native",
+  "ts": "2026-07-21 18:29 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "--trust-remote-code",
   "status": "ok",
   "disk_gb": 2.2,
-  "download_s": 1.4,
+  "download_s": 1.3,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
   },
-  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "engine_version": "0.22.1rc1.dev392+g43914dd74",
   "battery": {
-    "single_stream_toks": 413.3,
-    "ttft_s": 0.03,
+    "single_stream_toks": 413.2,
+    "battery_mode": "full",
+    "ttft_s": 0.02,
     "prefill": {
-      "prompt_tok": 15021,
-      "toks": 26969
+      "prompt_tok": 15020,
+      "toks": 27216
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 7095
+        "agg_toks": 7019
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 2.8,
+      "docs_per_min": 956.7,
+      "out_toks_per_s": 2551,
+      "mean_latency_s": 1.41,
+      "p95_latency_s": 1.49
+    },
     "tool_call": "not_configured"
   },
   "hw": {
-    "mean_w": 289,
-    "max_w": 378,
+    "mean_w": 316,
+    "max_w": 385,
     "max_vram_gb": 22.5,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 24.55,
-  "base": "MiniCPM5-1B"
+  "tok_per_joule": 22.21
 }
