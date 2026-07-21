@@ -3,13 +3,13 @@
   "base": "Ornith-1.0-9B",
   "engine": "llamacpp",
   "quant": "Q4_K_M",
-  "ts": "2026-07-21 15:30 UTC",
+  "ts": "2026-07-21 18:45 UTC",
   "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
   "flags": "",
   "status": "ok",
   "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
   "gguf_pattern": "*Q4_K_M.gguf",
-  "download_s": 1.5,
+  "download_s": 1.4,
   "disk_gb": 5.6,
   "serve_config": {
     "ctx_size": 8192,
@@ -20,10 +20,10 @@
   "battery": {
     "single_stream_toks": 137.1,
     "battery_mode": "full",
-    "ttft_s": 0.08,
+    "ttft_s": 0.09,
     "prefill": {
-      "prompt_tok": 7010,
-      "toks": 13336
+      "prompt_tok": 7011,
+      "toks": 13323
     },
     "sweep": [
       {
@@ -31,16 +31,25 @@
         "agg_toks": 363
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 28.2,
+      "docs_per_min": 95.7,
+      "out_toks_per_s": 255,
+      "mean_latency_s": 11.4,
+      "p95_latency_s": 14.78
+    },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 442,
-    "max_w": 500,
+    "mean_w": 453,
+    "max_w": 502,
     "max_vram_gb": 3.4,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 0.82
+  "tok_per_joule": 0.8
 }
