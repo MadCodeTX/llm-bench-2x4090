@@ -52,6 +52,7 @@
 <circle cx="281.9" cy="365.3" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="314.8" cy="365.8" r="9.3" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="280.1" cy="366.0" r="8.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="103.4,430.5 94.6,445.7 112.2,445.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <polygon points="105.6,429.8 97.0,444.5 114.1,444.5" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="342.7" cy="337.4" r="8.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="608.3" cy="155.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
@@ -63,7 +64,7 @@
 <text x="598.3" y="159.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
 <text x="423.7" y="251.6" font-size="10.5" fill="#1b1f24" text-anchor="start">MiniCPM5-1B</text>
 <text x="352.7" y="340.9" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
-<text x="115.6" y="441.8" font-size="10.5" fill="#1b1f24" text-anchor="start">Ornith-1.0-9B-GGUF</text>
+<text x="113.4" y="442.8" font-size="10.5" fill="#1b1f24" text-anchor="start">Ornith-1.0-9B-GGUF</text>
 <text x="752" y="72" font-size="11.5" font-weight="700" fill="#1b1f24">tool-call support</text>
 <circle cx="758" cy="88.0" r="6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff"/>
 <text x="772" y="92" font-size="11" fill="#3b414a">tool-calls parsed</text>

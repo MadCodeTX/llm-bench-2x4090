@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**40 configs tested · 29 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**41 configs tested · 30 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -72,6 +72,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3-32B-FP8 | vllm | native | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
+| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q5_K_M | 6.5 | 124.7 | 12998 | 338 | 3.8 | 450 | 0.75 | ok |
 
 **Did not serve on this rig** — no throughput data; recorded with cause:
 
@@ -113,6 +114,7 @@ bases served by more than one engine are shown.
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.1 | 363 | 3.4 | 0.82 | ok |
+| llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | 3.8 | 0.75 | ok |
 | vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | 21.7 | 3.48 | not_configured |
 <!--XENGINE:END-->
 
