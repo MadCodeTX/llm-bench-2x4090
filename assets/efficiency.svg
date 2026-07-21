@@ -7,88 +7,88 @@
 <line x1="74" y1="450.0" x2="728" y2="450.0" stroke="#e6e8eb"/>
 <text x="66" y="454.0" font-size="11" fill="#5b616b" text-anchor="end">0</text>
 <line x1="204.8" y1="66" x2="204.8" y2="450" stroke="#e6e8eb"/>
-<text x="204.8" y="468" font-size="11" fill="#5b616b" text-anchor="middle">1,498</text>
+<text x="204.8" y="468" font-size="11" fill="#5b616b" text-anchor="middle">1,488</text>
 <line x1="74" y1="373.2" x2="728" y2="373.2" stroke="#e6e8eb"/>
 <text x="66" y="377.2" font-size="11" fill="#5b616b" text-anchor="end">5</text>
 <line x1="335.6" y1="66" x2="335.6" y2="450" stroke="#e6e8eb"/>
-<text x="335.6" y="468" font-size="11" fill="#5b616b" text-anchor="middle">2,996</text>
+<text x="335.6" y="468" font-size="11" fill="#5b616b" text-anchor="middle">2,976</text>
 <line x1="74" y1="296.4" x2="728" y2="296.4" stroke="#e6e8eb"/>
 <text x="66" y="300.4" font-size="11" fill="#5b616b" text-anchor="end">10</text>
 <line x1="466.4" y1="66" x2="466.4" y2="450" stroke="#e6e8eb"/>
-<text x="466.4" y="468" font-size="11" fill="#5b616b" text-anchor="middle">4,494</text>
+<text x="466.4" y="468" font-size="11" fill="#5b616b" text-anchor="middle">4,464</text>
 <line x1="74" y1="219.6" x2="728" y2="219.6" stroke="#e6e8eb"/>
 <text x="66" y="223.6" font-size="11" fill="#5b616b" text-anchor="end">15</text>
 <line x1="597.2" y1="66" x2="597.2" y2="450" stroke="#e6e8eb"/>
-<text x="597.2" y="468" font-size="11" fill="#5b616b" text-anchor="middle">5,992</text>
+<text x="597.2" y="468" font-size="11" fill="#5b616b" text-anchor="middle">5,952</text>
 <line x1="74" y1="142.8" x2="728" y2="142.8" stroke="#e6e8eb"/>
 <text x="66" y="146.8" font-size="11" fill="#5b616b" text-anchor="end">20</text>
 <line x1="728.0" y1="66" x2="728.0" y2="450" stroke="#e6e8eb"/>
-<text x="728.0" y="468" font-size="11" fill="#5b616b" text-anchor="middle">7,490</text>
+<text x="728.0" y="468" font-size="11" fill="#5b616b" text-anchor="middle">7,440</text>
 <line x1="74" y1="66.0" x2="728" y2="66.0" stroke="#e6e8eb"/>
 <text x="66" y="70.0" font-size="11" fill="#5b616b" text-anchor="end">24</text>
 <line x1="74" y1="450" x2="728" y2="450" stroke="#b7bcc4"/>
 <line x1="74" y1="66" x2="74" y2="450" stroke="#b7bcc4"/>
 <text x="401.0" y="496" font-size="12.5" fill="#1b1f24" text-anchor="middle">aggregate throughput under concurrent decode (tok/s)</text>
 <text x="22" y="258.0" font-size="12.5" fill="#1b1f24" text-anchor="middle" transform="rotate(-90 22 258.0)">efficiency — tokens per joule</text>
-<circle cx="236.3" cy="369.1" r="14.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="100.8,419.9 86.0,445.4 115.6,445.4" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="140.9" cy="424.1" r="14.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="153.7" cy="423.4" r="14.2" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="151.3" cy="422.7" r="13.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="86.0" y="426.6" width="27.9" height="27.9" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="170.2" cy="418.7" r="13.7" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="82.6,432.8 69.0,456.2 96.1,456.2" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="285.9" cy="361.0" r="13.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="92.6" y="421.3" width="26.8" height="26.8" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="102.6,421.0 89.3,443.8 115.8,443.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="171.2" cy="415.7" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="162.0" y="402.9" width="25.6" height="25.6" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="170.7" cy="416.2" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="253.1" cy="351.8" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="172.9" cy="414.9" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="103.9,421.2 91.4,442.6 116.4,442.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="160.1" cy="415.9" r="12.5" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="84.7,434.2 72.6,454.9 96.7,454.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="182.1" cy="413.1" r="12.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="219.3" cy="397.0" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="205.2" y="384.1" width="23.7" height="23.7" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="210.9" cy="392.2" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="181.3" cy="412.7" r="11.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="287.8" cy="343.9" r="11.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="85.9,434.3 74.4,454.0 97.3,454.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="91.3,431.3 80.6,449.7 101.9,449.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="112.9,421.7 102.4,439.6 123.3,439.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="112.3,422.2 102.0,440.0 122.6,440.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="112.9,422.9 102.6,440.6 123.1,440.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="213.4" cy="388.2" r="10.2" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="220.0" cy="384.6" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="221.0" cy="383.2" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="97.8,429.3 88.1,446.0 107.6,446.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="249.5" cy="375.5" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="209.0" y="378.8" width="19.3" height="19.3" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="185.9" cy="401.0" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="282.8" cy="356.3" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="101.1,427.5 91.6,443.8 110.5,443.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="95.8,431.6 86.4,447.8 105.3,447.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="315.8" cy="357.0" r="9.3" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="101.4,430.2 92.3,445.9 110.5,445.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="97.6,431.5 88.5,447.1 106.6,447.1" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="280.9" cy="357.1" r="8.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="106.1,428.4 97.3,443.7 115.0,443.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="103.5,429.4 94.7,444.6 112.3,444.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="108.9,427.0 100.4,441.7 117.5,441.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="105.7,428.9 97.2,443.6 114.2,443.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="343.8" cy="325.5" r="8.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="111.3,427.4 103.0,441.6 119.5,441.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="610.5" cy="124.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<circle cx="686.9" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<rect x="684.0" y="102.4" width="14.0" height="14.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="174.7,370.9 168.3,381.8 181.0,381.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="180.3,373.5 174.3,383.7 186.2,383.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<text x="676.9" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
-<text x="681.0" y="112.9" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
-<text x="600.5" y="128.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
-<text x="353.8" y="329.0" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
+<circle cx="237.4" cy="369.1" r="14.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="101.0,419.9 86.2,445.4 115.8,445.4" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="141.3" cy="424.1" r="14.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154.3" cy="423.4" r="14.2" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="151.8" cy="422.7" r="13.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="86.2" y="426.6" width="27.9" height="27.9" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="170.9" cy="418.7" r="13.7" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="82.6,432.8 69.0,456.2 96.2,456.2" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="287.3" cy="361.0" r="13.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="92.8" y="421.3" width="26.8" height="26.8" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="102.7,421.0 89.5,443.8 116.0,443.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="171.8" cy="415.7" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="162.7" y="402.9" width="25.6" height="25.6" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="171.4" cy="416.2" r="12.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="254.3" cy="351.8" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="173.6" cy="414.9" r="12.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="104.1,421.2 91.6,442.6 116.6,442.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="160.7" cy="415.9" r="12.5" fill="#e0952b" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="84.7,434.2 72.7,454.9 96.7,454.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="182.8" cy="413.1" r="12.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="220.3" cy="397.0" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="206.2" y="384.1" width="23.7" height="23.7" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="211.8" cy="392.2" r="11.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="182.0" cy="412.7" r="11.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="289.3" cy="343.9" r="11.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="86.0,434.3 74.5,454.0 97.4,454.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="91.4,431.3 80.8,449.7 102.1,449.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="113.1,421.7 102.7,439.6 123.5,439.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="112.6,422.2 102.3,440.0 122.9,440.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="113.1,422.9 102.8,440.6 123.4,440.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="214.4" cy="388.2" r="10.2" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="221.0" cy="384.6" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="222.0" cy="383.2" r="10.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="98.0,429.3 88.3,446.0 107.7,446.0" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="250.7" cy="375.5" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="209.9" y="378.8" width="19.3" height="19.3" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="186.6" cy="401.0" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="284.2" cy="356.3" r="9.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="101.2,427.5 91.8,443.8 110.7,443.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="96.0,431.6 86.5,447.8 105.4,447.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="317.4" cy="357.0" r="9.3" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="101.6,430.2 92.5,445.9 110.7,445.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="97.7,431.5 88.7,447.1 106.8,447.1" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="282.3" cy="357.1" r="8.9" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="106.3,428.4 97.5,443.7 115.2,443.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="103.7,429.4 94.9,444.6 112.5,444.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="109.2,427.0 100.6,441.7 117.7,441.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="105.9,428.9 97.4,443.6 114.4,443.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="345.6" cy="325.5" r="8.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="111.5,427.4 103.3,441.6 119.8,441.6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="614.1" cy="124.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<circle cx="691.0" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<rect x="671.7" y="120.1" width="14.0" height="14.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="175.4,370.9 169.0,381.8 181.7,381.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="181.0,373.5 175.1,383.7 186.9,383.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<text x="681.0" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
+<text x="604.1" y="128.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
+<text x="668.8" y="130.7" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
+<text x="355.6" y="329.0" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
 <text x="92.6" y="449.9" font-size="10.5" fill="#1b1f24" text-anchor="start">Qwen3.6-27B-GGUF</text>
 <text x="752" y="72" font-size="11.5" font-weight="700" fill="#1b1f24">tool-call support</text>
 <circle cx="758" cy="88.0" r="6" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff"/>
