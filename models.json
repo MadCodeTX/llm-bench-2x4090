@@ -103,6 +103,19 @@
     },
     "lewtun/talkie-1930-13b-it-hf": {
       "flags": "--trust-remote-code"
+    },
+    "sakamakismile/Ornith-1.0-35B-NVFP4": {
+      "flags": "--quantization modelopt --trust-remote-code --kv-cache-dtype fp8 --max-num-seqs 32 --max-num-batched-tokens 8192",
+      "env": {
+        "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True",
+        "OMP_NUM_THREADS": "4"
+      }
+    },
+    "Qwen/Qwen-AgentWorld-35B-A3B": {
+      "flags": "--trust-remote-code"
+    },
+    "InternScience/Agents-A1-4B": {
+      "flags": "--trust-remote-code"
     }
   },
   "queue": [
@@ -285,6 +298,319 @@
       "repo": "openbmb/MiniCPM5-1B",
       "done": true,
       "status": "ok"
+    },
+    {
+      "repo": "openbmb/MiniCPM5-1B-GGUF",
+      "base": "MiniCPM5-1B",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "openbmb/MiniCPM5-1B-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "openbmb/MiniCPM5-1B-GGUF",
+      "base": "MiniCPM5-1B",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "openbmb/MiniCPM5-1B-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "openbmb/MiniCPM5-1B-GGUF",
+      "base": "MiniCPM5-1B",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "openbmb/MiniCPM5-1B-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "base": "Ornith-1.0-9B",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "base": "Ornith-1.0-9B",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "base": "Ornith-1.0-9B",
+      "engine": "llamacpp",
+      "quant": "Q6_K",
+      "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "gguf_pattern": "*Q6_K.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "base": "Ornith-1.0-9B",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "deepreinforce-ai/Ornith-1.0-9B-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gemma-4-12b-it-GGUF",
+      "base": "gemma-4-12b-it",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "unsloth/gemma-4-12b-it-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gemma-4-12b-it-GGUF",
+      "base": "gemma-4-12b-it",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "unsloth/gemma-4-12b-it-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gemma-4-12b-it-GGUF",
+      "base": "gemma-4-12b-it",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "unsloth/gemma-4-12b-it-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gpt-oss-20b-GGUF",
+      "base": "gpt-oss-20b",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "unsloth/gpt-oss-20b-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gpt-oss-20b-GGUF",
+      "base": "gpt-oss-20b",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "unsloth/gpt-oss-20b-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/gpt-oss-20b-GGUF",
+      "base": "gpt-oss-20b",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "unsloth/gpt-oss-20b-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/Qwen3.6-27B-GGUF",
+      "base": "Qwen3.6-27B",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "unsloth/Qwen3.6-27B-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/Qwen3.6-27B-GGUF",
+      "base": "Qwen3.6-27B",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "unsloth/Qwen3.6-27B-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/Qwen3.6-27B-GGUF",
+      "base": "Qwen3.6-27B",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "unsloth/Qwen3.6-27B-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "base": "Llama-3.1-8B",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "base": "Llama-3.1-8B",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "base": "Llama-3.1-8B",
+      "engine": "llamacpp",
+      "quant": "Q6_K",
+      "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "gguf_pattern": "*Q6_K.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "base": "Llama-3.1-8B",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8",
+      "base": "Llama-3.1-8B",
+      "engine": "vllm",
+      "quant": "FP8",
+      "done": false
+    },
+    {
+      "repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "base": "Ornith-1.0-35B",
+      "engine": "llamacpp",
+      "quant": "Q4_K_M",
+      "gguf_repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "gguf_pattern": "*Q4_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "base": "Ornith-1.0-35B",
+      "engine": "llamacpp",
+      "quant": "Q5_K_M",
+      "gguf_repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "gguf_pattern": "*Q5_K_M.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "base": "Ornith-1.0-35B",
+      "engine": "llamacpp",
+      "quant": "Q8_0",
+      "gguf_repo": "unsloth/Ornith-1.0-35B-GGUF",
+      "gguf_pattern": "*Q8_0.gguf",
+      "ctx": 8192,
+      "done": false
+    },
+    {
+      "repo": "sakamakismile/Ornith-1.0-35B-NVFP4",
+      "base": "Ornith-1.0-35B",
+      "engine": "vllm",
+      "quant": "NVFP4",
+      "done": false
+    },
+    {
+      "repo": "openbmb/MiniCPM5-1B",
+      "base": "MiniCPM5-1B",
+      "engine": "sglang",
+      "quant": "native",
+      "flags": "--trust-remote-code",
+      "done": false
+    },
+    {
+      "repo": "deepreinforce-ai/Ornith-1.0-9B",
+      "base": "Ornith-1.0-9B",
+      "engine": "sglang",
+      "quant": "native",
+      "flags": "--trust-remote-code",
+      "done": false
+    },
+    {
+      "repo": "google/gemma-4-12b-it",
+      "base": "gemma-4-12b-it",
+      "engine": "sglang",
+      "quant": "native",
+      "flags": "",
+      "done": false
+    },
+    {
+      "repo": "openai/gpt-oss-20b",
+      "base": "gpt-oss-20b",
+      "engine": "sglang",
+      "quant": "native",
+      "flags": "",
+      "done": false
+    },
+    {
+      "repo": "Qwen/Qwen3.6-27B-FP8",
+      "base": "Qwen3.6-27B",
+      "engine": "sglang",
+      "quant": "FP8",
+      "flags": "",
+      "done": false
+    },
+    {
+      "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8",
+      "base": "Llama-3.1-8B",
+      "engine": "sglang",
+      "quant": "FP8",
+      "flags": "",
+      "done": false
+    },
+    {
+      "repo": "Qwen/Qwen-AgentWorld-35B-A3B",
+      "base": "Qwen-AgentWorld-35B-A3B",
+      "engine": "vllm",
+      "quant": "native",
+      "done": false
+    },
+    {
+      "repo": "Motif-Technologies/Motif-3-Beta",
+      "base": "Motif-3-Beta",
+      "engine": "vllm",
+      "quant": "native",
+      "done": false
+    },
+    {
+      "repo": "InternScience/Agents-A1-4B",
+      "base": "Agents-A1-4B",
+      "engine": "vllm",
+      "quant": "native",
+      "done": false
     }
   ]
 }

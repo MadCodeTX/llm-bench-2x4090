@@ -35,5 +35,6 @@
       340
     ]
   },
-  "tok_per_joule": 6.03
+  "tok_per_joule": 6.03,
+  "base": "gpt-oss-20b"
 }

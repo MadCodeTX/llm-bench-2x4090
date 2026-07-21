@@ -35,5 +35,6 @@
       340
     ]
   },
-  "tok_per_joule": 24.55
+  "tok_per_joule": 24.55,
+  "base": "MiniCPM5-1B"
 }

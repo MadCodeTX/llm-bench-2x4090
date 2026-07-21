@@ -35,5 +35,6 @@
       340
     ]
   },
-  "tok_per_joule": 2.24
+  "tok_per_joule": 2.24,
+  "base": "gemma-4-12b-it"
 }

@@ -35,5 +35,6 @@
     "max_w": 556,
     "max_vram_gb": 22.3
   },
-  "tok_per_joule": 1.83
+  "tok_per_joule": 1.83,
+  "base": "Qwen3.6-27B"
 }

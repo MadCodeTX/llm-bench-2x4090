@@ -28,7 +28,7 @@
 <text x="66" y="70.0" font-size="11" fill="#5b616b" text-anchor="end">27</text>
 <line x1="74" y1="450" x2="728" y2="450" stroke="#b7bcc4"/>
 <line x1="74" y1="66" x2="74" y2="450" stroke="#b7bcc4"/>
-<text x="401.0" y="496" font-size="12.5" fill="#1b1f24" text-anchor="middle">aggregate throughput @ 32 concurrent streams (tok/s)</text>
+<text x="401.0" y="496" font-size="12.5" fill="#1b1f24" text-anchor="middle">aggregate throughput under concurrent decode (tok/s)</text>
 <text x="22" y="258.0" font-size="12.5" fill="#1b1f24" text-anchor="middle" transform="rotate(-90 22 258.0)">efficiency — tokens per joule</text>
 <circle cx="235.7" cy="376.8" r="14.9" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="140.6" cy="426.5" r="14.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
@@ -74,4 +74,11 @@
 <text x="782" y="210" font-size="11" fill="#3b414a">12 GB</text>
 <circle cx="764" cy="228.0" r="14.1" fill="#8a8f98" fill-opacity="0.5" stroke="#ffffff"/>
 <text x="782" y="232" font-size="11" fill="#3b414a">32 GB</text>
+<text x="752" y="262" font-size="11.5" font-weight="700" fill="#1b1f24">engine (shape)</text>
+<circle cx="758.0" cy="278.0" r="6.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<text x="772" y="282" font-size="11" fill="#3b414a">vLLM</text>
+<polygon points="758.0,292.0 752.0,302.3 764.0,302.3" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<text x="772" y="302" font-size="11" fill="#3b414a">llama.cpp</text>
+<rect x="752.0" y="312.0" width="12.0" height="12.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<text x="772" y="322" font-size="11" fill="#3b414a">SGLang</text>
 </svg>

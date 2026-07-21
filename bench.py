@@ -25,12 +25,17 @@ CACHE = os.path.join(HERE, "hfcache")
 RESULTS = os.path.join(HERE, "results")
 ASSETS = os.path.join(HERE, "assets")
 PORT = 8199
-NAME = "llmbench-vllm"
+NAME = "llmbench-vllm"          # container name (reused across engines)
 BASE = f"http://127.0.0.1:{PORT}"
 # (gpu_memory_utilization, max_model_len) tried in order until the model serves
 LADDER = [(0.92, 32768), (0.85, 8192)]
+SGLANG_LADDER = [(0.85, 32768), (0.85, 8192)]  # (mem_fraction_static, context_length)
 POWER_CAP_W = 340  # per-GPU cap near the 4090 efficiency knee; recorded in every result
-CACHE_BUDGET_GB = 500  # LRU weight cache: keep recent models for free re-runs
+# Per-engine serving images. vLLM image also downloads GGUF (has huggingface_hub).
+LLAMA_IMAGE = "ghcr.io/ggml-org/llama.cpp:server-cuda"
+SGLANG_IMAGE = "lmsysorg/sglang:latest"
+SLOW_TOKS = 15   # single-stream tok/s below this ⇒ reduced battery (CPU-offloaded configs)
+CACHE_BUDGET_GB = 900  # LRU weight cache: keep recent models for free re-runs
 FAMILY_FLAGS = [
     (r"[Qq]wen3", "--reasoning-parser qwen3 --enable-auto-tool-choice "
                   "--tool-parser-plugin /plugins/qwen3_coder_fixed.py "
@@ -110,16 +115,38 @@ class HwMon(threading.Thread):
                 "max_vram_gb": round(max(m for _, m in self.samples) / 1024, 1)}
 
 
-def download(repo, image):
+def download(repo, image, allow_patterns=None):
+    """Snapshot a repo into the shared HF cache. allow_patterns limits the fetch to
+    matching files (used to grab a single GGUF quant out of a multi-quant repo)."""
     t0 = time.time()
+    ap = ""
+    if allow_patterns:
+        lst = "[" + ",".join("'" + p + "'" for p in allow_patterns) + "]"
+        ap = f", allow_patterns={lst}"
     r = sh(
         f"docker run --rm -v {CACHE}:/root/.cache/huggingface --entrypoint python3 {image} "
-        f"-c \"from huggingface_hub import snapshot_download; snapshot_download('{repo}')\"",
-        timeout=1200,  # bound HF download stalls (~2min normal) so one hang can't wedge the queue
+        f"-c \"from huggingface_hub import snapshot_download; snapshot_download('{repo}'{ap})\"",
+        timeout=3600,  # bound HF download stalls so one hang can't wedge the queue
     )
     if r.returncode != 0:
         raise RuntimeError(f"download failed: {r.stderr[-400:]}")
     return round(time.time() - t0, 1)
+
+
+def hub_dir(repo):
+    return os.path.join(CACHE, "hub", "models--" + repo.replace("/", "--"))
+
+
+def find_gguf(repo, pattern):
+    """Locate a downloaded GGUF in the HF cache. Returns the first shard for
+    multi-shard quants (llama.cpp auto-loads its siblings). Returns None if absent."""
+    import glob
+    hits = sorted(glob.glob(os.path.join(hub_dir(repo), "snapshots", "*", "**", pattern),
+                            recursive=True))
+    if not hits:
+        return None
+    first = [h for h in hits if "00001-of-" in h]
+    return (first or hits)[0]
 
 
 def serve_attempt(repo, image, util, maxlen, flags, env=None):
@@ -156,6 +183,66 @@ def serve_attempt(repo, image, util, maxlen, flags, env=None):
         sh(f"docker logs --tail 200 {NAME} 2>&1").stdout[-2000:]
 
 
+def _poll_health(path, timeout_s, tail=6000):
+    """Poll an endpoint until it answers 200, the container dies, or we time out.
+    Shared by the sglang and llama.cpp serve paths. Returns (ok, err_or_logtail)."""
+    deadline = time.time() + timeout_s
+    while time.time() < deadline:
+        try:
+            http(path, timeout=5)
+            return True, ""
+        except Exception:
+            pass
+        alive = sh(f"docker inspect -f '{{{{.State.Running}}}}' {NAME}").stdout.strip()
+        if alive != "true":
+            return False, sh(f"docker logs --tail 200 {NAME} 2>&1").stdout[-tail:]
+        time.sleep(10)
+    return False, "health timeout; container alive but never served\n" + \
+        sh(f"docker logs --tail 200 {NAME} 2>&1").stdout[-2000:]
+
+
+def serve_sglang(repo, image, mem_frac, ctxlen, flags, env=None):
+    """Serve a safetensors checkpoint with SGLang (TP=2) — same weights vLLM eats,
+    so it yields a like-for-like engine comparison on the OpenAI API."""
+    sh(f"docker rm -f {NAME}", timeout=60)
+    env_args = " ".join(f"-e {k}={v}" for k, v in (env or {}).items())
+    r = sh(
+        f"docker run -d --name {NAME} --gpus all --shm-size 16g -p {PORT}:8000 "
+        f"{env_args} -v {CACHE}:/root/.cache/huggingface --entrypoint bash {image} "
+        f"-c 'rm -f /etc/ld.so.conf.d/cuda*.conf; ldconfig; "
+        f"exec python3 -m sglang.launch_server "
+        f"--model-path {repo} --tp 2 --mem-fraction-static {mem_frac} "
+        f"--context-length {ctxlen} --host 0.0.0.0 --port 8000 {flags}'",
+        timeout=120,
+    )
+    if r.returncode != 0:
+        return False, r.stderr[-300:]
+    return _poll_health("/v1/models", 600)
+
+
+def serve_llamacpp(gguf_path, ctxlen, ngl, n_cpu_moe=None, kv=None):
+    """Serve a local GGUF with llama.cpp (both GPUs via --tensor-split 1,1).
+    n_cpu_moe offloads MoE expert layers to system RAM so models larger than 48 GB
+    VRAM still run (slower). Mirrors the working launch in ~/llm/llamacpp/llamatest.sh."""
+    sh(f"docker rm -f {NAME}", timeout=60)
+    cont_path = gguf_path.replace(CACHE, "/root/.cache/huggingface")
+    extra = f"-ngl {ngl} --tensor-split 1,1 --jinja --threads 24"
+    if n_cpu_moe:
+        extra += f" --n-cpu-moe {n_cpu_moe}"
+    if kv == "q8_0":
+        extra += " --cache-type-k q8_0"
+    r = sh(
+        f"docker run -d --name {NAME} --gpus all --shm-size 16g -p {PORT}:8000 "
+        f"-v {CACHE}:/root/.cache/huggingface {LLAMA_IMAGE} "
+        f"-m {cont_path} --ctx-size {ctxlen} {extra} --host 0.0.0.0 --port 8000",
+        timeout=120,
+    )
+    if r.returncode != 0:
+        return False, r.stderr[-300:]
+    # CPU offload makes load slow; 20 min covers big-MoE partial offload
+    return _poll_health("/health", 1200)
+
+
 def completion(model, prompt, max_tokens, stream=False):
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}],
                "max_tokens": max_tokens, "temperature": 0.7}
@@ -188,20 +275,28 @@ def battery(model, maxlen=32768):
     _, ct, dt = completion(model, f"[{salt()}] Write a detailed 1000-word essay on the history of computing.", 1200)
     out["single_stream_toks"] = round(ct / dt, 1)
 
+    # CPU-offloaded (RAM-assisted) configs decode at a few tok/s — a full concurrency-32
+    # sweep with a 16K prefill would run for hours, so scale the heavy probes down and
+    # flag the mode. VRAM-resident configs (>SLOW_TOKS) get the full comparable battery.
+    slow = out["single_stream_toks"] < SLOW_TOKS
+    out["battery_mode"] = "reduced" if slow else "full"
+
     out["ttft_s"] = round(completion(model, f"[{salt()}] Say hello.", 24, stream=True), 2)
 
     # size the prefill probe to the served context (must fit inside max_model_len)
-    reps = min(1500, max(100, (maxlen - 1200) // 10))
+    cap = 400 if slow else 1500
+    reps = min(cap, max(100, (maxlen - 1200) // 10))
     big = f"[{salt()}] " + ("The quick brown fox jumps over the lazy dog. " * reps)
     pt, _, dt = completion(model, big + "\nReply OK.", 1)
     out["prefill"] = {"prompt_tok": pt, "toks": round(pt / dt)}
 
     out["sweep"] = []
-    for n in (32,):
+    conc, gen = ((8,), 128) if slow else ((32,), 256)
+    for n in conc:
         prompts = [f"[{salt()} #{i}] Explain topic {i % 8} in technical detail." for i in range(2 * n)]
         t0 = time.time()
         with concurrent.futures.ThreadPoolExecutor(n) as ex:
-            res = list(ex.map(lambda p: completion(model, p, 256), prompts))
+            res = list(ex.map(lambda p: completion(model, p, gen), prompts))
         wall = time.time() - t0
         total = sum(c for _, c, _ in res)
         out["sweep"].append({"concurrency": n, "agg_toks": round(total / wall)})
@@ -272,56 +367,130 @@ def power_limit_now():
         return []
 
 
-def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
-    c = cfg()
-    image = image or c.get("image_default", "vllm/vllm-openai:latest")
-    if flags is None:
-        fam = next((f for pat, f in FAMILY_FLAGS if re.search(pat, repo)), "")
-        extra = c.get("overrides", {}).get(repo, {}).get("flags", "")
-        flags = f"{fam} {extra}".strip()
-    rec = {"repo": repo, "ts": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
-           "image": image, "flags": flags, "status": "started"}
+def result_slug(repo, engine, quant):
+    """Result filename. Legacy vLLM/native rows keep their original repo-only name so
+    the 36 existing files stay valid; every other engine/quant combo is disambiguated."""
+    base = repo.replace("/", "--")
+    if engine == "vllm" and quant in (None, "native"):
+        return base
+    q = re.sub(r"[^A-Za-z0-9._-]", "-", str(quant or "native"))
+    return f"{base}__{engine}__{q}"
 
+
+def local_gguf_bytes(repo, pattern):
+    import glob
+    total = 0
+    for h in glob.glob(os.path.join(hub_dir(repo), "snapshots", "*", "**", pattern), recursive=True):
+        try:
+            total += os.path.getsize(h)  # follows the symlink into blobs/
+        except OSError:
+            pass
+    return total
+
+
+def run_model(repo, keep=False, image=None, flags=None, skip_check=False,
+              engine="vllm", quant=None, gguf_repo=None, gguf_pattern=None,
+              n_cpu_moe=None, ngl=999, ctx=None, kv=None, base=None):
+    """Full cycle for one (repo, engine, quant): download → serve → battery → record.
+    engine ∈ {vllm, sglang, llamacpp}; the battery is engine-agnostic (all speak the
+    OpenAI API). llama.cpp reads a GGUF quant (gguf_repo/gguf_pattern) and can offload
+    MoE experts to RAM via n_cpu_moe. `base` is the canonical model name used to group
+    the cross-engine comparison (defaults to repo)."""
+    c = cfg()
+    dl_image = image or c.get("image_default", "vllm/vllm-openai:latest")
+    serve_image = {"vllm": dl_image, "sglang": SGLANG_IMAGE, "llamacpp": LLAMA_IMAGE}[engine]
+    ov = c.get("overrides", {}).get(repo, {})
+    if flags is None:
+        if engine == "vllm":
+            fam = next((f for pat, f in FAMILY_FLAGS if re.search(pat, repo)), "")
+            flags = f"{fam} {ov.get('flags', '')}".strip()
+        else:
+            flags = ov.get("flags", "")
+    env = ov.get("env", {})
+    quant = quant or "native"
+    rec = {"repo": repo, "base": base or repo, "engine": engine, "quant": quant,
+           "ts": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()),
+           "image": serve_image, "flags": flags, "status": "started"}
+
+    dl_repo = gguf_repo or repo
     try:
         if gpus_busy():
             raise RuntimeError("GPUs busy (production stack running?) — run 'llm stop' first")
-        size = hf_model_bytes(repo)
-        rec["disk_gb"] = round(size / 1e9, 1)
-        free = shutil.disk_usage(CACHE).free
-        if not skip_check and size * 1.3 > free:
-            raise RuntimeError(f"insufficient disk: need {size*1.3/1e9:.0f}GB, have {free/1e9:.0f}GB")
-        print(f"[{repo}] downloading {rec['disk_gb']}GB...", flush=True)
-        rec["download_s"] = download(repo, image)
 
-        served = False
-        env = c.get("overrides", {}).get(repo, {}).get("env", {})
-        for util, maxlen in LADDER:
-            print(f"[{repo}] serve attempt util={util} len={maxlen}", flush=True)
-            ok, err = serve_attempt(repo, image, util, maxlen, flags, env)
+        # --- download (whole safetensors repo, or a single GGUF quant) ---
+        if engine == "llamacpp":
+            rec["gguf_repo"], rec["gguf_pattern"] = dl_repo, gguf_pattern
+            print(f"[{repo}] {engine}/{quant} fetching {gguf_pattern} from {dl_repo}...", flush=True)
+            rec["download_s"] = download(dl_repo, dl_image, allow_patterns=[gguf_pattern])
+            gpath = find_gguf(dl_repo, gguf_pattern)
+            if not gpath:
+                raise RuntimeError(f"gguf not found after download: {gguf_pattern} in {dl_repo}")
+            rec["disk_gb"] = round(local_gguf_bytes(dl_repo, gguf_pattern) / 1e9, 1)
+        else:
+            size = hf_model_bytes(repo)
+            rec["disk_gb"] = round(size / 1e9, 1)
+            free = shutil.disk_usage(CACHE).free
+            if not skip_check and size * 1.3 > free:
+                raise RuntimeError(f"insufficient disk: need {size*1.3/1e9:.0f}GB, have {free/1e9:.0f}GB")
+            print(f"[{repo}] {engine}/{quant} downloading {rec['disk_gb']}GB...", flush=True)
+            rec["download_s"] = download(repo, dl_image)
+
+        # --- serve (engine-specific; all land on PORT and speak the OpenAI API) ---
+        served, served_len = False, 8192
+        if engine == "vllm":
+            for util, maxlen in LADDER:
+                print(f"[{repo}] vllm serve util={util} len={maxlen}", flush=True)
+                ok, err = serve_attempt(repo, serve_image, util, maxlen, flags, env)
+                if ok:
+                    rec["serve_config"] = {"gpu_mem_util": util, "max_model_len": maxlen}
+                    served, served_len = True, maxlen
+                    break
+                rec.setdefault("serve_errors", []).append({"util": util, "len": maxlen, "tail": err[-4000:]})
+        elif engine == "sglang":
+            for mf, cl in SGLANG_LADDER:
+                print(f"[{repo}] sglang serve mem_frac={mf} ctx={cl}", flush=True)
+                ok, err = serve_sglang(repo, serve_image, mf, cl, flags, env)
+                if ok:
+                    rec["serve_config"] = {"mem_fraction_static": mf, "context_length": cl}
+                    served, served_len = True, cl
+                    break
+                rec.setdefault("serve_errors", []).append({"mem_frac": mf, "ctx": cl, "tail": err[-4000:]})
+        elif engine == "llamacpp":
+            served_len = ctx or 8192
+            print(f"[{repo}] llamacpp serve ctx={served_len} ngl={ngl} n_cpu_moe={n_cpu_moe}", flush=True)
+            ok, err = serve_llamacpp(gpath, served_len, ngl, n_cpu_moe, kv)
             if ok:
-                rec["serve_config"] = {"gpu_mem_util": util, "max_model_len": maxlen}
+                rec["serve_config"] = {"ctx_size": served_len, "ngl": ngl,
+                                       "n_cpu_moe": n_cpu_moe, "kv": kv or "f16"}
                 served = True
-                break
-            rec.setdefault("serve_errors", []).append({"util": util, "len": maxlen, "tail": err[-4000:]})
+            else:
+                rec.setdefault("serve_errors", []).append({"ctx": served_len, "tail": err[-4000:]})
         if not served:
             rec["status"] = "serve_failed"
             return rec
-        try:
-            rec["vllm_version"] = json.load(http("/version", timeout=10)).get("version")
+
+        try:  # best-effort engine version
+            if engine == "vllm":
+                rec["engine_version"] = json.load(http("/version", timeout=10)).get("version")
+            elif engine == "sglang":
+                rec["engine_version"] = json.load(http("/get_server_info", timeout=10)).get("version")
         except Exception:
             pass
 
-        model_id = json.load(http("/v1/models"))["data"][0]["id"]
+        try:
+            model_id = json.load(http("/v1/models"))["data"][0]["id"]
+        except Exception:
+            model_id = repo  # llama.cpp accepts any model field
         mon = HwMon()
         mon.start()
         print(f"[{repo}] running battery...", flush=True)
-        rec["battery"] = battery(model_id, rec["serve_config"]["max_model_len"])
+        rec["battery"] = battery(model_id, served_len)
         mon.stop_flag = True
         rec["hw"] = mon.summary()
         rec["hw"]["power_limit_w"] = power_limit_now()
-        agg32 = next((s["agg_toks"] for s in rec["battery"]["sweep"] if s["concurrency"] == 32), None)
-        if agg32 and rec["hw"].get("mean_w"):
-            rec["tok_per_joule"] = round(agg32 / rec["hw"]["mean_w"], 2)
+        agg = rec["battery"]["sweep"][-1] if rec["battery"].get("sweep") else None
+        if agg and rec["hw"].get("mean_w"):
+            rec["tok_per_joule"] = round(agg["agg_toks"] / rec["hw"]["mean_w"], 2)
         rec["status"] = "ok"
     except Exception as e:
         if rec.get("status") in (None, "started"):
@@ -336,11 +505,11 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False):
     finally:
         sh(f"docker rm -f {NAME}", timeout=60)
         if not keep:
-            lru_prune(exclude_repo=repo)
-        with open(os.path.join(RESULTS, slug(repo) + ".json"), "w") as f:
+            lru_prune(exclude_repo=dl_repo)
+        with open(os.path.join(RESULTS, result_slug(repo, engine, quant) + ".json"), "w") as f:
             json.dump(rec, f, indent=2)
         report()
-        git_commit(f"results: {repo} [{rec['status']}]")
+        git_commit(f"results: {repo} [{engine}/{quant}] [{rec['status']}]")
     return rec
 
 
@@ -427,16 +596,24 @@ def render_chart(points):
     s.append(f'<line x1="{px0}" y1="{py0}" x2="{px0+pw}" y2="{py0}" stroke="#b7bcc4"/>')
     s.append(f'<line x1="{px0}" y1="{PAD_T}" x2="{px0}" y2="{py0}" stroke="#b7bcc4"/>')
     s.append(f'<text x="{px0+pw/2}" y="{H-24}" font-size="12.5" fill="{ink}" '
-             f'text-anchor="middle">aggregate throughput @ 32 concurrent streams (tok/s)</text>')
+             f'text-anchor="middle">aggregate throughput under concurrent decode (tok/s)</text>')
     s.append(f'<text x="22" y="{PAD_T+ph/2}" font-size="12.5" fill="{ink}" text-anchor="middle" '
              f'transform="rotate(-90 22 {PAD_T+ph/2:.1f})">efficiency — tokens per joule</text>')
 
-    # points (largest drawn first so small dots stay clickable on top)
-    pts = sorted(points, key=lambda p: -p["gb"])
-    for p in pts:
+    # marker shape encodes engine; fill color encodes tool-call support
+    def marker(cx, cy, r, engine, color):
+        common = f'fill="{color}" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"'
+        if engine == "llamacpp":
+            return (f'<polygon points="{cx:.1f},{cy-r:.1f} {cx-r:.1f},{cy+r*0.72:.1f} '
+                    f'{cx+r:.1f},{cy+r*0.72:.1f}" {common}/>')
+        if engine == "sglang":
+            return f'<rect x="{cx-r:.1f}" y="{cy-r:.1f}" width="{2*r:.1f}" height="{2*r:.1f}" rx="1.5" {common}/>'
+        return f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" {common}/>'
+
+    # largest drawn first so small markers stay visible on top
+    for p in sorted(points, key=lambda p: -p["gb"]):
         r = 4.5 + (p["gb"] ** 0.5) * 1.7
-        s.append(f'<circle cx="{sx(p["agg"]):.1f}" cy="{sy(p["tokj"]):.1f}" r="{r:.1f}" '
-                 f'fill="{COLOR[p["cls"]]}" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>')
+        s.append(marker(sx(p["agg"]), sy(p["tokj"]), r, p.get("engine", "vllm"), COLOR[p["cls"]]))
 
     # label the extremes only (keeps the dense cluster legible): the top-4 by
     # tok/J plus the single least-efficient model — best vs worst, well separated
@@ -470,50 +647,95 @@ def render_chart(points):
                  f'fill-opacity="0.5" stroke="#ffffff"/>')
         s.append(f'<text x="{lx+30}" y="{cy}" font-size="11" fill="#3b414a">{gb} GB</text>')
 
+    eg_y = sz_y + 22 + len((2, 12, 32)) * 22 + 8
+    s.append(f'<text x="{lx}" y="{eg_y}" font-size="11.5" font-weight="700" fill="{ink}">'
+             f'engine (shape)</text>')
+    for i, (eng, lab) in enumerate((("vllm", "vLLM"), ("llamacpp", "llama.cpp"), ("sglang", "SGLang"))):
+        cy = eg_y + 20 + i * 20
+        s.append(marker(lx + 6, cy - 4, 6, eng, "#8a8f98"))
+        s.append(f'<text x="{lx+20}" y="{cy}" font-size="11" fill="#3b414a">{lab}</text>')
+
     s.append('</svg>\n')
     with open(os.path.join(ASSETS, "efficiency.svg"), "w") as f:
         f.write("\n".join(s))
 
 
+def _agg(b):
+    """(aggregate tok/s, concurrency) from the last sweep rung, or (None, None)."""
+    sw = b.get("sweep", [])
+    return (sw[-1]["agg_toks"], sw[-1]["concurrency"]) if sw else (None, None)
+
+
 def report():
-    ok_rows, fail_rows, points = [], [], []
-    image_default = cfg().get("image_default", "vllm/vllm-openai:latest")
+    oks, fails = [], []
     for fn in sorted(os.listdir(RESULTS)):
         if not fn.endswith(".json"):
             continue
         d = json.load(open(os.path.join(RESULTS, fn)))
+        d["_engine"], d["_quant"] = d.get("engine", "vllm"), d.get("quant", "native")
+        (oks if d["status"] == "ok" else fails).append(d)
+
+    # --- main leaderboard (all engines/quants, sorted by aggregate throughput) ---
+    ok_rows, points = [], []
+    for d in oks:
         b = d.get("battery", {})
-        if d["status"] == "ok":
-            agg32 = next((s["agg_toks"] for s in b.get("sweep", []) if s["concurrency"] == 32), "")
-            ok_rows.append((agg32 or 0, f"| {d['repo']} | {d.get('disk_gb','')} | "
-                     f"{b.get('single_stream_toks','—')} | {b.get('prefill',{}).get('toks','—')} | "
-                     f"{agg32 or '—'} | {d.get('hw',{}).get('max_vram_gb','—')} | "
-                     f"{d.get('hw',{}).get('mean_w','—')} | {d.get('tok_per_joule','—')} | "
-                     f"{b.get('tool_call','—')} | OK |"))
-            if agg32 and d.get("tok_per_joule") and d.get("disk_gb"):
-                points.append({"name": d["repo"].split("/")[-1], "agg": agg32,
-                               "tokj": d["tok_per_joule"], "gb": d["disk_gb"],
-                               "cls": _tool_class(b.get("tool_call"))})
-        else:
-            fail_rows.append((d["repo"], f"| {d['repo']} | {d.get('disk_gb','—')} | "
-                     f"{d['status']} | {fail_reason(d)} |"))
+        agg, _ = _agg(b)
+        star = "\\*" if b.get("battery_mode") == "reduced" else ""
+        ok_rows.append((agg or 0,
+            f"| {d['repo']} | {d['_engine']} | {d['_quant']} | {d.get('disk_gb','')} | "
+            f"{b.get('single_stream_toks','—')} | {b.get('prefill',{}).get('toks','—')} | "
+            f"{(str(agg)+star) if agg else '—'} | {d.get('hw',{}).get('max_vram_gb','—')} | "
+            f"{d.get('hw',{}).get('mean_w','—')} | {d.get('tok_per_joule','—')} | "
+            f"{b.get('tool_call','—')} |"))
+        if agg and d.get("tok_per_joule") and d.get("disk_gb"):
+            points.append({"name": d["repo"].split("/")[-1], "agg": agg,
+                           "tokj": d["tok_per_joule"], "gb": d["disk_gb"],
+                           "cls": _tool_class(b.get("tool_call")), "engine": d["_engine"]})
     ok_rows.sort(key=lambda r: -(r[0] or 0))
-    table = ("| model | GB | 1-stream tok/s | prefill tok/s | agg@32 | VRAM GB | mean W | tok/J | tools | status |\n"
-             "|---|---|---|---|---|---|---|---|---|---|\n" + "\n".join(r for _, r in ok_rows))
-    if fail_rows:
-        fail_rows.sort()
+    table = ("| model | engine | quant | GB | 1-stream tok/s | prefill tok/s | agg tok/s | "
+             "VRAM GB | mean W | tok/J | tools |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
+             + "\n".join(r for _, r in ok_rows))
+    if any(d.get("battery", {}).get("battery_mode") == "reduced" for d in oks):
+        table += ("\n\n<sub>\\* reduced battery (concurrency 8, shorter generation) — a "
+                  "CPU-offloaded config too slow for the full concurrency-32 sweep.</sub>")
+    if fails:
+        fr = sorted(f"| {d['repo']} | {d['_engine']} | {d['_quant']} | {d.get('disk_gb','—')} | "
+                    f"{d['status']} | {fail_reason(d)} |" for d in fails)
         table += ("\n\n**Did not serve on this rig** — no throughput data; recorded with cause:\n\n"
-                  "| model | GB | status | identified cause |\n|---|---|---|---|\n"
-                  + "\n".join(r for _, r in fail_rows))
+                  "| model | engine | quant | GB | status | identified cause |\n"
+                  "|---|---|---|---|---|---|\n" + "\n".join(fr))
+
+    # --- cross-engine comparison: base models served by >1 engine ---
+    groups = {}
+    for d in oks:
+        groups.setdefault(d.get("base") or d["repo"], []).append(d)
+    xe_blocks = []
+    for repo in sorted(groups):
+        rows = groups[repo]
+        if len({d["_engine"] for d in rows}) < 2:
+            continue
+        rows.sort(key=lambda d: (d["_engine"], -(d.get("battery", {}).get("single_stream_toks") or 0)))
+        body = []
+        for d in rows:
+            b = d.get("battery", {})
+            agg, _ = _agg(b)
+            body.append(f"| {d['_engine']} | {d['_quant']} | `{d['repo']}` | {d.get('disk_gb','—')} | "
+                        f"{b.get('single_stream_toks','—')} | {agg or '—'} | "
+                        f"{d.get('hw',{}).get('max_vram_gb','—')} | {d.get('tok_per_joule','—')} | "
+                        f"{b.get('tool_call','—')} |")
+        xe_blocks.append(f"**{repo}**\n\n| engine | quant | source | GB | 1-stream tok/s | agg tok/s | "
+                         f"VRAM GB | tok/J | tools |\n|---|---|---|---|---|---|---|---|---|\n"
+                         + "\n".join(body))
+    xengine = ("\n\n".join(xe_blocks) if xe_blocks else
+               "_No base model has been served by more than one engine yet._")
 
     render_chart(points)
-    served, failed = len(ok_rows), len(fail_rows)
-    img_tag = image_default.split("/")[-1]  # e.g. vllm-openai:nightly → nightly
-    if ":" in img_tag:
-        img_tag = img_tag.split(":")[-1]
-    summary = (f"**{served + failed} models tested · {served} served · {failed} did-not-serve · "
-               f"vLLM `{img_tag}` · updated {time.strftime('%Y-%m-%d', time.gmtime())}**")
-    chart = "![Efficiency: aggregate throughput vs tokens-per-joule](assets/efficiency.svg)"
+    served, failed = len(ok_rows), len(fails)
+    engines = sorted({d["_engine"] for d in oks + fails})
+    summary = (f"**{served + failed} configs tested · {served} served · {failed} did-not-serve · "
+               f"engines: {', '.join(engines)} · "
+               f"updated {time.strftime('%Y-%m-%d', time.gmtime())}**")
+    chart = "![Efficiency: aggregate throughput vs tokens-per-joule, by engine](assets/efficiency.svg)"
 
     rd = os.path.join(HERE, "README.md")
     txt = open(rd).read()
@@ -525,6 +747,7 @@ def report():
     txt = inject("SUMMARY", summary)
     txt = inject("CHART", chart)
     txt = inject("RESULTS", table)
+    txt = inject("XENGINE", xengine)
     open(rd, "w").write(txt)
 
 
@@ -543,25 +766,41 @@ def main():
     p.add_argument("--keep", action="store_true")
     p.add_argument("--image")
     p.add_argument("--flags")
+    p.add_argument("--engine", default="vllm", choices=["vllm", "sglang", "llamacpp"])
+    p.add_argument("--quant")
+    p.add_argument("--gguf-repo")
+    p.add_argument("--gguf-pattern")
+    p.add_argument("--n-cpu-moe", type=int)
+    p.add_argument("--ngl", type=int, default=999)
+    p.add_argument("--ctx", type=int)
+    p.add_argument("--kv")
+    p.add_argument("--base")
     p.add_argument("--skip-download-check", action="store_true")
     sub.add_parser("queue")
     sub.add_parser("report")
     a = ap.parse_args()
 
+    # fields a queue entry (or CLI run) may carry through to run_model()
+    ekeys = ("engine", "quant", "gguf_repo", "gguf_pattern", "n_cpu_moe", "ngl", "ctx", "kv", "base")
+
     if a.cmd == "run":
         set_power_cap()
+        ekw = {k: getattr(a, k) for k in ekeys}
         rec = run_model(a.repo, keep=a.keep, image=a.image, flags=a.flags,
-                        skip_check=a.skip_download_check)
+                        skip_check=a.skip_download_check, **ekw)
         print(json.dumps({k: v for k, v in rec.items() if k != "serve_errors"}, indent=2))
     elif a.cmd == "queue":
         set_power_cap()
         c = cfg()
         img = c.get("image_default", "vllm/vllm-openai:latest")
 
-        def prefetch(repo):
+        def prefetch(entry):
+            # prefetch weights for the next entry: a single GGUF for llamacpp, else the repo
+            repo = entry.get("gguf_repo") or entry["repo"]
             try:
                 print(f"[prefetch] {repo}", flush=True)
-                download(repo, img)
+                download(repo, img, allow_patterns=[entry["gguf_pattern"]]
+                         if entry.get("engine") == "llamacpp" else None)
             except Exception as e:
                 print(f"[prefetch] {repo} failed: {repr(e)[:80]}", flush=True)
 
@@ -570,11 +809,12 @@ def main():
             if entry.get("done"):
                 continue
             nxt = next((e for e in q[i + 1:] if not e.get("done")), None)
-            th = threading.Thread(target=prefetch, args=(nxt["repo"],), daemon=True) if nxt else None
+            th = threading.Thread(target=prefetch, args=(nxt,), daemon=True) if nxt else None
             if th:
                 th.start()
+            ekw = {k: entry[k] for k in ekeys if k in entry}
             rec = run_model(entry["repo"], keep=entry.get("keep", False),
-                            flags=entry.get("flags"))
+                            flags=entry.get("flags"), **ekw)
             entry["done"] = True
             entry["status"] = rec["status"]
             with open(os.path.join(HERE, "models.json"), "w") as f:

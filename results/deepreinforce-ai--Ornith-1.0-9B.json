@@ -35,5 +35,6 @@
       340
     ]
   },
-  "tok_per_joule": 3.48
+  "tok_per_joule": 3.48,
+  "base": "Ornith-1.0-9B"
 }
