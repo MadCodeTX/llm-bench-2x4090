@@ -557,7 +557,8 @@
       "gguf_repo": "unsloth/Ornith-1.0-35B-GGUF",
       "gguf_pattern": "*Q8_0.gguf",
       "ctx": 8192,
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "sakamakismile/Ornith-1.0-35B-NVFP4",
