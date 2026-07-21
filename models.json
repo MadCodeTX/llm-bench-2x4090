@@ -820,7 +820,8 @@
       "engine": "sglang",
       "quant": "native",
       "flags": "--trust-remote-code",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "google/gemma-4-12b-it",

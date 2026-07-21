@@ -3,12 +3,12 @@
   "base": "gemma-4-12b-it",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 18:56 UTC",
+  "ts": "2026-07-21 19:15 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
   "disk_gb": 23.9,
-  "download_s": 1.6,
+  "download_s": 1.4,
   "serve_config": {
     "mem_fraction_static": 0.9,
     "context_length": 8192
@@ -20,33 +20,36 @@
     "ttft_s": 0.04,
     "prefill": {
       "prompt_tok": 7015,
-      "toks": 4766
+      "toks": 4773
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1155
+        "agg_toks": 1152
       }
     ],
     "workload_summarize": {
-      "docs": 45,
-      "concurrency": 24,
-      "wall_s": 15.7,
-      "docs_per_min": 171.6,
-      "out_toks_per_s": 243,
-      "mean_latency_s": 7.99,
-      "p95_latency_s": 13.31
+      "error": "all 45 summarize requests failed",
+      "concurrency": 24
     },
-    "tool_call": "no_structured_call"
+    "workload_extract": {
+      "error": "all 45 extract requests failed",
+      "concurrency": 24
+    },
+    "workload_longctx": {
+      "error": "all 20 long-context queries failed",
+      "concurrency": 8
+    },
+    "tool_call": "error: ConnectionResetError(104, 'Connection reset by peer')"
   },
   "hw": {
-    "mean_w": 531,
-    "max_w": 602,
+    "mean_w": 496,
+    "max_w": 600,
     "max_vram_gb": 23.5,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 2.18
+  "tok_per_joule": 2.32
 }
