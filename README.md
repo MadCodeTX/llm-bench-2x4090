@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**38 configs tested · 27 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**39 configs tested · 27 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -84,6 +84,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-E2B-it-assistant | vllm | native | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
 | google/gemma-4-E4B-it-assistant | vllm | native | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
 | lewtun/talkie-1930-13b-it-hf | vllm | native | 26.6 | serve_failed | arch `TalkieForCausalLM` — not compatible with vLLM (incl. Transformers backend) |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q5_K_M | — | error | RuntimeError('gguf not found after download: *Q5_K_M.gguf in openbmb/MiniCPM5-1B-GGUF') |
 | pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | vllm | native | 11.7 | serve_failed | defective NVFP4 requant — MarlinNvFp4 weight-load crash on TP worker (official RedHatAI NVFP4 works) |
 | z-lab/Qwen3-8B-DFlash-b16 | vllm | native | 2.1 | serve_failed | speculative-decoding draft model (`DFlashDraftModel`) — not standalone-servable |
 <!--RESULTS:END-->
