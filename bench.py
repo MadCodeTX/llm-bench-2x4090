@@ -436,6 +436,14 @@ def run_model(repo, keep=False, image=None, flags=None, skip_check=False,
         else:
             size = hf_model_bytes(repo)
             rec["disk_gb"] = round(size / 1e9, 1)
+            # vLLM/SGLang need weights resident in VRAM; anything past ~46 GB can't fit
+            # the 48 GB pool with a KV cache, so skip before a wasteful download.
+            # (llama.cpp is exempt — it can offload to system RAM.)
+            if not skip_check and rec["disk_gb"] > 46:
+                rec["status"] = "serve_failed"
+                rec["fail_reason"] = (f"too large for 48 GB VRAM ({rec['disk_gb']} GB of "
+                                      f"weights; {engine} keeps them resident)")
+                return rec
             free = shutil.disk_usage(CACHE).free
             if not skip_check and size * 1.3 > free:
                 raise RuntimeError(f"insufficient disk: need {size*1.3/1e9:.0f}GB, have {free/1e9:.0f}GB")

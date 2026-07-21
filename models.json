@@ -406,8 +406,7 @@
       "gguf_repo": "unsloth/gemma-4-12b-it-GGUF",
       "gguf_pattern": "*Q8_0.gguf",
       "ctx": 8192,
-      "done": true,
-      "status": "serve_failed"
+      "done": false
     },
     {
       "repo": "unsloth/gpt-oss-20b-GGUF",
@@ -627,14 +626,16 @@
       "base": "Qwen-AgentWorld-35B-A3B",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "Motif-Technologies/Motif-3-Beta",
       "base": "Motif-3-Beta",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "skipped_too_large"
     },
     {
       "repo": "InternScience/Agents-A1-4B",
