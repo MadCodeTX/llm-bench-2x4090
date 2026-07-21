@@ -95,7 +95,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9813 | 270 | 4.8 | 448 | 0.6 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | 61.7 | 10086 | 198 | 7.6 | 390 | 0.51 | ok |
-| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.1 | 3819 | 136 | 9.0 | 507 | 0.27 | ok |
+| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.1 | 3850 | 136 | 9.0 | 515 | 0.26 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q5_K_M | 19.5 | 42.6 | 3682 | 122 | 10.1 | 504 | 0.24 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q8_0 | 28.6 | 30.8 | 3561 | 98 | 14.1 | 427 | 0.23 | ok |
 
@@ -162,7 +162,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.1 | 136 | 33.8 | 9.0 | 0.27 | ok |
+| llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.1 | 136 | 33.9 | 9.0 | 0.26 | ok |
 | llamacpp | Q5_K_M | `unsloth/Qwen3.6-27B-GGUF` | 19.5 | 42.6 | 122 | — | 10.1 | 0.24 | ok |
 | llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | — | 14.1 | 0.23 | ok |
 | sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 37.0 | 298 | 57.5 | 23.5 | 0.58 | no_structured_call |
@@ -224,7 +224,7 @@ comparable:
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | — | — | — | — |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | — | — | — | — |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.5 | 57.6 | 0 | 26.4 | 0 |
-| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.8 | — | — | — | — |
+| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.9 | 17.7 | 20 | — | — |
 <!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)

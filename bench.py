@@ -277,25 +277,33 @@ def load_articles():
 
 
 def chat_text(model, prompt, max_tokens, temperature=0.0, timeout=600):
-    """Like completion() but returns the response text (needed to score JSON
-    validity and long-context retrieval). Temperature 0 for deterministic quality."""
+    """Like completion() but returns the response text (needed to score JSON validity
+    and long-context retrieval). Returns (content, reasoning, completion_tokens) —
+    reasoning models split their <think> into reasoning_content, so keep it separate:
+    validate the *answer* (content) but still search both for a retrieved needle."""
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}],
                "max_tokens": max_tokens, "temperature": temperature}
     resp = json.load(http("/v1/chat/completions", payload, timeout=timeout))
     msg = resp["choices"][0]["message"]
-    content = (msg.get("content") or "") + (msg.get("reasoning_content") or "")
-    return content, resp.get("usage", {}).get("completion_tokens", 0)
+    return (msg.get("content") or ""), (msg.get("reasoning_content") or ""), \
+        resp.get("usage", {}).get("completion_tokens", 0)
 
 
 def _valid_json_obj(txt):
-    """True if the text contains a parseable JSON object."""
-    m = re.search(r"\{.*\}", txt, re.S)
-    if not m:
-        return False
-    try:
-        return isinstance(json.loads(m.group(0)), dict)
-    except Exception:
-        return False
+    """True if the text contains a parseable JSON object. Scans each '{' with
+    raw_decode so it survives surrounding prose or <think> braces (a greedy
+    ``\\{.*\\}`` would span thinking + answer and fail to parse)."""
+    dec = json.JSONDecoder()
+    i = txt.find("{")
+    while i >= 0:
+        try:
+            obj, _ = dec.raw_decode(txt[i:])
+            if isinstance(obj, dict):
+                return True
+        except Exception:
+            pass
+        i = txt.find("{", i + 1)
+    return False
 
 
 def workload_summarize(model, articles, concurrency):
@@ -346,9 +354,9 @@ def workload_extract(model, articles, concurrency):
             'ARTICLE:\n{}\n\nJSON:')
 
     def one(a):
-        try:
-            txt, ct = chat_text(model, tmpl.format(a["text"]), 160)
-            return ct, _valid_json_obj(txt)
+        try:  # 384 tok so reasoning models can think AND still emit the JSON answer
+            content, reasoning, ct = chat_text(model, tmpl.format(a["text"]), 384)
+            return ct, (_valid_json_obj(content) or _valid_json_obj(reasoning))
         except Exception:
             return None, None
 
@@ -384,9 +392,9 @@ def workload_longctx(model, articles, n_queries, concurrency, ctx_articles=6):
         ctx = "\n\n".join(picks[:pos]) + needle + "\n\n".join(picks[pos:])
         q = (ctx + "\n\nQuestion: What is the classified reference number mentioned in the "
              "notice above? Answer with only the number.")
-        try:
-            txt, _ = chat_text(model, q, 24)
-            return code in txt
+        try:  # 256 tok so a reasoning model can think then answer, not truncate mid-<think>
+            content, reasoning, _ = chat_text(model, q, 256)
+            return code in (content + " " + reasoning)
         except Exception:
             return None
 
