@@ -901,7 +901,8 @@
       "engine": "sglang",
       "quant": "FP8",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "openbmb/MiniCPM5-1B",
