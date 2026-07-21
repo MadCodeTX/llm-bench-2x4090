@@ -643,7 +643,8 @@
       "base": "Agents-A1-4B",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     }
   ]
 }
