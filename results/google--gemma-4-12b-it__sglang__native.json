@@ -3,53 +3,65 @@
   "base": "gemma-4-12b-it",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 19:15 UTC",
+  "ts": "2026-07-21 19:48 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
   "disk_gb": 23.9,
-  "download_s": 1.4,
+  "download_s": 1.5,
   "serve_config": {
     "mem_fraction_static": 0.9,
     "context_length": 8192
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 60.6,
+    "single_stream_toks": 60.7,
     "battery_mode": "full",
     "ttft_s": 0.04,
     "prefill": {
-      "prompt_tok": 7015,
-      "toks": 4773
+      "prompt_tok": 7016,
+      "toks": 4761
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1152
+        "agg_toks": 1141
       }
     ],
     "workload_summarize": {
-      "error": "all 45 summarize requests failed",
-      "concurrency": 24
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 15.6,
+      "docs_per_min": 173.0,
+      "out_toks_per_s": 243,
+      "mean_latency_s": 7.96,
+      "p95_latency_s": 13.15
     },
     "workload_extract": {
-      "error": "all 45 extract requests failed",
-      "concurrency": 24
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 14.8,
+      "docs_per_min": 182.7,
+      "json_valid_pct": 100
     },
     "workload_longctx": {
-      "error": "all 20 long-context queries failed",
-      "concurrency": 8
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 19.0,
+      "queries_per_min": 37.8,
+      "needle_hit_pct": 100
     },
-    "tool_call": "error: ConnectionResetError(104, 'Connection reset by peer')"
+    "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 496,
-    "max_w": 600,
+    "mean_w": 539,
+    "max_w": 596,
     "max_vram_gb": 23.5,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 2.32
+  "tok_per_joule": 2.12
 }
