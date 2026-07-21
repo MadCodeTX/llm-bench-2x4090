@@ -1,0 +1,46 @@
+{
+  "repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+  "base": "Llama-3.1-8B",
+  "engine": "llamacpp",
+  "quant": "Q4_K_M",
+  "ts": "2026-07-21 16:06 UTC",
+  "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
+  "flags": "",
+  "status": "ok",
+  "gguf_repo": "bartowski/Meta-Llama-3.1-8B-Instruct-GGUF",
+  "gguf_pattern": "*Q4_K_M.gguf",
+  "download_s": 1.6,
+  "disk_gb": 4.9,
+  "serve_config": {
+    "ctx_size": 8192,
+    "ngl": 999,
+    "n_cpu_moe": null,
+    "kv": "f16"
+  },
+  "battery": {
+    "single_stream_toks": 162.3,
+    "battery_mode": "full",
+    "ttft_s": 0.08,
+    "prefill": {
+      "prompt_tok": 7035,
+      "toks": 16880
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 417
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 453,
+    "max_w": 504,
+    "max_vram_gb": 3.3,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 0.92
+}
