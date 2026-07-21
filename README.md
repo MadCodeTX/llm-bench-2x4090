@@ -58,10 +58,10 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-12b-it-qat-w4a16-ct | vllm | native | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok |
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6741 | 1672 | 21.7 | 481 | 3.48 | not_configured |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 8019 | 1656 | 23.0 | 422 | 3.92 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5593 | 1639 | 23.3 | 477 | 3.44 | no_structured_call |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
-| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 7886 | 1411 | 22.3 | 415 | 3.4 | no_structured_call |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 147.9 | 7868 | 1277 | 22.3 | 405 | 3.15 | not_configured |
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
@@ -135,7 +135,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 5.7 | 144.1 | 400 | — | 3.6 | 0.92 | ok |
 | llamacpp | Q6_K | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 6.6 | 127.5 | 368 | — | 4.0 | 0.81 | ok |
 | llamacpp | Q8_0 | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 8.5 | 103.4 | 310 | — | 4.8 | 0.83 | ok |
-| sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1411 | — | 22.3 | 3.4 | no_structured_call |
+| sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1656 | 281.8 | 23.0 | 3.92 | no_structured_call |
 | vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 147.9 | 1277 | — | 22.3 | 3.15 | not_configured |
 
 **MiniCPM5-1B**
@@ -203,6 +203,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
 | openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |
