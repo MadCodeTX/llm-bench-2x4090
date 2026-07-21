@@ -1,0 +1,46 @@
+{
+  "repo": "unsloth/gemma-4-12b-it-GGUF",
+  "base": "gemma-4-12b-it",
+  "engine": "llamacpp",
+  "quant": "Q8_0",
+  "ts": "2026-07-21 17:41 UTC",
+  "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
+  "flags": "",
+  "status": "ok",
+  "gguf_repo": "unsloth/gemma-4-12b-it-GGUF",
+  "gguf_pattern": "*Q8_0.gguf",
+  "download_s": 451.8,
+  "disk_gb": 13.1,
+  "serve_config": {
+    "ctx_size": 8192,
+    "ngl": 999,
+    "n_cpu_moe": null,
+    "kv": "f16"
+  },
+  "battery": {
+    "single_stream_toks": 61.7,
+    "battery_mode": "full",
+    "ttft_s": 0.17,
+    "prefill": {
+      "prompt_tok": 7020,
+      "toks": 10086
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 198
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 390,
+    "max_w": 426,
+    "max_vram_gb": 7.6,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 0.51
+}

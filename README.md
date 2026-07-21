@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**67 configs tested · 53 served · 14 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**67 configs tested · 54 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -93,6 +93,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9736 | 271 | 4.8 | 450 | 0.6 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 30.9 | 36.6 | 3152 | 229 | 21.6 | 512 | 0.45 | no_structured_call |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | 61.7 | 10086 | 198 | 7.6 | 390 | 0.51 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.0 | 3847 | 136 | 9.0 | 502 | 0.27 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q5_K_M | 19.5 | 42.6 | 3682 | 122 | 10.1 | 504 | 0.24 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q8_0 | 28.6 | 30.8 | 3561 | 98 | 14.1 | 427 | 0.23 | ok |
@@ -113,7 +114,6 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | lewtun/talkie-1930-13b-it-hf | vllm | native | 26.6 | serve_failed | arch `TalkieForCausalLM` — not compatible with vLLM (incl. Transformers backend) |
 | pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | vllm | native | 11.7 | serve_failed | defective NVFP4 requant — MarlinNvFp4 weight-load crash on TP worker (official RedHatAI NVFP4 works) |
 | sakamakismile/Ornith-1.0-35B-NVFP4 | vllm | NVFP4 | 21.9 | serve_failed | quantization config mismatch |
-| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | serve_failed | 64.292 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to create llama_context from model |
 | z-lab/Qwen3-8B-DFlash-b16 | vllm | native | 2.1 | serve_failed | speculative-decoding draft model (`DFlashDraftModel`) — not standalone-servable |
 <!--RESULTS:END-->
 
@@ -174,6 +174,7 @@ bases served by more than one engine are shown.
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | 4.8 | 0.6 | ok |
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | 5.5 | 0.57 | ok |
+| llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | 7.6 | 0.51 | ok |
 | sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.6 | 1119 | 22.1 | 2.35 | no_structured_call |
 | vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | 22.4 | 2.24 | ok |
 
