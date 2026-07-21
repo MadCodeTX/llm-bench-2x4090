@@ -63,9 +63,9 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 148.1 | 7928 | 1281 | 22.3 | 410 | 3.12 | not_configured |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 633.6 | 72532 | 1254 | 0.9 | 285 | 4.4 | no_structured_call |
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
-| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 628.7 | 72754 | 1217 | 0.9 | 271 | 4.49 | ok |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q8_0 | 1.2 | 519.4 | 76287 | 1153 | 1.1 | 249 | 4.63 | ok |
 | google/gemma-4-12b-it | sglang | native | 23.9 | 60.6 | 4773 | 1152 | 23.5 | 496 | 2.32 | error: ConnectionResetError(104, 'Connection reset by peer') |
 | google/gemma-4-31B-it-qat-w4a16-ct | vllm | native | 23.3 | 70.0 | 2381 | 1133 | 22.8 | 507 | 2.23 | ok |
@@ -142,7 +142,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 628.7 | 1217 | 338.2 | 0.9 | 4.49 | ok |
+| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 633.6 | 1254 | 338.1 | 0.9 | 4.4 | no_structured_call |
 | llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | — | 1.1 | 4.63 | ok |
 | sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 512.0 | 6880 | 952.3 | 23.3 | 20.54 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.2 | 7019 | 956.7 | 22.5 | 22.21 | not_configured |
@@ -211,7 +211,7 @@ comparable:
 | openbmb/MiniCPM5-1B | vllm | native | 956.7 | — | — | — | — |
 | openbmb/MiniCPM5-1B | sglang | native | 952.3 | 955.6 | 0 | 283.5 | 0 |
 | openai/gpt-oss-20b | vllm | native | 377.5 | — | — | — | — |
-| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.2 | — | — | — | — |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.1 | 122.1 | 22 | 153.2 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 286.8 | 360.8 | 100 | 78.5 | 100 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | — | — | — | — |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | — | — | — | — |

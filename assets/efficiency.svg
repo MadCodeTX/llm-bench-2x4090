@@ -84,7 +84,7 @@
 <circle cx="691.0" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <rect x="671.7" y="120.1" width="14.0" height="14.0" rx="1.5" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <polygon points="175.4,370.9 169.0,381.8 181.7,381.8" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
-<polygon points="181.0,373.5 175.1,383.7 186.9,383.7" fill="#2ca02c" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="184.2,374.9 178.3,385.1 190.2,385.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <text x="681.0" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
 <text x="604.1" y="128.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
 <text x="668.8" y="130.7" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>

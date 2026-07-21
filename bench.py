@@ -354,8 +354,8 @@ def workload_extract(model, articles, concurrency):
             'ARTICLE:\n{}\n\nJSON:')
 
     def one(a):
-        try:  # 384 tok so reasoning models can think AND still emit the JSON answer
-            content, reasoning, ct = chat_text(model, tmpl.format(a["text"]), 384)
+        try:  # 512 tok so a reasoning model can think AND still emit the JSON answer
+            content, reasoning, ct = chat_text(model, tmpl.format(a["text"]), 512)
             return ct, (_valid_json_obj(content) or _valid_json_obj(reasoning))
         except Exception:
             return None, None
@@ -376,11 +376,13 @@ def workload_extract(model, articles, concurrency):
     return out
 
 
-def workload_longctx(model, articles, n_queries, concurrency, ctx_articles=6):
+def workload_longctx(model, articles, n_queries, concurrency=1, ctx_articles=6):
     """Long-context RAG-style retrieval: concatenate several articles (~7K tokens),
     hide a unique reference number among them, and ask for it back. Measures
     queries/min at long context (a prefill-heavy regime the short tasks don't stress)
-    AND retrieval accuracy — did the model actually find the needle."""
+    AND retrieval accuracy — did the model actually find the needle. Runs sequentially
+    (concurrency 1): a fair cross-engine measure, and llama.cpp's --ctx-size is a *total*
+    KV budget, so N concurrent 7K-token prompts would overflow it."""
     import concurrent.futures
     import random
 
@@ -392,8 +394,8 @@ def workload_longctx(model, articles, n_queries, concurrency, ctx_articles=6):
         ctx = "\n\n".join(picks[:pos]) + needle + "\n\n".join(picks[pos:])
         q = (ctx + "\n\nQuestion: What is the classified reference number mentioned in the "
              "notice above? Answer with only the number.")
-        try:  # 256 tok so a reasoning model can think then answer, not truncate mid-<think>
-            content, reasoning, _ = chat_text(model, q, 256)
+        try:  # 384 tok so a reasoning model can think then answer, not truncate mid-<think>
+            content, reasoning, _ = chat_text(model, q, 384)
             return code in (content + " " + reasoning)
         except Exception:
             return None
@@ -464,7 +466,7 @@ def battery(model, maxlen=32768):
         ("workload_extract", workload_extract,
             (arts[:8], 4) if slow else (arts, 24)),
         ("workload_longctx", workload_longctx,
-            (arts, 6, 3) if slow else (arts, 20, 8)),
+            (arts, 4, 1) if slow else (arts, 12, 1)),
     ):
         try:
             out[key] = fn(model, *args)
