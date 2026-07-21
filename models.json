@@ -565,7 +565,8 @@
       "base": "Ornith-1.0-35B",
       "engine": "vllm",
       "quant": "NVFP4",
-      "done": false
+      "done": true,
+      "status": "serve_failed"
     },
     {
       "repo": "openbmb/MiniCPM5-1B",
