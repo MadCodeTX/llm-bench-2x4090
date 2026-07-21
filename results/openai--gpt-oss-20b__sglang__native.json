@@ -3,41 +3,57 @@
   "base": "gpt-oss-20b",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 16:52 UTC",
+  "ts": "2026-07-21 18:17 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
   "disk_gb": 27.5,
-  "download_s": 1.4,
+  "download_s": 1.2,
+  "serve_errors": [
+    {
+      "mem_frac": 0.9,
+      "ctx": 8192,
+      "tail": "ang/srt/models/gpt_oss.py\", line 613, in forward\n    hidden_states = self.mlp(hidden_states, forward_batch, should_allreduce_fusion)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/models/gpt_oss.py\", line 261, in forward\n    return self.forward_normal(hidden_states, should_allreduce_fusion)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/models/gpt_oss.py\", line 301, in forward_normal\n    final_hidden_states = self.experts(hidden_states, topk_output)\n                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/fused_moe_triton/layer.py\", line 1229, in forward\n    return self.forward_impl(hidden_states, topk_output)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/fused_moe_triton/layer.py\", line 1239, in forward_impl\n    combine_input = self.run_moe_core(\n                    ^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/fused_moe_triton/layer.py\", line 1277, in run_moe_core\n    return self.quant_method.apply(\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/quantization/mxfp4.py\", line 1334, in apply\n    return self.runner.run(dispatch_output, quant_info)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/moe_runner/runner.py\", line 155, in run\n    runner_output = self.runner_core.run(\n                    ^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/moe_runner/triton_kernels.py\", line 120, in run\n    output = triton_kernel_fused_experts_with_bias(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/layers/moe/fused_moe_triton/triton_kernels_moe.py\", line 341, in triton_kernel_fused_experts_with_bias\n    matmul_ogs(\n  File \"/usr/local/lib/python3.12/dist-packages/triton_kernels/matmul_ogs.py\", line 574, in matmul_ogs\n    (kernels._p_matmul_ogs if opt_flags.is_persistent else kernels._matmul_ogs)[(grid,)](\n  File \"/usr/local/lib/python3.12/dist-packages/triton/runtime/jit.py\", line 370, in <lambda>\n    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.12/dist-packages/triton/runtime/jit.py\", line 744, in run\n    kernel.run(grid_0, grid_1, grid_2, stream, kernel.function, kernel.packed_metadata, launch_metadata,\n  File \"/usr/local/lib/python3.12/dist-packages/triton/backends/nvidia/driver.py\", line 713, in __call__\n    self.launch(gridX, gridY, gridZ, stream, function, self.launch_cooperative_grid, self.launch_pdl,\nRuntimeError: Triton Error [CUDA]: out of memory\n\n[2026-07-21 18:18:44] Received sigquit from a child process. It usually means the child failed.\n[2026-07-21 18:18:44] kill_process_tree called: parent_pid=1, include_parent=True, pid=1\n[2026-07-21 18:18:44] kill_process_tree called: parent_pid=1, include_parent=False, pid=1\n"
+    }
+  ],
   "serve_config": {
     "mem_fraction_static": 0.85,
-    "context_length": 32768
+    "context_length": 8192
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 30.2,
+    "single_stream_toks": 30.3,
     "battery_mode": "full",
     "ttft_s": 0.1,
     "prefill": {
-      "prompt_tok": 15077,
-      "toks": 9629
+      "prompt_tok": 7068,
+      "toks": 9923
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 355
+        "agg_toks": 367
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 29.7,
+      "docs_per_min": 90.9,
+      "out_toks_per_s": 242,
+      "mean_latency_s": 14.83,
+      "p95_latency_s": 15.21
+    },
     "tool_call": "not_configured"
   },
   "hw": {
-    "mean_w": 357,
-    "max_w": 607,
-    "max_vram_gb": 22.6,
+    "mean_w": 380,
+    "max_w": 592,
+    "max_vram_gb": 22.9,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 0.99
+  "tok_per_joule": 0.97
 }

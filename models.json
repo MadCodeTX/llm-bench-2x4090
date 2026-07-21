@@ -661,7 +661,8 @@
       "engine": "sglang",
       "quant": "native",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "openai/gpt-oss-20b",

@@ -82,8 +82,8 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 4.9 | 162.3 | 16880 | 417 | 3.3 | 453 | 0.92 | ok |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q5_K_M | 5.7 | 144.1 | 16398 | 400 | 3.6 | 433 | 0.92 | ok |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q6_K | 6.6 | 127.5 | 15159 | 368 | 4.0 | 456 | 0.81 | ok |
+| openai/gpt-oss-20b | sglang | native | 27.5 | 30.3 | 9923 | 367 | 22.9 | 380 | 0.97 | not_configured |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
-| openai/gpt-oss-20b | sglang | native | 27.5 | 30.2 | 9629 | 355 | 22.6 | 357 | 0.99 | not_configured |
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q4_K_M | 22.1 | 176.5 | 11294 | 342 | 11.1 | 329 | 1.04 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q5_K_M | 6.5 | 124.7 | 12998 | 338 | 3.8 | 450 | 0.75 | ok |
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q5_K_M | 26.5 | 169.2 | 11342 | 327 | 13.1 | 328 | 1.0 | ok |
@@ -186,7 +186,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q4_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.6 | 263.1 | 441 | — | 6.1 | 1.13 | ok |
 | llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | — | 6.1 | 1.11 | ok |
 | llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | — | 6.2 | 1.14 | ok |
-| sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.2 | 355 | — | 22.6 | 0.99 | not_configured |
+| sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.3 | 367 | 90.9 | 22.9 | 0.97 | not_configured |
 | vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | — | 22.4 | 6.03 | no_structured_call |
 <!--XENGINE:END-->
 
@@ -204,6 +204,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
+| openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
 <!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
