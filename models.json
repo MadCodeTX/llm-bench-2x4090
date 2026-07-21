@@ -811,7 +811,8 @@
       "engine": "sglang",
       "quant": "native",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "deepreinforce-ai/Ornith-1.0-9B",
