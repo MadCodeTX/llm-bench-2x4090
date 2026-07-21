@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**57 configs tested · 45 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**58 configs tested · 46 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -79,6 +79,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q5_K_M | 5.7 | 144.1 | 16398 | 400 | 3.6 | 433 | 0.92 | ok |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q6_K | 6.6 | 127.5 | 15159 | 368 | 4.0 | 456 | 0.81 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
+| unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q4_K_M | 22.1 | 176.5 | 11294 | 342 | 11.1 | 329 | 1.04 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q5_K_M | 6.5 | 124.7 | 12998 | 338 | 3.8 | 450 | 0.75 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q6_K | 7.4 | 112.4 | 12196 | 314 | 4.1 | 460 | 0.68 | ok |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q8_0 | 8.5 | 103.4 | 17381 | 310 | 4.8 | 375 | 0.83 | ok |
