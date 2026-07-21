@@ -205,6 +205,13 @@ comparable:
   concatenated articles and ask for it back → **queries/min** and **needle hit %** (retrieval
   accuracy at long context).
 
+Budgets are generous (512 tok for extract, 384 for the needle answer) so reasoning models can
+think *and* answer. Heavy reasoners still trade throughput for it — and a very verbose one can
+burn the whole budget on `<think>` before emitting JSON, which shows up as a low JSON-valid %
+(e.g. Qwen3.6-27B on vLLM, where the reasoning-parser separates the unfinished answer out).
+Long-context RAG runs sequentially (concurrency 1): a fair cross-engine measure, since
+llama.cpp's `--ctx-size` is a *total* KV budget that many concurrent 7K-token prompts overflow.
+
 <!--WORKLOAD:BEGIN-->
 | model | engine | quant | summarize docs/min | extract docs/min | JSON valid % | RAG q/min | needle hit % |
 |---|---|---|---|---|---|---|---|
