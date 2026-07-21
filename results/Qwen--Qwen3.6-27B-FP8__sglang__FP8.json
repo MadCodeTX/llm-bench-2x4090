@@ -3,7 +3,7 @@
   "base": "Qwen3.6-27B",
   "engine": "sglang",
   "quant": "FP8",
-  "ts": "2026-07-21 18:22 UTC",
+  "ts": "2026-07-21 19:23 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
@@ -15,38 +15,53 @@
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 36.9,
+    "single_stream_toks": 37.0,
     "battery_mode": "full",
-    "ttft_s": 0.19,
+    "ttft_s": 0.06,
     "prefill": {
-      "prompt_tok": 7011,
+      "prompt_tok": 7010,
       "toks": 2808
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 297
+        "agg_toks": 298
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
       "wall_s": 46.9,
-      "docs_per_min": 57.6,
+      "docs_per_min": 57.5,
       "out_toks_per_s": 153,
-      "mean_latency_s": 19.09,
+      "mean_latency_s": 19.1,
       "p95_latency_s": 27.74
+    },
+    "workload_extract": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 46.9,
+      "docs_per_min": 57.6,
+      "json_valid_pct": 0
+    },
+    "workload_longctx": {
+      "queries": 20,
+      "concurrency": 8,
+      "ctx_articles": 6,
+      "wall_s": 45.5,
+      "queries_per_min": 26.4,
+      "needle_hit_pct": 0
     },
     "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 491,
-    "max_w": 566,
+    "mean_w": 514,
+    "max_w": 567,
     "max_vram_gb": 23.5,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 0.6
+  "tok_per_joule": 0.58
 }
