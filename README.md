@@ -57,7 +57,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | Qwen/Qwen3.6-35B-A3B-FP8 | vllm | native | 37.5 | 192.8 | 9717 | 1859 | 22.0 | 361 | 5.15 | ok |
 | google/gemma-4-12b-it-qat-w4a16-ct | vllm | native | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok |
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
-| deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6741 | 1672 | 21.7 | 481 | 3.48 | not_configured |
+| deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6674 | 1664 | 21.7 | 494 | 3.37 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 8019 | 1656 | 23.0 | 422 | 3.92 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5593 | 1639 | 23.3 | 477 | 3.44 | no_structured_call |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
@@ -156,7 +156,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | — | 4.1 | 0.68 | ok |
 | llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | — | 5.0 | 0.7 | ok |
 | sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1639 | 202.7 | 23.3 | 3.44 | no_structured_call |
-| vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | — | 21.7 | 3.48 | not_configured |
+| vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1664 | 214.4 | 21.7 | 3.37 | not_configured |
 
 **Qwen3.6-27B**
 
@@ -205,6 +205,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | openbmb/MiniCPM5-1B | vllm | native | 956.7 | 2551 | 1.41 | 1.49 | 24 |
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
+| deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
 | openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |

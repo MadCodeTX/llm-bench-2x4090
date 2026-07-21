@@ -696,7 +696,8 @@
       "base": "MiniCPM5-1B",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "deepreinforce-ai/Ornith-1.0-9B",
