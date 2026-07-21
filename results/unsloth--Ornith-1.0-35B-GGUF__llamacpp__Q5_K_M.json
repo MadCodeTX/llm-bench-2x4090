@@ -1,0 +1,46 @@
+{
+  "repo": "unsloth/Ornith-1.0-35B-GGUF",
+  "base": "Ornith-1.0-35B",
+  "engine": "llamacpp",
+  "quant": "Q5_K_M",
+  "ts": "2026-07-21 16:22 UTC",
+  "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
+  "flags": "",
+  "status": "ok",
+  "gguf_repo": "unsloth/Ornith-1.0-35B-GGUF",
+  "gguf_pattern": "*Q5_K_M.gguf",
+  "download_s": 1.6,
+  "disk_gb": 26.5,
+  "serve_config": {
+    "ctx_size": 8192,
+    "ngl": 999,
+    "n_cpu_moe": null,
+    "kv": "f16"
+  },
+  "battery": {
+    "single_stream_toks": 169.2,
+    "battery_mode": "full",
+    "ttft_s": 0.11,
+    "prefill": {
+      "prompt_tok": 7012,
+      "toks": 11342
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 327
+      }
+    ],
+    "tool_call": "ok"
+  },
+  "hw": {
+    "mean_w": 328,
+    "max_w": 451,
+    "max_vram_gb": 13.1,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 1.0
+}
