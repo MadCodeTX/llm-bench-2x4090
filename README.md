@@ -58,11 +58,11 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-12b-it-qat-w4a16-ct | vllm | native | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok |
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 18.8 | 99.1 | 6674 | 1664 | 21.7 | 494 | 3.37 | not_configured |
-| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 147.9 | 7921 | 1658 | 22.3 | 411 | 4.03 | not_configured |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 8019 | 1656 | 23.0 | 422 | 3.92 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 5593 | 1639 | 23.3 | 477 | 3.44 | no_structured_call |
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 148.1 | 7928 | 1281 | 22.3 | 410 | 3.12 | not_configured |
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
 | openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 0.7 | 628.7 | 72754 | 1217 | 0.9 | 271 | 4.49 | ok |
@@ -136,7 +136,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q6_K | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 6.6 | 127.5 | 368 | — | 4.0 | 0.81 | ok |
 | llamacpp | Q8_0 | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 8.5 | 103.4 | 310 | — | 4.8 | 0.83 | ok |
 | sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1656 | 281.8 | 23.0 | 3.92 | no_structured_call |
-| vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 147.9 | 1658 | 288.6 | 22.3 | 4.03 | not_configured |
+| vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 148.1 | 1281 | 286.8 | 22.3 | 3.12 | not_configured |
 
 **MiniCPM5-1B**
 
@@ -190,36 +190,42 @@ bases served by more than one engine are shown.
 | vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.8 | 2427 | 377.5 | 22.4 | 5.66 | no_structured_call |
 <!--XENGINE:END-->
 
-## Useful work: batch article summarization
+## Useful work: real task throughput
 
 Tokens/second is a proxy; what people actually care about is **how much work gets done**.
-This workload pushes a fixed corpus of 45 real Wikipedia articles (~1.2K tokens each,
-committed in [`workloads/articles.json`](workloads/articles.json)) through a
-summarize-in-three-sentences task at concurrency 24, and measures **documents completed per
-minute** — plus output tok/s, and the latency spread a user would feel. Same corpus, same
-prompt, same output cap across every engine and model, so the numbers are directly comparable.
+These workloads run a fixed corpus of 45 real Wikipedia articles (~1.2K tokens each, committed
+in [`workloads/articles.json`](workloads/articles.json)) through three real tasks — same
+corpus, same prompts, same caps across every engine and model, so the numbers are directly
+comparable:
+
+- **Summarize** (decode-bound) — 3-sentence summary of each article → **docs/min**.
+- **Extract** (structured output) — pull a JSON record from each article → **docs/min** and the
+  share that is **valid JSON** (a quality signal for agentic/tool work).
+- **Long-context RAG** (prefill-bound) — hide a reference number inside ~7K tokens of
+  concatenated articles and ask for it back → **queries/min** and **needle hit %** (retrieval
+  accuracy at long context).
 
 <!--WORKLOAD:BEGIN-->
-| model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |
+| model | engine | quant | summarize docs/min | extract docs/min | JSON valid % | RAG q/min | needle hit % |
 |---|---|---|---|---|---|---|---|
-| openbmb/MiniCPM5-1B | vllm | native | 956.7 | 2551 | 1.41 | 1.49 | 24 |
-| openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
-| openai/gpt-oss-20b | vllm | native | 377.5 | 1007 | 3.62 | 4.31 | 24 |
-| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.2 | 902 | 3.26 | 4.2 | 24 |
-| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 288.6 | 598 | 4.72 | 7.63 | 24 |
-| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
-| deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |
-| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
-| google/gemma-4-12b-it | vllm | native | 179.2 | 252 | 7.6 | 12.46 | 24 |
-| google/gemma-4-12b-it | sglang | native | 171.6 | 243 | 7.99 | 13.31 | 24 |
-| bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | 283 | 7.93 | 10.82 | 24 |
-| unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | 351 | 8.36 | 10.88 | 24 |
-| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | 255 | 11.4 | 14.78 | 24 |
-| openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
-| Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | 236 | 15.56 | 19.7 | 24 |
-| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | 170 | 16.99 | 22.06 | 24 |
-| Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |
-| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.8 | 90 | 32.35 | 41.35 | 24 |
+| openbmb/MiniCPM5-1B | vllm | native | 956.7 | — | — | — | — |
+| openbmb/MiniCPM5-1B | sglang | native | 944.3 | — | — | — | — |
+| openai/gpt-oss-20b | vllm | native | 377.5 | — | — | — | — |
+| openbmb/MiniCPM5-1B-GGUF | llamacpp | Q4_K_M | 338.2 | — | — | — | — |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 286.8 | 360.8 | 100 | 78.5 | 100 |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | — | — | — | — |
+| deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | — | — | — | — |
+| deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | — | — | — | — |
+| google/gemma-4-12b-it | vllm | native | 179.2 | — | — | — | — |
+| google/gemma-4-12b-it | sglang | native | 171.6 | — | — | — | — |
+| bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q4_K_M | 140.0 | — | — | — | — |
+| unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 131.8 | — | — | — | — |
+| deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | — | — | — | — |
+| openai/gpt-oss-20b | sglang | native | 90.9 | — | — | — | — |
+| Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | — | — | — | — |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | — | — | — | — |
+| Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | — | — | — | — |
+| unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 33.8 | — | — | — | — |
 <!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)

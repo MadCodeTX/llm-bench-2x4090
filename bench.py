@@ -276,6 +276,28 @@ def load_articles():
         return json.load(f)
 
 
+def chat_text(model, prompt, max_tokens, temperature=0.0, timeout=600):
+    """Like completion() but returns the response text (needed to score JSON
+    validity and long-context retrieval). Temperature 0 for deterministic quality."""
+    payload = {"model": model, "messages": [{"role": "user", "content": prompt}],
+               "max_tokens": max_tokens, "temperature": temperature}
+    resp = json.load(http("/v1/chat/completions", payload, timeout=timeout))
+    msg = resp["choices"][0]["message"]
+    content = (msg.get("content") or "") + (msg.get("reasoning_content") or "")
+    return content, resp.get("usage", {}).get("completion_tokens", 0)
+
+
+def _valid_json_obj(txt):
+    """True if the text contains a parseable JSON object."""
+    m = re.search(r"\{.*\}", txt, re.S)
+    if not m:
+        return False
+    try:
+        return isinstance(json.loads(m.group(0)), dict)
+    except Exception:
+        return False
+
+
 def workload_summarize(model, articles, concurrency):
     """Useful-work metric: push a fixed corpus of real articles through a
     summarize-in-3-sentences task at fixed concurrency and measure completed
@@ -310,6 +332,77 @@ def workload_summarize(model, articles, concurrency):
            "p95_latency_s": round(lat[min(int(n * 0.95), n - 1)], 2)}
     if failed:
         out["failed"] = failed
+    return out
+
+
+def workload_extract(model, articles, concurrency):
+    """Structured-output useful work: extract a JSON record from each article.
+    Measures docs/min AND the share of responses that are valid JSON — a quality
+    signal for whether the model can actually do agentic/structured tasks."""
+    import concurrent.futures
+    tmpl = ('Extract a JSON object from the article below with exactly these keys: '
+            '"subject" (string), "field" (the academic field, string), '
+            '"key_fact" (one important fact, string). Output ONLY the JSON object.\n\n'
+            'ARTICLE:\n{}\n\nJSON:')
+
+    def one(a):
+        try:
+            txt, ct = chat_text(model, tmpl.format(a["text"]), 160)
+            return ct, _valid_json_obj(txt)
+        except Exception:
+            return None, None
+
+    t0 = time.time()
+    with concurrent.futures.ThreadPoolExecutor(concurrency) as ex:
+        res = list(ex.map(one, articles))
+    wall = time.time() - t0
+    done = [(c, v) for c, v in res if c is not None]
+    if not done:
+        return {"error": f"all {len(articles)} extract requests failed", "concurrency": concurrency}
+    n = len(done)
+    out = {"docs": n, "concurrency": concurrency, "wall_s": round(wall, 1),
+           "docs_per_min": round(n / wall * 60, 1),
+           "json_valid_pct": round(100 * sum(1 for _, v in done if v) / n)}
+    if len(res) - n:
+        out["failed"] = len(res) - n
+    return out
+
+
+def workload_longctx(model, articles, n_queries, concurrency, ctx_articles=6):
+    """Long-context RAG-style retrieval: concatenate several articles (~7K tokens),
+    hide a unique reference number among them, and ask for it back. Measures
+    queries/min at long context (a prefill-heavy regime the short tasks don't stress)
+    AND retrieval accuracy — did the model actually find the needle."""
+    import concurrent.futures
+    import random
+
+    def one(i):
+        code = f"{random.randint(100000, 999999)}"
+        picks = [articles[(i * 3 + k) % len(articles)]["text"] for k in range(ctx_articles)]
+        needle = f"\n\nIMPORTANT NOTICE: The classified reference number is {code}.\n\n"
+        pos = random.randint(1, len(picks) - 1)
+        ctx = "\n\n".join(picks[:pos]) + needle + "\n\n".join(picks[pos:])
+        q = (ctx + "\n\nQuestion: What is the classified reference number mentioned in the "
+             "notice above? Answer with only the number.")
+        try:
+            txt, _ = chat_text(model, q, 24)
+            return code in txt
+        except Exception:
+            return None
+
+    t0 = time.time()
+    with concurrent.futures.ThreadPoolExecutor(concurrency) as ex:
+        res = list(ex.map(one, range(n_queries)))
+    wall = time.time() - t0
+    done = [h for h in res if h is not None]
+    if not done:
+        return {"error": f"all {n_queries} long-context queries failed", "concurrency": concurrency}
+    n = len(done)
+    out = {"queries": n, "concurrency": concurrency, "ctx_articles": ctx_articles,
+           "wall_s": round(wall, 1), "queries_per_min": round(n / wall * 60, 1),
+           "needle_hit_pct": round(100 * sum(1 for h in done if h) / n)}
+    if len(res) - n:
+        out["failed"] = len(res) - n
     return out
 
 
@@ -353,14 +446,22 @@ def battery(model, maxlen=32768):
         total = sum(c for _, c, _ in res)
         out["sweep"].append({"concurrency": n, "agg_toks": round(total / wall)})
 
-    try:  # useful-work: real article-summarization batch → docs/min
-        arts = load_articles()
-        if slow:
-            out["workload_summarize"] = workload_summarize(model, arts[:8], concurrency=4)
-        else:
-            out["workload_summarize"] = workload_summarize(model, arts, concurrency=24)
-    except Exception as e:
-        out["workload_summarize"] = {"error": repr(e)[:120]}
+    # useful-work batteries: summarize (decode-bound), extract (structured output +
+    # JSON-valid rate), long-context retrieval (prefill-bound + needle accuracy).
+    # Reduced subsets for slow CPU-offloaded configs so they stay time-bounded.
+    arts = load_articles()
+    for key, fn, args in (
+        ("workload_summarize", workload_summarize,
+            (arts[:8], 4) if slow else (arts, 24)),
+        ("workload_extract", workload_extract,
+            (arts[:8], 4) if slow else (arts, 24)),
+        ("workload_longctx", workload_longctx,
+            (arts, 6, 3) if slow else (arts, 20, 8)),
+    ):
+        try:
+            out[key] = fn(model, *args)
+        except Exception as e:
+            out[key] = {"error": repr(e)[:120]}
 
     try:  # tool-call smoke: structured call comes back parsed?
         resp = json.load(http("/v1/chat/completions", {
@@ -799,20 +900,24 @@ def report():
     xengine = ("\n\n".join(xe_blocks) if xe_blocks else
                "_No base model has been served by more than one engine yet._")
 
-    # --- useful-work leaderboard: article summarization throughput (docs/min) ---
+    # --- useful-work leaderboard: three task types side by side ---
     wl_rows = []
     for d in oks:
-        w = (d.get("battery", {}) or {}).get("workload_summarize") or {}
-        if not w.get("docs_per_min"):
+        b = d.get("battery", {}) or {}
+        s = b.get("workload_summarize") or {}
+        x = b.get("workload_extract") or {}
+        lc = b.get("workload_longctx") or {}
+        if not (s.get("docs_per_min") or x.get("docs_per_min") or lc.get("queries_per_min")):
             continue
-        wl_rows.append((w["docs_per_min"],
-            f"| {d['repo']} | {d['_engine']} | {d['_quant']} | {w['docs_per_min']} | "
-            f"{w.get('out_toks_per_s','—')} | {w.get('mean_latency_s','—')} | "
-            f"{w.get('p95_latency_s','—')} | {w.get('concurrency','—')} |"))
+        wl_rows.append((s.get("docs_per_min") or 0,
+            f"| {d['repo']} | {d['_engine']} | {d['_quant']} | {s.get('docs_per_min','—')} | "
+            f"{x.get('docs_per_min','—')} | {x.get('json_valid_pct','—')} | "
+            f"{lc.get('queries_per_min','—')} | {lc.get('needle_hit_pct','—')} |"))
     wl_rows.sort(key=lambda r: -r[0])
     if wl_rows:
-        workload = ("| model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |\n"
-                    "|---|---|---|---|---|---|---|---|\n" + "\n".join(r for _, r in wl_rows))
+        workload = ("| model | engine | quant | summarize docs/min | extract docs/min | JSON valid % | "
+                    "RAG q/min | needle hit % |\n|---|---|---|---|---|---|---|---|\n"
+                    + "\n".join(r for _, r in wl_rows))
     else:
         workload = "_No workload results yet._"
 
