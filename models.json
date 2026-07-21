@@ -619,7 +619,8 @@
       "engine": "sglang",
       "quant": "FP8",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "Qwen/Qwen-AgentWorld-35B-A3B",

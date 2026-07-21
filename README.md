@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**66 configs tested · 53 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**67 configs tested · 53 served · 14 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -101,6 +101,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 
 | model | engine | quant | GB | status | identified cause |
 |---|---|---|---|---|---|
+| Qwen/Qwen-AgentWorld-35B-A3B | vllm | native | 69.3 | serve_failed | engine-core init crash during weight load |
 | RedHatAI/Mistral-Small-3.2-24B-Instruct-2506-FP8 | vllm | native | 25.8 | serve_failed | multimodal Pixtral processor fails during vision profiling (>20B) |
 | RedHatAI/gemma-4-31B-it-FP8-block | vllm | native | 33.3 | serve_failed | engine-core init crash during weight load (FP8-block quant, >20B) |
 | amazon/BMOJOF-primed-HQwen3-8B-Instruct | vllm | native | 18.5 | serve_failed | arch `hybrid_qwen3` — no vLLM implementation |
