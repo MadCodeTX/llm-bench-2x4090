@@ -1,40 +1,52 @@
 {
   "repo": "openai/gpt-oss-20b",
-  "ts": "2026-07-20 04:30 UTC",
+  "base": "gpt-oss-20b",
+  "engine": "vllm",
+  "quant": "native",
+  "ts": "2026-07-21 18:37 UTC",
   "image": "vllm/vllm-openai:nightly",
   "flags": "",
   "status": "ok",
   "disk_gb": 27.5,
-  "download_s": 1.5,
+  "download_s": 1.4,
   "serve_config": {
     "gpu_mem_util": 0.92,
     "max_model_len": 32768
   },
-  "vllm_version": "0.22.1rc1.dev392+g43914dd74",
+  "engine_version": "0.22.1rc1.dev392+g43914dd74",
   "battery": {
-    "single_stream_toks": 268.6,
-    "ttft_s": 0.04,
+    "single_stream_toks": 268.8,
+    "battery_mode": "full",
+    "ttft_s": 0.03,
     "prefill": {
-      "prompt_tok": 15077,
-      "toks": 11831
+      "prompt_tok": 15078,
+      "toks": 11938
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 2398
+        "agg_toks": 2427
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 7.2,
+      "docs_per_min": 377.5,
+      "out_toks_per_s": 1007,
+      "mean_latency_s": 3.62,
+      "p95_latency_s": 4.31
+    },
     "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 398,
-    "max_w": 522,
+    "mean_w": 429,
+    "max_w": 527,
     "max_vram_gb": 22.4,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 6.03,
-  "base": "gpt-oss-20b"
+  "tok_per_joule": 5.66
 }

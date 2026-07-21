@@ -712,7 +712,8 @@
       "base": "gemma-4-12b-it",
       "engine": "vllm",
       "quant": "native",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "openai/gpt-oss-20b",

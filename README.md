@@ -49,7 +49,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | vllm | native | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | vllm | native | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured |
 | LiquidAI/LFM2.5-8B-A1B | vllm | native | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured |
-| openai/gpt-oss-20b | vllm | native | 27.5 | 268.6 | 11831 | 2398 | 22.4 | 398 | 6.03 | no_structured_call |
+| openai/gpt-oss-20b | vllm | native | 27.5 | 268.8 | 11938 | 2427 | 22.4 | 429 | 5.66 | no_structured_call |
 | cyankiwi/Ornith-1.0-9B-AWQ-INT4 | vllm | native | 9.0 | 190.2 | 6674 | 2391 | 21.9 | 401 | 5.96 | not_configured |
 | ibm-granite/granite-4.1-3b | vllm | native | 6.8 | 171.0 | 9989 | 2370 | 22.5 | 401 | 5.91 | no_structured_call |
 | nvidia/Qwen3.6-35B-A3B-NVFP4 | vllm | native | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok |
@@ -187,7 +187,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | — | 6.1 | 1.11 | ok |
 | llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | — | 6.2 | 1.14 | ok |
 | sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.3 | 367 | 90.9 | 22.9 | 0.97 | not_configured |
-| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | — | 22.4 | 6.03 | no_structured_call |
+| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.8 | 2427 | 377.5 | 22.4 | 5.66 | no_structured_call |
 <!--XENGINE:END-->
 
 ## Useful work: batch article summarization
@@ -204,6 +204,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 |---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 956.7 | 2551 | 1.41 | 1.49 | 24 |
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
+| openai/gpt-oss-20b | vllm | native | 377.5 | 1007 | 3.62 | 4.31 | 24 |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 281.8 | 598 | 4.86 | 8.11 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | vllm | native | 214.4 | 572 | 6.38 | 7.72 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
