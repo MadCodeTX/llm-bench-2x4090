@@ -288,21 +288,29 @@ def workload_summarize(model, articles, concurrency):
 
     def one(a):
         t0 = time.time()
-        _, ct, _ = completion(model, tmpl.format(a["text"]), 160)
-        return ct, time.time() - t0
+        try:  # tolerate per-request failures so a few 500s don't void the whole metric
+            _, ct, _ = completion(model, tmpl.format(a["text"]), 160)
+            return ct, time.time() - t0
+        except Exception:
+            return None, None
 
     t0 = time.time()
     with concurrent.futures.ThreadPoolExecutor(concurrency) as ex:
         res = list(ex.map(one, articles))
     wall = time.time() - t0
-    n = len(articles)
-    lat = sorted(d for _, d in res)
-    out_toks = sum(c for c, _ in res)
-    return {"docs": n, "concurrency": concurrency, "wall_s": round(wall, 1),
-            "docs_per_min": round(n / wall * 60, 1),
-            "out_toks_per_s": round(out_toks / wall),
-            "mean_latency_s": round(sum(lat) / n, 2),
-            "p95_latency_s": round(lat[min(int(n * 0.95), n - 1)], 2)}
+    done = [(c, d) for c, d in res if c is not None]
+    n, failed = len(done), len(res) - len([1 for c, _ in res if c is not None])
+    if not done:
+        return {"error": f"all {len(articles)} summarize requests failed", "concurrency": concurrency}
+    lat = sorted(d for _, d in done)
+    out = {"docs": n, "concurrency": concurrency, "wall_s": round(wall, 1),
+           "docs_per_min": round(n / wall * 60, 1),
+           "out_toks_per_s": round(sum(c for c, _ in done) / wall),
+           "mean_latency_s": round(sum(lat) / n, 2),
+           "p95_latency_s": round(lat[min(int(n * 0.95), n - 1)], 2)}
+    if failed:
+        out["failed"] = failed
+    return out
 
 
 def battery(model, maxlen=32768):

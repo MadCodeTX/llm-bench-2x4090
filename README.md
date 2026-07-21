@@ -90,10 +90,10 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q6_K | 7.4 | 112.4 | 12196 | 314 | 4.1 | 460 | 0.68 | ok |
 | bartowski/Meta-Llama-3.1-8B-Instruct-GGUF | llamacpp | Q8_0 | 8.5 | 103.4 | 17381 | 310 | 4.8 | 375 | 0.83 | ok |
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q8_0 | 36.9 | 158.7 | 11149 | 307 | 18.3 | 317 | 0.97 | ok |
+| Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 30.9 | 36.9 | 2808 | 297 | 23.5 | 491 | 0.6 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q8_0 | 9.5 | 92.5 | 13779 | 273 | 5.0 | 389 | 0.7 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9736 | 271 | 4.8 | 450 | 0.6 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
-| Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 30.9 | 36.6 | 3152 | 229 | 21.6 | 512 | 0.45 | no_structured_call |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | 61.7 | 10086 | 198 | 7.6 | 390 | 0.51 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.0 | 3847 | 136 | 9.0 | 502 | 0.27 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q5_K_M | 19.5 | 42.6 | 3682 | 122 | 10.1 | 504 | 0.24 | ok |
@@ -165,7 +165,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.0 | 136 | — | 9.0 | 0.27 | ok |
 | llamacpp | Q5_K_M | `unsloth/Qwen3.6-27B-GGUF` | 19.5 | 42.6 | 122 | — | 10.1 | 0.24 | ok |
 | llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | — | 14.1 | 0.23 | ok |
-| sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 36.6 | 229 | — | 21.6 | 0.45 | no_structured_call |
+| sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 36.9 | 297 | 57.6 | 23.5 | 0.6 | no_structured_call |
 | vllm | native | `nvidia/Qwen3.6-27B-NVFP4` | 21.9 | 69.8 | 986 | — | 23.4 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
 | vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 900 | — | 22.3 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 
@@ -205,6 +205,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 202.7 | 541 | 6.69 | 7.13 | 24 |
 | openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
+| Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |
 <!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
