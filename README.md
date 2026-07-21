@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**48 configs tested · 36 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**49 configs tested · 37 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -71,6 +71,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/Gemma-4-31B-IT-NVFP4 | vllm | native | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3-32B-FP8 | vllm | native | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call |
+| unsloth/gpt-oss-20b-GGUF | llamacpp | Q8_0 | 12.1 | 246.3 | 20579 | 445 | 6.2 | 391 | 1.14 | ok |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 11.6 | 263.1 | 20339 | 441 | 6.1 | 391 | 1.13 | ok |
 | unsloth/gpt-oss-20b-GGUF | llamacpp | Q5_K_M | 11.7 | 260.4 | 20022 | 439 | 6.1 | 395 | 1.11 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
@@ -140,6 +141,7 @@ bases served by more than one engine are shown.
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.6 | 263.1 | 441 | 6.1 | 1.13 | ok |
 | llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | 6.1 | 1.11 | ok |
+| llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | 6.2 | 1.14 | ok |
 | vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | 22.4 | 6.03 | no_structured_call |
 <!--XENGINE:END-->
 
