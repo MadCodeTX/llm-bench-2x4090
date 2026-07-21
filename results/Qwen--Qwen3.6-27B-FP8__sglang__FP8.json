@@ -1,0 +1,43 @@
+{
+  "repo": "Qwen/Qwen3.6-27B-FP8",
+  "base": "Qwen3.6-27B",
+  "engine": "sglang",
+  "quant": "FP8",
+  "ts": "2026-07-21 16:58 UTC",
+  "image": "lmsysorg/sglang:latest",
+  "flags": "",
+  "status": "ok",
+  "disk_gb": 30.9,
+  "download_s": 1.4,
+  "serve_config": {
+    "mem_fraction_static": 0.85,
+    "context_length": 32768
+  },
+  "engine_version": "0.5.15.post1",
+  "battery": {
+    "single_stream_toks": 36.6,
+    "battery_mode": "full",
+    "ttft_s": 0.06,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 3152
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 229
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 512,
+    "max_w": 561,
+    "max_vram_gb": 21.6,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 0.45
+}

@@ -601,7 +601,8 @@
       "engine": "sglang",
       "quant": "native",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "Qwen/Qwen3.6-27B-FP8",
