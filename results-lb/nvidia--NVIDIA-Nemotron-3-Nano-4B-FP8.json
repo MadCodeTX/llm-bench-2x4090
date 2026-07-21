@@ -1,0 +1,42 @@
+{
+  "repo": "nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8",
+  "mode": "2x-tp1-replica-lb",
+  "ts": "2026-07-21 02:17 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768,
+    "tensor_parallel_size": 1,
+    "replicas": 2
+  },
+  "battery": {
+    "single_stream_toks_per_replica": [
+      158.8,
+      158.4
+    ],
+    "single_stream_toks_combined": 316.9,
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 3151
+      },
+      {
+        "concurrency": 64,
+        "agg_toks": 4962
+      }
+    ]
+  },
+  "hw": {
+    "mean_w": 529,
+    "max_w": 637,
+    "max_vram_gb": 21.7,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule_agg32": 5.96,
+  "tok_per_joule_agg64": 9.38
+}

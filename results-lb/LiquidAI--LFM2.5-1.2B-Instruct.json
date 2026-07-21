@@ -1,0 +1,42 @@
+{
+  "repo": "LiquidAI/LFM2.5-1.2B-Instruct",
+  "mode": "2x-tp1-replica-lb",
+  "ts": "2026-07-21 02:13 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768,
+    "tensor_parallel_size": 1,
+    "replicas": 2
+  },
+  "battery": {
+    "single_stream_toks_per_replica": [
+      334.5,
+      344.1
+    ],
+    "single_stream_toks_combined": 668.9,
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 6355
+      },
+      {
+        "concurrency": 64,
+        "agg_toks": 13156
+      }
+    ]
+  },
+  "hw": {
+    "mean_w": 479,
+    "max_w": 618,
+    "max_vram_gb": 21.7,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule_agg32": 13.27,
+  "tok_per_joule_agg64": 27.47
+}
