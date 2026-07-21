@@ -3,13 +3,13 @@
   "base": "Qwen3.6-27B",
   "engine": "llamacpp",
   "quant": "Q4_K_M",
-  "ts": "2026-07-21 19:32 UTC",
+  "ts": "2026-07-21 20:39 UTC",
   "image": "ghcr.io/ggml-org/llama.cpp:server-cuda",
   "flags": "",
   "status": "ok",
   "gguf_repo": "unsloth/Qwen3.6-27B-GGUF",
   "gguf_pattern": "*Q4_K_M.gguf",
-  "download_s": 1.4,
+  "download_s": 1.6,
   "disk_gb": 16.8,
   "serve_config": {
     "ctx_size": 8192,
@@ -20,10 +20,10 @@
   "battery": {
     "single_stream_toks": 48.1,
     "battery_mode": "full",
-    "ttft_s": 0.22,
+    "ttft_s": 0.24,
     "prefill": {
       "prompt_tok": 7011,
-      "toks": 3850
+      "toks": 3804
     },
     "sweep": [
       {
@@ -34,33 +34,37 @@
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 79.7,
-      "docs_per_min": 33.9,
+      "wall_s": 79.8,
+      "docs_per_min": 33.8,
       "out_toks_per_s": 90,
-      "mean_latency_s": 32.19,
-      "p95_latency_s": 41.72
+      "mean_latency_s": 32.28,
+      "p95_latency_s": 41.86
     },
     "workload_extract": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 152.5,
-      "docs_per_min": 17.7,
-      "json_valid_pct": 20
+      "wall_s": 194.2,
+      "docs_per_min": 13.9,
+      "json_valid_pct": 76
     },
     "workload_longctx": {
-      "error": "all 20 long-context queries failed",
-      "concurrency": 8
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 95.0,
+      "queries_per_min": 7.6,
+      "needle_hit_pct": 100
     },
     "tool_call": "ok"
   },
   "hw": {
-    "mean_w": 515,
-    "max_w": 625,
+    "mean_w": 509,
+    "max_w": 574,
     "max_vram_gb": 9.0,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 0.26
+  "tok_per_joule": 0.27
 }

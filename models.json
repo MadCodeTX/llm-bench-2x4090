@@ -993,7 +993,8 @@
       "gguf_repo": "unsloth/gpt-oss-20b-GGUF",
       "gguf_pattern": "*Q4_K_M.gguf",
       "ctx": 8192,
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "unsloth/Qwen3.6-27B-GGUF",
