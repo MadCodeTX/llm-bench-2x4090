@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**46 configs tested · 34 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**47 configs tested · 35 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -71,6 +71,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | nvidia/Gemma-4-31B-IT-NVFP4 | vllm | native | 32.6 | 48.6 | 2386 | 913 | 22.8 | 541 | 1.69 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 30.9 | 53.7 | 2485 | 900 | 22.3 | 492 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 | Qwen/Qwen3-32B-FP8 | vllm | native | 34.3 | 26.7 | 2892 | 766 | 21.0 | 465 | 1.65 | no_structured_call |
+| unsloth/gpt-oss-20b-GGUF | llamacpp | Q4_K_M | 11.6 | 263.1 | 20339 | 441 | 6.1 | 391 | 1.13 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 5.6 | 137.1 | 13336 | 363 | 3.4 | 442 | 0.82 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q5_K_M | 6.5 | 124.7 | 12998 | 338 | 3.8 | 450 | 0.75 | ok |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q6_K | 7.4 | 112.4 | 12196 | 314 | 4.1 | 460 | 0.68 | ok |
@@ -131,6 +132,13 @@ bases served by more than one engine are shown.
 | llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | 4.8 | 0.6 | ok |
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | 5.5 | 0.57 | ok |
 | vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | 22.4 | 2.24 | ok |
+
+**gpt-oss-20b**
+
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.6 | 263.1 | 441 | 6.1 | 1.13 | ok |
+| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | 22.4 | 6.03 | no_structured_call |
 <!--XENGINE:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
