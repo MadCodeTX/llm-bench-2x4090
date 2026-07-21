@@ -92,7 +92,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | unsloth/Ornith-1.0-35B-GGUF | llamacpp | Q8_0 | 36.9 | 158.7 | 11149 | 307 | 18.3 | 317 | 0.97 | ok |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 30.9 | 36.9 | 2808 | 297 | 23.5 | 491 | 0.6 | no_structured_call |
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q8_0 | 9.5 | 92.5 | 13779 | 273 | 5.0 | 389 | 0.7 | ok |
-| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9736 | 271 | 4.8 | 450 | 0.6 | ok |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 7.1 | 96.1 | 9813 | 270 | 4.8 | 448 | 0.6 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q5_K_M | 8.4 | 85.0 | 9561 | 250 | 5.5 | 438 | 0.57 | ok |
 | unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | 61.7 | 10086 | 198 | 7.6 | 390 | 0.51 | ok |
 | unsloth/Qwen3.6-27B-GGUF | llamacpp | Q4_K_M | 16.8 | 48.0 | 3847 | 136 | 9.0 | 502 | 0.27 | ok |
@@ -173,7 +173,7 @@ bases served by more than one engine are shown.
 
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | — | 4.8 | 0.6 | ok |
+| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 270 | 63.6 | 4.8 | 0.6 | ok |
 | llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
 | llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
 | sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.5 | 1150 | — | 23.5 | 2.51 | error: ConnectionResetError(104, 'Connection reset by peer') |
@@ -214,6 +214,7 @@ prompt, same output cap across every engine and model, so the numbers are direct
 | deepreinforce-ai/Ornith-1.0-9B-GGUF | llamacpp | Q4_K_M | 95.7 | 255 | 11.4 | 14.78 | 24 |
 | openai/gpt-oss-20b | sglang | native | 90.9 | 242 | 14.83 | 15.21 | 24 |
 | Qwen/Qwen3.6-27B-FP8 | vllm | native | 88.3 | 236 | 15.56 | 19.7 | 24 |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q4_K_M | 63.6 | 170 | 16.99 | 22.06 | 24 |
 | Qwen/Qwen3.6-27B-FP8 | sglang | FP8 | 57.6 | 153 | 19.09 | 27.74 | 24 |
 <!--WORKLOAD:END-->
 
