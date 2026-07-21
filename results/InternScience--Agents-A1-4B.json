@@ -1,0 +1,43 @@
+{
+  "repo": "InternScience/Agents-A1-4B",
+  "base": "Agents-A1-4B",
+  "engine": "vllm",
+  "quant": "native",
+  "ts": "2026-07-21 17:50 UTC",
+  "image": "vllm/vllm-openai:nightly",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "disk_gb": 9.1,
+  "download_s": 1.5,
+  "serve_config": {
+    "gpu_mem_util": 0.92,
+    "max_model_len": 32768
+  },
+  "engine_version": "0.22.1rc1.dev392+g43914dd74",
+  "battery": {
+    "single_stream_toks": 160.2,
+    "battery_mode": "full",
+    "ttft_s": 0.06,
+    "prefill": {
+      "prompt_tok": 15262,
+      "toks": 10228
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 2010
+      }
+    ],
+    "tool_call": "not_configured"
+  },
+  "hw": {
+    "mean_w": 424,
+    "max_w": 551,
+    "max_vram_gb": 21.9,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 4.74
+}

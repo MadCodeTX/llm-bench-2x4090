@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**67 configs tested · 54 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**68 configs tested · 55 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -53,6 +53,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | cyankiwi/Ornith-1.0-9B-AWQ-INT4 | vllm | native | 9.0 | 190.2 | 6674 | 2391 | 21.9 | 401 | 5.96 | not_configured |
 | ibm-granite/granite-4.1-3b | vllm | native | 6.8 | 171.0 | 9989 | 2370 | 22.5 | 401 | 5.91 | no_structured_call |
 | nvidia/Qwen3.6-35B-A3B-NVFP4 | vllm | native | 23.4 | 217.2 | 10113 | 2051 | 22.8 | 328 | 6.25 | ok |
+| InternScience/Agents-A1-4B | vllm | native | 9.1 | 160.2 | 10228 | 2010 | 21.9 | 424 | 4.74 | not_configured |
 | Qwen/Qwen3.6-35B-A3B-FP8 | vllm | native | 37.5 | 192.8 | 9717 | 1859 | 22.0 | 361 | 5.15 | ok |
 | google/gemma-4-12b-it-qat-w4a16-ct | vllm | native | 10.3 | 125.9 | 4980 | 1684 | 22.5 | 396 | 4.25 | ok |
 | RedHatAI/gemma-4-12B-it-NVFP4 | vllm | native | 10.3 | 124.6 | 4976 | 1672 | 22.6 | 402 | 4.16 | ok |
