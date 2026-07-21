@@ -3,7 +3,7 @@
   "base": "Llama-3.1-8B",
   "engine": "sglang",
   "quant": "FP8",
-  "ts": "2026-07-21 18:26 UTC",
+  "ts": "2026-07-21 20:05 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "",
   "status": "ok",
@@ -13,7 +13,7 @@
     {
       "mem_frac": 0.9,
       "ctx": 8192,
-      "tail": "_graph/breakable_cuda_graph.py\", line 364, in _end_current_segment\n    graph.capture_end()\n  File \"/usr/local/lib/python3.12/dist-packages/torch/cuda/graphs.py\", line 126, in capture_end\n    super().capture_end()\ntorch.AcceleratorError: CUDA error: out of memory\nSearch for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 4325, in run_scheduler_process\n    scheduler = Scheduler(\n                ^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 424, in __init__\n    self.init_model_worker()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 875, in init_model_worker\n    self.init_all_cuda_graphs()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 861, in init_all_cuda_graphs\n    self.tp_worker.init_cuda_graphs()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/tp_worker.py\", line 357, in init_cuda_graphs\n    self.model_runner.init_cuda_graphs(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/model_runner.py\", line 943, in init_cuda_graphs\n    self.init_prefill_cuda_graph()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/model_runner.py\", line 2853, in init_prefill_cuda_graph\n    self.prefill_cuda_graph_runner = PrefillCudaGraphRunner(self)\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 358, in __init__\n    self.capture()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 754, in capture\n    self._capture_one_stream()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 777, in _capture_one_stream\n    self.capture_one_shape(num_tokens)\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 807, in capture_one_shape\n    self.backend.capture_one(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend/breakable_cuda_graph_backend.py\", line 125, in capture_one\n    with BreakableCUDAGraphCapture(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend_utils/breakable_cuda_graph/breakable_cuda_graph.py\", line 324, in __exit__\n    self._end_current_segment()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend_utils/breakable_cuda_graph/breakable_cuda_graph.py\", line 364, in _end_current_segment\n    graph.capture_end()\n  File \"/usr/local/lib/python3.12/dist-packages/torch/cuda/graphs.py\", line 126, in capture_end\n    super().capture_end()\ntorch.AcceleratorError: CUDA error: the operation cannot be performed in the present state\nSearch for `cudaErrorIllegalState' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n\n[2026-07-21 18:27:27] Received sigquit from a child process. It usually means the child failed.\n[rank1]:[W721 18:27:27.691657910 CUDAGraph.cpp:271] Warning: CUDA warning: invalid argument (function reset)\n[2026-07-21 18:27:27] kill_process_tree called: parent_pid=1, include_parent=True, pid=1\n[2026-07-21 18:27:27] kill_process_tree called: parent_pid=1, include_parent=False, pid=1\n"
+      "tail": "/lib/python3.12/dist-packages/torch/cuda/graphs.py\", line 126, in capture_end\n    super().capture_end()\ntorch.AcceleratorError: CUDA error: out of memory\nSearch for `cudaErrorMemoryAllocation' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 4325, in run_scheduler_process\n    scheduler = Scheduler(\n                ^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 424, in __init__\n    self.init_model_worker()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 875, in init_model_worker\n    self.init_all_cuda_graphs()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/scheduler.py\", line 861, in init_all_cuda_graphs\n    self.tp_worker.init_cuda_graphs()\n  File \"/sgl-workspace/sglang/python/sglang/srt/managers/tp_worker.py\", line 357, in init_cuda_graphs\n    self.model_runner.init_cuda_graphs(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/model_runner.py\", line 943, in init_cuda_graphs\n    self.init_prefill_cuda_graph()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/model_runner.py\", line 2853, in init_prefill_cuda_graph\n    self.prefill_cuda_graph_runner = PrefillCudaGraphRunner(self)\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 358, in __init__\n    self.capture()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 754, in capture\n    self._capture_one_stream()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 777, in _capture_one_stream\n    self.capture_one_shape(num_tokens)\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner/prefill_cuda_graph_runner.py\", line 807, in capture_one_shape\n    self.backend.capture_one(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend/breakable_cuda_graph_backend.py\", line 125, in capture_one\n    with BreakableCUDAGraphCapture(\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend_utils/breakable_cuda_graph/breakable_cuda_graph.py\", line 324, in __exit__\n    self._end_current_segment()\n  File \"/sgl-workspace/sglang/python/sglang/srt/model_executor/runner_backend_utils/breakable_cuda_graph/breakable_cuda_graph.py\", line 364, in _end_current_segment\n    graph.capture_end()\n  File \"/usr/local/lib/python3.12/dist-packages/torch/cuda/graphs.py\", line 126, in capture_end\n    super().capture_end()\ntorch.AcceleratorError: CUDA error: the operation cannot be performed in the present state\nSearch for `cudaErrorIllegalState' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.\nCUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.\nFor debugging consider passing CUDA_LAUNCH_BLOCKING=1\nCompile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.\n\n\n[rank0]:[W721 20:06:12.051472340 CUDAGraph.cpp:271] Warning: CUDA warning: invalid argument (function reset)\n[rank1]:[W721 20:06:12.051485308 CUDAGraph.cpp:271] Warning: CUDA warning: invalid argument (function reset)\n[2026-07-21 20:06:12] Received sigquit from a child process. It usually means the child failed.\n[2026-07-21 20:06:12] kill_process_tree called: parent_pid=1, include_parent=True, pid=1\n[2026-07-21 20:06:12] kill_process_tree called: parent_pid=1, include_parent=False, pid=1\n"
     }
   ],
   "serve_config": {
@@ -22,38 +22,53 @@
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 160.3,
+    "single_stream_toks": 158.9,
     "battery_mode": "full",
     "ttft_s": 0.02,
     "prefill": {
       "prompt_tok": 7036,
-      "toks": 8019
+      "toks": 8036
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 1656
+        "agg_toks": 1594
       }
     ],
     "workload_summarize": {
       "docs": 45,
       "concurrency": 24,
-      "wall_s": 9.6,
-      "docs_per_min": 281.8,
-      "out_toks_per_s": 598,
-      "mean_latency_s": 4.86,
+      "wall_s": 9.8,
+      "docs_per_min": 276.7,
+      "out_toks_per_s": 602,
+      "mean_latency_s": 4.93,
       "p95_latency_s": 8.11
+    },
+    "workload_extract": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 7.7,
+      "docs_per_min": 351.4,
+      "json_valid_pct": 100
+    },
+    "workload_longctx": {
+      "queries": 12,
+      "concurrency": 1,
+      "ctx_articles": 6,
+      "wall_s": 11.0,
+      "queries_per_min": 65.6,
+      "needle_hit_pct": 100
     },
     "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 422,
-    "max_w": 507,
+    "mean_w": 415,
+    "max_w": 506,
     "max_vram_gb": 23.0,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 3.92
+  "tok_per_joule": 3.84
 }
