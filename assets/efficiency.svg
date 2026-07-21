@@ -55,6 +55,7 @@
 <circle cx="342.7" cy="337.4" r="8.4" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="608.3" cy="155.8" r="7.1" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <circle cx="691.0" cy="100.9" r="7.0" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
+<polygon points="178.8,378.4 172.9,388.6 184.7,388.6" fill="#8a8f98" fill-opacity="0.72" stroke="#ffffff" stroke-width="1"/>
 <text x="681.0" y="104.4" font-size="10.5" fill="#1b1f24" text-anchor="end">MiniCPM5-1B</text>
 <text x="598.3" y="159.3" font-size="10.5" fill="#1b1f24" text-anchor="end">LFM2.5-1.2B-Instruct</text>
 <text x="352.7" y="340.9" font-size="10.5" fill="#1b1f24" text-anchor="start">NVIDIA-Nemotron-3-Nano-4B-FP8</text>
