@@ -29,7 +29,9 @@ NAME = "llmbench-vllm"          # container name (reused across engines)
 BASE = f"http://127.0.0.1:{PORT}"
 # (gpu_memory_utilization, max_model_len) tried in order until the model serves
 LADDER = [(0.92, 32768), (0.85, 8192)]
-SGLANG_LADDER = [(0.85, 32768), (0.85, 8192)]  # (mem_fraction_static, context_length)
+# (mem_fraction_static, context_length) — 8192 matches the vLLM rows and frees KV for
+# batching (serving at 32K starved the pool → poor aggregate throughput).
+SGLANG_LADDER = [(0.90, 8192), (0.85, 8192)]
 POWER_CAP_W = 340  # per-GPU cap near the 4090 efficiency knee; recorded in every result
 # Per-engine serving images. vLLM image also downloads GGUF (has huggingface_hub).
 LLAMA_IMAGE = "ghcr.io/ggml-org/llama.cpp:server-cuda"
@@ -219,7 +221,8 @@ def serve_sglang(repo, image, mem_frac, ctxlen, flags, env=None):
         f"-c 'rm -f /etc/ld.so.conf.d/cuda*.conf; ldconfig; "
         f"exec python3 -m sglang.launch_server "
         f"--model-path {repo} --tp 2 --mem-fraction-static {mem_frac} "
-        f"--context-length {ctxlen} --host 0.0.0.0 --port 8000 {flags}'",
+        f"--context-length {ctxlen} --max-running-requests 64 --cuda-graph-max-bs 64 "
+        f"--chunked-prefill-size 8192 --host 0.0.0.0 --port 8000 {flags}'",
         timeout=120,
     )
     if r.returncode != 0:
@@ -268,6 +271,40 @@ def completion(model, prompt, max_tokens, stream=False):
     return u["prompt_tokens"], u["completion_tokens"], time.time() - t0
 
 
+def load_articles():
+    with open(os.path.join(HERE, "workloads", "articles.json")) as f:
+        return json.load(f)
+
+
+def workload_summarize(model, articles, concurrency):
+    """Useful-work metric: push a fixed corpus of real articles through a
+    summarize-in-3-sentences task at fixed concurrency and measure completed
+    documents per minute (plus output tok/s and latency spread). This reflects
+    real batch throughput — how much work the rig actually gets done — rather than
+    raw decode speed."""
+    import concurrent.futures
+    tmpl = ("Summarize the following article in exactly three concise sentences.\n\n"
+            "ARTICLE:\n{}\n\nSUMMARY:")
+
+    def one(a):
+        t0 = time.time()
+        _, ct, _ = completion(model, tmpl.format(a["text"]), 160)
+        return ct, time.time() - t0
+
+    t0 = time.time()
+    with concurrent.futures.ThreadPoolExecutor(concurrency) as ex:
+        res = list(ex.map(one, articles))
+    wall = time.time() - t0
+    n = len(articles)
+    lat = sorted(d for _, d in res)
+    out_toks = sum(c for c, _ in res)
+    return {"docs": n, "concurrency": concurrency, "wall_s": round(wall, 1),
+            "docs_per_min": round(n / wall * 60, 1),
+            "out_toks_per_s": round(out_toks / wall),
+            "mean_latency_s": round(sum(lat) / n, 2),
+            "p95_latency_s": round(lat[min(int(n * 0.95), n - 1)], 2)}
+
+
 def battery(model, maxlen=32768):
     import concurrent.futures
     import random
@@ -307,6 +344,15 @@ def battery(model, maxlen=32768):
         wall = time.time() - t0
         total = sum(c for _, c, _ in res)
         out["sweep"].append({"concurrency": n, "agg_toks": round(total / wall)})
+
+    try:  # useful-work: real article-summarization batch → docs/min
+        arts = load_articles()
+        if slow:
+            out["workload_summarize"] = workload_summarize(model, arts[:8], concurrency=4)
+        else:
+            out["workload_summarize"] = workload_summarize(model, arts, concurrency=24)
+    except Exception as e:
+        out["workload_summarize"] = {"error": repr(e)[:120]}
 
     try:  # tool-call smoke: structured call comes back parsed?
         resp = json.load(http("/v1/chat/completions", {
@@ -734,15 +780,33 @@ def report():
         for d in rows:
             b = d.get("battery", {})
             agg, _ = _agg(b)
+            dpm = (b.get("workload_summarize") or {}).get("docs_per_min", "—")
             body.append(f"| {d['_engine']} | {d['_quant']} | `{d['repo']}` | {d.get('disk_gb','—')} | "
-                        f"{b.get('single_stream_toks','—')} | {agg or '—'} | "
+                        f"{b.get('single_stream_toks','—')} | {agg or '—'} | {dpm} | "
                         f"{d.get('hw',{}).get('max_vram_gb','—')} | {d.get('tok_per_joule','—')} | "
                         f"{b.get('tool_call','—')} |")
         xe_blocks.append(f"**{repo}**\n\n| engine | quant | source | GB | 1-stream tok/s | agg tok/s | "
-                         f"VRAM GB | tok/J | tools |\n|---|---|---|---|---|---|---|---|---|\n"
-                         + "\n".join(body))
+                         f"docs/min | VRAM GB | tok/J | tools |\n"
+                         "|---|---|---|---|---|---|---|---|---|---|\n" + "\n".join(body))
     xengine = ("\n\n".join(xe_blocks) if xe_blocks else
                "_No base model has been served by more than one engine yet._")
+
+    # --- useful-work leaderboard: article summarization throughput (docs/min) ---
+    wl_rows = []
+    for d in oks:
+        w = (d.get("battery", {}) or {}).get("workload_summarize") or {}
+        if not w.get("docs_per_min"):
+            continue
+        wl_rows.append((w["docs_per_min"],
+            f"| {d['repo']} | {d['_engine']} | {d['_quant']} | {w['docs_per_min']} | "
+            f"{w.get('out_toks_per_s','—')} | {w.get('mean_latency_s','—')} | "
+            f"{w.get('p95_latency_s','—')} | {w.get('concurrency','—')} |"))
+    wl_rows.sort(key=lambda r: -r[0])
+    if wl_rows:
+        workload = ("| model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |\n"
+                    "|---|---|---|---|---|---|---|---|\n" + "\n".join(r for _, r in wl_rows))
+    else:
+        workload = "_No workload results yet._"
 
     render_chart(points)
     served, failed = len(ok_rows), len(fails)
@@ -763,6 +827,7 @@ def report():
     txt = inject("CHART", chart)
     txt = inject("RESULTS", table)
     txt = inject("XENGINE", xengine)
+    txt = inject("WORKLOAD", workload)
     open(rd, "w").write(txt)
 
 

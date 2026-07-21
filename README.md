@@ -44,8 +44,8 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | model | engine | quant | GB | 1-stream tok/s | prefill tok/s | agg tok/s | VRAM GB | mean W | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 2.2 | 413.3 | 26969 | 7095 | 22.5 | 289 | 24.55 | not_configured |
+| openbmb/MiniCPM5-1B | sglang | native | 2.2 | 510.1 | 28974 | 7066 | 23.3 | 326 | 21.67 | no_structured_call |
 | LiquidAI/LFM2.5-1.2B-Instruct | vllm | native | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured |
-| openbmb/MiniCPM5-1B | sglang | native | 2.2 | 510.7 | 27786 | 3906 | 22.1 | 275 | 14.2 | no_structured_call |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | vllm | native | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | vllm | native | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured |
 | LiquidAI/LFM2.5-8B-A1B | vllm | native | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured |
@@ -129,66 +129,81 @@ bases served by more than one engine are shown.
 <!--XENGINE:BEGIN-->
 **Llama-3.1-8B**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 4.9 | 162.3 | 417 | 3.3 | 0.92 | ok |
-| llamacpp | Q5_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 5.7 | 144.1 | 400 | 3.6 | 0.92 | ok |
-| llamacpp | Q6_K | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 6.6 | 127.5 | 368 | 4.0 | 0.81 | ok |
-| llamacpp | Q8_0 | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 8.5 | 103.4 | 310 | 4.8 | 0.83 | ok |
-| sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1411 | 22.3 | 3.4 | no_structured_call |
-| vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 147.9 | 1277 | 22.3 | 3.15 | not_configured |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 4.9 | 162.3 | 417 | — | 3.3 | 0.92 | ok |
+| llamacpp | Q5_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 5.7 | 144.1 | 400 | — | 3.6 | 0.92 | ok |
+| llamacpp | Q6_K | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 6.6 | 127.5 | 368 | — | 4.0 | 0.81 | ok |
+| llamacpp | Q8_0 | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 8.5 | 103.4 | 310 | — | 4.8 | 0.83 | ok |
+| sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1411 | — | 22.3 | 3.4 | no_structured_call |
+| vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 147.9 | 1277 | — | 22.3 | 3.15 | not_configured |
 
 **MiniCPM5-1B**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 622.3 | 1205 | 0.9 | 4.62 | no_structured_call |
-| llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | 1.1 | 4.63 | ok |
-| sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.7 | 3906 | 22.1 | 14.2 | no_structured_call |
-| vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.3 | 7095 | 22.5 | 24.55 | not_configured |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 622.3 | 1205 | — | 0.9 | 4.62 | no_structured_call |
+| llamacpp | Q8_0 | `openbmb/MiniCPM5-1B-GGUF` | 1.2 | 519.4 | 1153 | — | 1.1 | 4.63 | ok |
+| sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.1 | 7066 | 944.3 | 23.3 | 21.67 | no_structured_call |
+| vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.3 | 7095 | — | 22.5 | 24.55 | not_configured |
 
 **Ornith-1.0-9B**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.1 | 363 | 3.4 | 0.82 | ok |
-| llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | 3.8 | 0.75 | ok |
-| llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | 4.1 | 0.68 | ok |
-| llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | 5.0 | 0.7 | ok |
-| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1568 | 21.7 | 3.38 | no_structured_call |
-| vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | 21.7 | 3.48 | not_configured |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 5.6 | 137.1 | 363 | — | 3.4 | 0.82 | ok |
+| llamacpp | Q5_K_M | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 6.5 | 124.7 | 338 | — | 3.8 | 0.75 | ok |
+| llamacpp | Q6_K | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 7.4 | 112.4 | 314 | — | 4.1 | 0.68 | ok |
+| llamacpp | Q8_0 | `deepreinforce-ai/Ornith-1.0-9B-GGUF` | 9.5 | 92.5 | 273 | — | 5.0 | 0.7 | ok |
+| sglang | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.5 | 1568 | — | 21.7 | 3.38 | no_structured_call |
+| vllm | native | `deepreinforce-ai/Ornith-1.0-9B` | 18.8 | 99.1 | 1672 | — | 21.7 | 3.48 | not_configured |
 
 **Qwen3.6-27B**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.0 | 136 | 9.0 | 0.27 | ok |
-| llamacpp | Q5_K_M | `unsloth/Qwen3.6-27B-GGUF` | 19.5 | 42.6 | 122 | 10.1 | 0.24 | ok |
-| llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | 14.1 | 0.23 | ok |
-| sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 36.6 | 229 | 21.6 | 0.45 | no_structured_call |
-| vllm | native | `nvidia/Qwen3.6-27B-NVFP4` | 21.9 | 69.8 | 986 | 23.4 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
-| vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 900 | 22.3 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `unsloth/Qwen3.6-27B-GGUF` | 16.8 | 48.0 | 136 | — | 9.0 | 0.27 | ok |
+| llamacpp | Q5_K_M | `unsloth/Qwen3.6-27B-GGUF` | 19.5 | 42.6 | 122 | — | 10.1 | 0.24 | ok |
+| llamacpp | Q8_0 | `unsloth/Qwen3.6-27B-GGUF` | 28.6 | 30.8 | 98 | — | 14.1 | 0.23 | ok |
+| sglang | FP8 | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 36.6 | 229 | — | 21.6 | 0.45 | no_structured_call |
+| vllm | native | `nvidia/Qwen3.6-27B-NVFP4` | 21.9 | 69.8 | 986 | — | 23.4 | 2.17 | error: <HTTPError 400: 'Bad Request'> |
+| vllm | native | `Qwen/Qwen3.6-27B-FP8` | 30.9 | 53.7 | 900 | — | 22.3 | 1.83 | error: <HTTPError 400: 'Bad Request'> |
 
 **gemma-4-12b-it**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | 4.8 | 0.6 | ok |
-| llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | 5.5 | 0.57 | ok |
-| llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | 7.6 | 0.51 | ok |
-| sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.6 | 1119 | 22.1 | 2.35 | no_structured_call |
-| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | 22.4 | 2.24 | ok |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `unsloth/gemma-4-12b-it-GGUF` | 7.1 | 96.1 | 271 | — | 4.8 | 0.6 | ok |
+| llamacpp | Q5_K_M | `unsloth/gemma-4-12b-it-GGUF` | 8.4 | 85.0 | 250 | — | 5.5 | 0.57 | ok |
+| llamacpp | Q8_0 | `unsloth/gemma-4-12b-it-GGUF` | 13.1 | 61.7 | 198 | — | 7.6 | 0.51 | ok |
+| sglang | native | `google/gemma-4-12b-it` | 23.9 | 60.6 | 1119 | — | 22.1 | 2.35 | no_structured_call |
+| vllm | native | `google/gemma-4-12b-it` | 23.9 | 62.6 | 1114 | — | 22.4 | 2.24 | ok |
 
 **gpt-oss-20b**
 
-| engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
-|---|---|---|---|---|---|---|---|---|
-| llamacpp | Q4_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.6 | 263.1 | 441 | 6.1 | 1.13 | ok |
-| llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | 6.1 | 1.11 | ok |
-| llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | 6.2 | 1.14 | ok |
-| sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.2 | 355 | 22.6 | 0.99 | not_configured |
-| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | 22.4 | 6.03 | no_structured_call |
+| engine | quant | source | GB | 1-stream tok/s | agg tok/s | docs/min | VRAM GB | tok/J | tools |
+|---|---|---|---|---|---|---|---|---|---|
+| llamacpp | Q4_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.6 | 263.1 | 441 | — | 6.1 | 1.13 | ok |
+| llamacpp | Q5_K_M | `unsloth/gpt-oss-20b-GGUF` | 11.7 | 260.4 | 439 | — | 6.1 | 1.11 | ok |
+| llamacpp | Q8_0 | `unsloth/gpt-oss-20b-GGUF` | 12.1 | 246.3 | 445 | — | 6.2 | 1.14 | ok |
+| sglang | native | `openai/gpt-oss-20b` | 27.5 | 30.2 | 355 | — | 22.6 | 0.99 | not_configured |
+| vllm | native | `openai/gpt-oss-20b` | 27.5 | 268.6 | 2398 | — | 22.4 | 6.03 | no_structured_call |
 <!--XENGINE:END-->
+
+## Useful work: batch article summarization
+
+Tokens/second is a proxy; what people actually care about is **how much work gets done**.
+This workload pushes a fixed corpus of 45 real Wikipedia articles (~1.2K tokens each,
+committed in [`workloads/articles.json`](workloads/articles.json)) through a
+summarize-in-three-sentences task at concurrency 24, and measures **documents completed per
+minute** — plus output tok/s, and the latency spread a user would feel. Same corpus, same
+prompt, same output cap across every engine and model, so the numbers are directly comparable.
+
+<!--WORKLOAD:BEGIN-->
+| model | engine | quant | **docs/min** | out tok/s | mean lat s | p95 lat s | conc |
+|---|---|---|---|---|---|---|---|
+| openbmb/MiniCPM5-1B | sglang | native | 944.3 | 2518 | 1.43 | 1.48 | 24 |
+<!--WORKLOAD:END-->
 
 ## Experiment: 2× single-GPU replicas vs. tensor-parallel-2 (small models)
 

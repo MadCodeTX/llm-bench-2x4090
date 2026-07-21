@@ -3,41 +3,50 @@
   "base": "MiniCPM5-1B",
   "engine": "sglang",
   "quant": "native",
-  "ts": "2026-07-21 15:28 UTC",
+  "ts": "2026-07-21 18:08 UTC",
   "image": "lmsysorg/sglang:latest",
   "flags": "--trust-remote-code",
   "status": "ok",
   "disk_gb": 2.2,
-  "download_s": 2.0,
+  "download_s": 26.2,
   "serve_config": {
-    "mem_fraction_static": 0.85,
-    "context_length": 32768
+    "mem_fraction_static": 0.9,
+    "context_length": 8192
   },
   "engine_version": "0.5.15.post1",
   "battery": {
-    "single_stream_toks": 510.7,
+    "single_stream_toks": 510.1,
     "battery_mode": "full",
     "ttft_s": 0.01,
     "prefill": {
-      "prompt_tok": 15020,
-      "toks": 27786
+      "prompt_tok": 7010,
+      "toks": 28974
     },
     "sweep": [
       {
         "concurrency": 32,
-        "agg_toks": 3906
+        "agg_toks": 7066
       }
     ],
+    "workload_summarize": {
+      "docs": 45,
+      "concurrency": 24,
+      "wall_s": 2.9,
+      "docs_per_min": 944.3,
+      "out_toks_per_s": 2518,
+      "mean_latency_s": 1.43,
+      "p95_latency_s": 1.48
+    },
     "tool_call": "no_structured_call"
   },
   "hw": {
-    "mean_w": 275,
-    "max_w": 426,
-    "max_vram_gb": 22.1,
+    "mean_w": 326,
+    "max_w": 434,
+    "max_vram_gb": 23.3,
     "power_limit_w": [
       340,
       340
     ]
   },
-  "tok_per_joule": 14.2
+  "tok_per_joule": 21.67
 }
