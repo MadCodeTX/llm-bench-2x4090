@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**65 configs tested · 52 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**66 configs tested · 53 served · 13 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -60,6 +60,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | cyankiwi/gemma-4-12B-it-AWQ-INT4 | vllm | native | 11.2 | 124.0 | 4556 | 1597 | 22.5 | 406 | 3.93 | ok |
 | deepreinforce-ai/Ornith-1.0-9B | sglang | native | 18.8 | 99.5 | 7000 | 1568 | 21.7 | 464 | 3.38 | no_structured_call |
 | empero-ai/Qwythos-9B-Claude-Mythos-5-1M | vllm | native | 18.8 | 99.0 | 6726 | 1568 | 21.9 | 426 | 3.68 | not_configured |
+| RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | sglang | FP8 | 9.1 | 160.3 | 7886 | 1411 | 22.3 | 415 | 3.4 | no_structured_call |
 | RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8 | vllm | FP8 | 9.1 | 147.9 | 7868 | 1277 | 22.3 | 405 | 3.15 | not_configured |
 | Qwen/QwQ-32B-AWQ | vllm | native | 19.3 | 72.7 | 2282 | 1238 | 22.6 | 526 | 2.35 | not_configured |
 | ibm-granite/granite-4.1-8b | vllm | native | 17.6 | 90.5 | 5778 | 1229 | 22.4 | 518 | 2.37 | no_structured_call |
@@ -132,6 +133,7 @@ bases served by more than one engine are shown.
 | llamacpp | Q5_K_M | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 5.7 | 144.1 | 400 | 3.6 | 0.92 | ok |
 | llamacpp | Q6_K | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 6.6 | 127.5 | 368 | 4.0 | 0.81 | ok |
 | llamacpp | Q8_0 | `bartowski/Meta-Llama-3.1-8B-Instruct-GGUF` | 8.5 | 103.4 | 310 | 4.8 | 0.83 | ok |
+| sglang | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 160.3 | 1411 | 22.3 | 3.4 | no_structured_call |
 | vllm | FP8 | `RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8` | 9.1 | 147.9 | 1277 | 22.3 | 3.15 | not_configured |
 
 **MiniCPM5-1B**

@@ -610,7 +610,8 @@
       "engine": "sglang",
       "quant": "FP8",
       "flags": "",
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "RedHatAI/Meta-Llama-3.1-8B-Instruct-FP8",
