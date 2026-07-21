@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**45 configs tested · 34 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
+**46 configs tested · 34 served · 12 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -92,6 +92,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 | google/gemma-4-E4B-it-assistant | vllm | native | 0.2 | serve_failed | incomplete upload — multimodal Gemma-4 arch missing processor files (ships only tokenizer) |
 | lewtun/talkie-1930-13b-it-hf | vllm | native | 26.6 | serve_failed | arch `TalkieForCausalLM` — not compatible with vLLM (incl. Transformers backend) |
 | pekkAi/Gemma-4-12B-it-abliterated-NVFP4 | vllm | native | 11.7 | serve_failed | defective NVFP4 requant — MarlinNvFp4 weight-load crash on TP worker (official RedHatAI NVFP4 works) |
+| unsloth/gemma-4-12b-it-GGUF | llamacpp | Q8_0 | 13.1 | serve_failed | 64.292 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to create llama_context from model |
 | z-lab/Qwen3-8B-DFlash-b16 | vllm | native | 2.1 | serve_failed | speculative-decoding draft model (`DFlashDraftModel`) — not standalone-servable |
 <!--RESULTS:END-->
 
