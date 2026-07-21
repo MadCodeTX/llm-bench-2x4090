@@ -12,7 +12,7 @@ engines (all speak the OpenAI API), so a vLLM FP8 row and a llama.cpp Q4_K_M row
 comparable.
 
 <!--SUMMARY:BEGIN-->
-**37 configs tested · 26 served · 11 did-not-serve · engines: llamacpp, vllm · updated 2026-07-21**
+**38 configs tested · 27 served · 11 did-not-serve · engines: llamacpp, sglang, vllm · updated 2026-07-21**
 <!--SUMMARY:END-->
 
 ## Rig
@@ -45,6 +45,7 @@ rung worked; models that exhaust the ladder are recorded as `serve_failed` with 
 |---|---|---|---|---|---|---|---|---|---|---|
 | openbmb/MiniCPM5-1B | vllm | native | 2.2 | 413.3 | 26969 | 7095 | 22.5 | 289 | 24.55 | not_configured |
 | LiquidAI/LFM2.5-1.2B-Instruct | vllm | native | 2.3 | 482.7 | 25820 | 6144 | 22.4 | 297 | 20.69 | not_configured |
+| openbmb/MiniCPM5-1B | sglang | native | 2.2 | 510.7 | 27786 | 3906 | 22.1 | 275 | 14.2 | no_structured_call |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-FP8 | vllm | native | 5.3 | 267.7 | 12903 | 3090 | 22.4 | 390 | 7.92 | not_configured |
 | nvidia/NVIDIA-Nemotron-3-Nano-4B-BF16 | vllm | native | 7.9 | 201.8 | 11995 | 2769 | 22.5 | 468 | 5.92 | not_configured |
 | LiquidAI/LFM2.5-8B-A1B | vllm | native | 16.9 | 325.1 | 18795 | 2449 | 22.3 | 363 | 6.75 | not_configured |
@@ -101,6 +102,7 @@ bases served by more than one engine are shown.
 | engine | quant | source | GB | 1-stream tok/s | agg tok/s | VRAM GB | tok/J | tools |
 |---|---|---|---|---|---|---|---|---|
 | llamacpp | Q4_K_M | `openbmb/MiniCPM5-1B-GGUF` | 0.7 | 622.3 | 1205 | 0.9 | 4.62 | no_structured_call |
+| sglang | native | `openbmb/MiniCPM5-1B` | 2.2 | 510.7 | 3906 | 22.1 | 14.2 | no_structured_call |
 | vllm | native | `openbmb/MiniCPM5-1B` | 2.2 | 413.3 | 7095 | 22.5 | 24.55 | not_configured |
 <!--XENGINE:END-->
 

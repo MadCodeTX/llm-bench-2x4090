@@ -307,7 +307,8 @@
       "gguf_repo": "openbmb/MiniCPM5-1B-GGUF",
       "gguf_pattern": "*Q4_K_M.gguf",
       "ctx": 8192,
-      "done": false
+      "done": true,
+      "status": "ok"
     },
     {
       "repo": "openbmb/MiniCPM5-1B-GGUF",

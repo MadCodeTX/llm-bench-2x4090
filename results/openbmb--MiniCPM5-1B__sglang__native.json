@@ -1,0 +1,43 @@
+{
+  "repo": "openbmb/MiniCPM5-1B",
+  "base": "MiniCPM5-1B",
+  "engine": "sglang",
+  "quant": "native",
+  "ts": "2026-07-21 15:28 UTC",
+  "image": "lmsysorg/sglang:latest",
+  "flags": "--trust-remote-code",
+  "status": "ok",
+  "disk_gb": 2.2,
+  "download_s": 2.0,
+  "serve_config": {
+    "mem_fraction_static": 0.85,
+    "context_length": 32768
+  },
+  "engine_version": "0.5.15.post1",
+  "battery": {
+    "single_stream_toks": 510.7,
+    "battery_mode": "full",
+    "ttft_s": 0.01,
+    "prefill": {
+      "prompt_tok": 15020,
+      "toks": 27786
+    },
+    "sweep": [
+      {
+        "concurrency": 32,
+        "agg_toks": 3906
+      }
+    ],
+    "tool_call": "no_structured_call"
+  },
+  "hw": {
+    "mean_w": 275,
+    "max_w": 426,
+    "max_vram_gb": 22.1,
+    "power_limit_w": [
+      340,
+      340
+    ]
+  },
+  "tok_per_joule": 14.2
+}
